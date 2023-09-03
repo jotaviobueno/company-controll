@@ -21,6 +21,7 @@ model Access {
 
 enum AccessProvider {
   GOOGLE
+  ACCESS_DEV
 }
 
 model Person {

@@ -12,7 +12,7 @@ export class CreateAccessInput {
   @Field()
   @IsString()
   @IsNotEmpty()
-  code: string;
+  code?: string;
 
   token: string;
 }

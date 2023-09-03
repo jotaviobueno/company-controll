@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
 
       const access = await this.accessFindOneUseCase.execute(payload.sub);
 
-      request['user'] = await this.personFindByAccessIdUseCase.execute(
+      request['person'] = await this.personFindByAccessIdUseCase.execute(
         access.id,
       );
     } catch (e) {

@@ -20,6 +20,14 @@ export class AccessHandlerUseCase
         const user = await this.googleFindUseByCodeUseCase.execute(data.code);
 
         return this.accessCreateUseCase.execute(user);
+      case ACCESS_PROVIDER.ACCESS_DEV:
+        return this.accessCreateUseCase.execute({
+          id: '61f7e48f0c651345677b7775',
+          name: 'Devolper Account',
+          username: 'dev',
+          avatarUrl: 'https://github.com/jotaviobueno.png',
+          ...data,
+        });
     }
   }
 }

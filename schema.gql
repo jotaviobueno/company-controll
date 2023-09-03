@@ -2,18 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type AccessEntity {
-  id: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  provider: String!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type PersonEntity {
   id: String!
   createdAt: DateTime!
@@ -25,7 +13,13 @@ type PersonEntity {
   avatarUrl: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
+  whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
   findOnePerson(personId: IdInput!): PersonEntity!
 }
@@ -40,7 +34,8 @@ input IdInput {
 }
 
 type Mutation {
-  createAccess(createAccessInput: CreateAccessInput!): AccessEntity!
+  createAccess(createAccessInput: CreateAccessInput!): String!
+  createAccessForDev: String!
   updatePerson(updatePersonInput: UpdatePersonInput!): PersonEntity!
   removePerson(personId: IdInput!): Boolean!
 }
@@ -52,6 +47,7 @@ input CreateAccessInput {
 
 enum AccessProvider {
   GOOGLE
+  ACCESS_DEV
 }
 
 input UpdatePersonInput {

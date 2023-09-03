@@ -14,11 +14,14 @@ export class AccessCreateUseCase implements IBaseUseCase<any, string> {
     private readonly jwtService: JwtService,
   ) {}
 
-  async execute(user: any) {
+  async execute({ provider, token, ...user }: any) {
     let access = await this.accessFindByCodeOrUpdateUseCase.execute(user.id);
 
     if (!access) {
-      access = await this.accessRepository.create(user.id);
+      access = await this.accessRepository.create({
+        token,
+        provider,
+      });
 
       await this.personCreateUseCase.execute({
         ...(user.picture && { avatarUrl: user.picture }),

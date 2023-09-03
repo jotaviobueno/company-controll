@@ -5,7 +5,7 @@ import { IsMongoId, IsOptional } from 'class-validator';
 @InputType()
 export class UpdateAccessInput extends OmitType(
   PartialType(CreateAccessInput),
-  ['code'],
+  ['code', 'provider'],
 ) {
   @IsOptional()
   @IsMongoId()
