@@ -1,14 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PersonResolver } from './person.resolver';
-import { PersonService } from './person.service';
+import { accessModuleMock } from '../access/access.module';
 
 describe('PersonResolver', () => {
   let resolver: PersonResolver;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [PersonResolver, PersonService],
-    }).compile();
+    const module: TestingModule =
+      await Test.createTestingModule(accessModuleMock).compile();
 
     resolver = module.get<PersonResolver>(PersonResolver);
   });

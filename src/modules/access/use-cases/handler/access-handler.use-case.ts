@@ -6,7 +6,9 @@ import { GoogleFindUseByCodeUseCase } from 'src/modules/google/use-cases';
 import { AccessCreateUseCase } from '../create';
 
 @Injectable()
-export class AccessHandler implements IBaseUseCase<CreateAccessInput, string> {
+export class AccessHandlerUseCase
+  implements IBaseUseCase<CreateAccessInput, string>
+{
   constructor(
     private readonly googleFindUseByCodeUseCase: GoogleFindUseByCodeUseCase,
     private readonly accessCreateUseCase: AccessCreateUseCase,

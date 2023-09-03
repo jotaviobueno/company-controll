@@ -17,6 +17,10 @@ export class AccessRepository implements Partial<IAccessRepository> {
     });
   }
 
+  findById(id: string): Promise<AccessEntity> {
+    return this.prismaService.access.findFirst({ where: { id } });
+  }
+
   findByToken(token: string): Promise<AccessEntity> {
     return this.prismaService.access.findFirst({
       where: {

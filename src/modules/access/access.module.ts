@@ -4,7 +4,7 @@ import {
   AccessCreateUseCase,
   AccessFindByCodeOrUpdateUseCase,
   AccessFindOneUseCase,
-  AccessHandler,
+  AccessHandlerUseCase,
 } from './use-cases';
 import { GoogleModule } from '../google/google.module';
 import { PrismaModule } from 'src/db/prisma.module';
@@ -28,7 +28,7 @@ export const accessModuleMock: ModuleMetadata = {
   providers: [
     AccessResolver,
     AccessFindByCodeOrUpdateUseCase,
-    AccessHandler,
+    AccessHandlerUseCase,
     AccessCreateUseCase,
     AccessFindOneUseCase,
     AuthGuard,

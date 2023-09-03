@@ -9,8 +9,10 @@ import {
   PersonUpdateUseCase,
 } from './use-cases';
 import { IPersonRepository, PersonRepository } from 'src/repositories/person';
+import { PrismaModule } from 'src/db/prisma.module';
 
 export const personModuleMock: ModuleMetadata = {
+  imports: [PrismaModule],
   providers: [
     PersonResolver,
     PersonCreateUseCase,

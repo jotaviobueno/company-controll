@@ -18,6 +18,7 @@ export class PersonRepository implements Partial<IPersonRepository> {
     return this.prismaService.person.create({
       data: {
         ...createDto,
+        deletedAt: null,
       },
     });
   }
