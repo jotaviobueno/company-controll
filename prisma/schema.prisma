@@ -11,5 +11,28 @@ datasource db {
 }
 
 model Access {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
+  id        String         @id @default(auto()) @map("_id") @db.ObjectId
+  provider  AccessProvider
+  token     String         @unique
+  createdAt DateTime       @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime       @default(now()) @map("updated_at") @db.Timestamp
+  Person    Person?
+}
+
+enum AccessProvider {
+  GOOGLE
+}
+
+model Person {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  username  String
+  email     String?
+  phone     String?
+  avatarUrl String    @map("avatar_url")
+  access    Access    @relation(fields: [accessId], references: [id])
+  accessId  String    @unique @map("access_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
