@@ -20,9 +20,20 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@apollo/server": "^4.9.3",
+    "@nestjs/apollo": "^12.0.7",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/graphql": "^12.0.8",
+    "@nestjs/jwt": "^10.1.1",
     "@nestjs/platform-express": "^10.0.0",
+    "@prisma/client": "^5.2.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "dataloader": "^2.2.2",
+    "date-fns": "^2.30.0",
+    "googleapis": "^126.0.1",
+    "graphql": "^16.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },
@@ -63,6 +74,9 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
   }
