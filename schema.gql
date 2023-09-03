@@ -26,8 +26,8 @@ type PersonEntity {
 }
 
 type Query {
-  findAll(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
-  findOne(personId: IdInput!): PersonEntity!
+  findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
+  findOnePerson(personId: IdInput!): PersonEntity!
 }
 
 input PaginationOptionsInput {
@@ -42,7 +42,7 @@ input IdInput {
 type Mutation {
   createAccess(createAccessInput: CreateAccessInput!): AccessEntity!
   updatePerson(updatePersonInput: UpdatePersonInput!): PersonEntity!
-  removePerson(personId: IdInput!): PersonEntity!
+  removePerson(personId: IdInput!): Boolean!
 }
 
 input CreateAccessInput {

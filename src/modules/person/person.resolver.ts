@@ -22,7 +22,7 @@ export class PersonResolver {
   ) {}
 
   @Query(() => [PersonEntity])
-  findAll(
+  findAllPerson(
     @Args('PaginationOptionsInput')
     paginationOptionsInput: PaginationOptionsInput,
   ) {
@@ -30,7 +30,7 @@ export class PersonResolver {
   }
 
   @Query(() => PersonEntity)
-  findOne(@Args('personId') { id }: IdInput) {
+  findOnePerson(@Args('personId') { id }: IdInput) {
     return this.findOneUseCase.execute(id);
   }
 
@@ -41,7 +41,7 @@ export class PersonResolver {
     return this.updateUseCase.execute(updatePersonInput);
   }
 
-  @Mutation(() => PersonEntity)
+  @Mutation(() => Boolean)
   removePerson(@Args('personId') { id }: IdInput) {
     return this.softDeleteUseCase.execute(id);
   }

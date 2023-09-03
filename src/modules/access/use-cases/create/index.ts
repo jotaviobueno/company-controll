@@ -1,1 +1,1 @@
-export * from './acccess-create.use-case';
+export * from './access-create.use-case';
