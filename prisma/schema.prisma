@@ -37,3 +37,16 @@ model Person {
   updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
   deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
+
+model Address {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  street     String
+  number     String
+  neighboord String
+  city       String
+  zipCode    Int       @map("zip_code")
+  state      String
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
+}
