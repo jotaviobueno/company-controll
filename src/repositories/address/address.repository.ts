@@ -1,11 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { IAddressRepository } from './iaddress.repository';
 import { PrismaService } from 'src/db/prisma.service';
-import {
-  CreateAddressInput,
-  PaginationOptionsInput,
-  UpdateAddressInput,
-} from 'src/domain/dtos';
+import { CreateAddressInput, UpdateAddressInput } from 'src/domain/dtos';
 import { AddressEntity } from 'src/domain/entities';
 
 @Injectable()
@@ -18,19 +14,6 @@ export class AddressRepository implements Partial<IAddressRepository> {
         ...createDto,
         deletedAt: null,
       },
-    });
-  }
-
-  findAll({
-    page,
-    per_page,
-  }: PaginationOptionsInput): Promise<AddressEntity[]> {
-    return this.prismaService.address.findMany({
-      where: {
-        deletedAt: null,
-      },
-      skip: (page - 1) * per_page,
-      take: per_page,
     });
   }
 

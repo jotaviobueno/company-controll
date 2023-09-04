@@ -6,6 +6,7 @@ import { GoogleModule } from './modules/google/google.module';
 import { PersonModule } from './modules/person/person.module';
 import { CompanyModule } from './modules/company/company.module';
 import { AddressModule } from './modules/address/address.module';
+import { CompanyAddressModule } from './modules/company-address/company-address.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AddressModule } from './modules/address/address.module';
     PersonModule,
     AddressModule,
     CompanyModule,
+    CompanyAddressModule,
   ],
 })
 export class AppModule {}

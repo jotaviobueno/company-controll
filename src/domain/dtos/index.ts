@@ -4,3 +4,4 @@ export * from './pagination/index';
 export * from './shared/index';
 export * from './company/index';
 export * from './address/index';
+export * from './company-address/index';

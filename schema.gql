@@ -28,12 +28,19 @@ type CompanyEntity {
   sector: String!
 }
 
+type CompanyAddressEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
   findOnePerson(personId: IdInput!): PersonEntity!
   findAll(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
-  findOne(companyId: IdInput!): CompanyEntity!
+  findOne(companyAddressId: IdInput!): CompanyAddressEntity!
+  findAllCompanyAddress(PaginationOptionsInput: PaginationOptionsInput!): [CompanyAddressEntity!]!
 }
 
 input PaginationOptionsInput {
@@ -53,6 +60,8 @@ type Mutation {
   createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
   updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
   removeCompany(companyId: IdInput!): CompanyEntity!
+  createCompanyAddress(companyId: IdInput!, createAddressInput: CreateAddressInput!): CompanyAddressEntity!
+  updateCompanyAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): CompanyAddressEntity!
 }
 
 input CreateAccessInput {
@@ -87,4 +96,13 @@ input UpdateCompanyInput {
   status: String
   sector: String
   id: String!
+}
+
+input CreateAddressInput {
+  street: String!
+  number: String!
+  neighboord: String!
+  city: String!
+  zipCode: Int!
+  state: String!
 }
