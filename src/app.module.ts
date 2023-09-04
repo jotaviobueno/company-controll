@@ -5,8 +5,17 @@ import { AccessModule } from './modules/access/access.module';
 import { GoogleModule } from './modules/google/google.module';
 import { PersonModule } from './modules/person/person.module';
 import { CompanyModule } from './modules/company/company.module';
+import { AddressModule } from './modules/address/address.module';
 
 @Module({
-  imports: [GraphqlModule, PrismaModule, AccessModule, GoogleModule, PersonModule, CompanyModule],
+  imports: [
+    GraphqlModule,
+    PrismaModule,
+    AccessModule,
+    GoogleModule,
+    PersonModule,
+    AddressModule,
+    CompanyModule,
+  ],
 })
 export class AppModule {}
