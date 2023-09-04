@@ -34,7 +34,7 @@ export const accessModuleMock: ModuleMetadata = {
     AuthGuard,
     { provide: IAccessRepository, useClass: AccessRepository },
   ],
-  exports: [AuthGuard],
+  exports: [AuthGuard, AccessFindOneUseCase],
 };
 
 @Module(accessModuleMock)

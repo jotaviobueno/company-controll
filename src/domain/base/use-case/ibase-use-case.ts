@@ -1,3 +1,3 @@
-export abstract class IBaseUseCase<T, K> {
-  abstract execute(data: T): Promise<K>;
+export abstract class IBaseUseCase<T, K, Y = void> {
+  abstract execute(data: T, value?: Y): Promise<K>;
 }

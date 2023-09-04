@@ -12,9 +12,12 @@ import {
   CompanyRepository,
   ICompanyRepository,
 } from 'src/repositories/company';
+import { PersonCompanyModule } from '../person-company/person-company.module';
+import { PersonModule } from '../person/person.module';
+import { AccessModule } from '../access/access.module';
 
 export const companyModuleMock: ModuleMetadata = {
-  imports: [PrismaModule],
+  imports: [PrismaModule, PersonCompanyModule, PersonModule, AccessModule],
   providers: [
     CompanyResolver,
     CompanyCreateUseCase,

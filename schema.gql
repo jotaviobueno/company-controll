@@ -28,12 +28,20 @@ type CompanyEntity {
   sector: String!
 }
 
+type PersonCompanyEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
   findOnePerson(personId: IdInput!): PersonEntity!
-  findAll(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
-  findOne(companyId: IdInput!): CompanyEntity!
+  findAllCompany(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
+  findOneCompany(companyId: IdInput!): CompanyEntity!
+  findAllPersonCompany(PaginationOptionsInput: PaginationOptionsInput!): [PersonCompanyEntity!]!
+  findOnePersonCompany(personCompanyId: IdInput!): PersonCompanyEntity!
 }
 
 input PaginationOptionsInput {
