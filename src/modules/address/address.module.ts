@@ -9,6 +9,7 @@ import {
   AddressRepository,
   IAddressRepository,
 } from 'src/repositories/address';
+import { AddressSoftDeleteUseCase } from './use-cases/soft-delete';
 
 export const addressModuleMock: ModuleMetadata = {
   imports: [PrismaModule],
@@ -16,6 +17,7 @@ export const addressModuleMock: ModuleMetadata = {
     AddressFindOneUseCase,
     AddressCreateUseCase,
     AddressUpdateUseCase,
+    AddressSoftDeleteUseCase,
     { provide: IAddressRepository, useClass: AddressRepository },
   ],
   exports: [AddressFindOneUseCase, AddressCreateUseCase, AddressUpdateUseCase],
