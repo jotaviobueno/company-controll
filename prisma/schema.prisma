@@ -37,14 +37,36 @@ model Person {
   updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamp
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp
   PersonCompany PersonCompany[]
+  PersonRole    PersonRole[]
 }
 
 model PersonCompany {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person  @relation(fields: [personId], references: [id])
+  personId  String  @map("person_id") @db.ObjectId
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String  @map("company_id") @db.ObjectId
+}
+
+model Address {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  street     String
+  number     String
+  neighboord String
+  city       String
+  zipCode    Int       @map("zip_code")
+  state      String
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
+}
+
+model PersonRole {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   person    Person   @relation(fields: [personId], references: [id])
   personId  String   @map("person_id") @db.ObjectId
-  company   Company  @relation(fields: [companyId], references: [id])
-  companyId String   @map("company_id") @db.ObjectId
+  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    String   @map("role_id") @db.ObjectId
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
@@ -59,4 +81,32 @@ model Company {
   updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamp
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp
   PersonCompany PersonCompany[]
+}
+
+model Role {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  description    String?
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
+  updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
+  PersonRole     PersonRole[]
+  rolePermission RolePermission[]
+}
+
+model RolePermission {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId String     @map("permission_id") @db.ObjectId
+  role         Role       @relation(fields: [roleId], references: [id])
+  roleId       String     @map("role_id") @db.ObjectId
+  createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamp
+  updatedAt    DateTime   @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model Permission {
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  name           String           @unique
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
+  updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
+  RolePermission RolePermission[]
 }

@@ -1,5 +1,12 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { PersonEntity } from 'src/domain/entities';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
+import { PersonEntity, RoleEntity } from 'src/domain/entities';
 import {
   PersonFindAllUseCase,
   PersonFindOneUseCase,
@@ -11,6 +18,7 @@ import {
   PaginationOptionsInput,
   UpdatePersonInput,
 } from 'src/domain/dtos';
+import { LoaderRolesByPersonId } from '../person-role/dataloaders';
 
 @Resolver(() => PersonEntity)
 export class PersonResolver {
@@ -19,6 +27,7 @@ export class PersonResolver {
     private readonly findOneUseCase: PersonFindOneUseCase,
     private readonly updateUseCase: PersonUpdateUseCase,
     private readonly softDeleteUseCase: PersonSoftDeleteUseCase,
+    private readonly loaderRolesByPersonId: LoaderRolesByPersonId,
   ) {}
 
   @Query(() => [PersonEntity])
@@ -44,5 +53,13 @@ export class PersonResolver {
   @Mutation(() => Boolean)
   removePerson(@Args('personId') { id }: IdInput) {
     return this.softDeleteUseCase.execute(id);
+  }
+
+  @ResolveField(() => [RoleEntity], { nullable: true })
+  roles(
+    @Parent()
+    { id }: PersonEntity,
+  ) {
+    return this.loaderRolesByPersonId.load(id);
   }
 }

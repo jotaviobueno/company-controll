@@ -11,6 +11,7 @@ type PersonEntity {
   email: String
   phone: String
   avatarUrl: String!
+  roles: [RoleEntity!]
 }
 
 """
@@ -29,9 +30,18 @@ type CompanyEntity {
 }
 
 type PersonCompanyEntity {
+type PersonRoleEntity {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type RoleEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String!
 }
 
 type Query {
@@ -42,6 +52,8 @@ type Query {
   findOneCompany(companyId: IdInput!): CompanyEntity!
   findAllPersonCompany(PaginationOptionsInput: PaginationOptionsInput!): [PersonCompanyEntity!]!
   findOnePersonCompany(personCompanyId: IdInput!): PersonCompanyEntity!
+  findAllRoles(paginationOptionsInput: PaginationOptionsInput!): [RoleEntity!]!
+  findOneRole(roleId: IdInput!): RoleEntity!
 }
 
 input PaginationOptionsInput {
@@ -61,6 +73,9 @@ type Mutation {
   createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
   updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
   removeCompany(companyId: IdInput!): CompanyEntity!
+  assignPersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
+  removePersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
+  updateRole(updateRoleInput: UpdateRoleInput!): RoleEntity!
 }
 
 input CreateAccessInput {
@@ -95,4 +110,13 @@ input UpdateCompanyInput {
   status: String
   sector: String
   id: String!
+input PersonRoleInput {
+  personId: String!
+  roleId: String!
+}
+
+input UpdateRoleInput {
+  id: String!
+  name: String
+  descriptions: String
 }

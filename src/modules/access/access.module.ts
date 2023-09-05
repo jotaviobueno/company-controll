@@ -1,4 +1,4 @@
-import { Module, ModuleMetadata } from '@nestjs/common';
+import { Module, ModuleMetadata, forwardRef } from '@nestjs/common';
 import { AccessResolver } from './access.resolver';
 import {
   AccessCreateUseCase,
@@ -17,7 +17,7 @@ import { AuthGuard } from './guards';
 export const accessModuleMock: ModuleMetadata = {
   imports: [
     GoogleModule,
-    PersonModule,
+    forwardRef(() => PersonModule),
     PrismaModule,
     JwtModule.register({
       global: true,
