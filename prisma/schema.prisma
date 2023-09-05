@@ -25,18 +25,29 @@ enum AccessProvider {
 }
 
 model Person {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  username   String
-  email      String?
-  phone      String?
-  avatarUrl  String       @map("avatar_url")
-  access     Access       @relation(fields: [accessId], references: [id])
-  accessId   String       @unique @map("access_id") @db.ObjectId
-  createdAt  DateTime     @default(now()) @map("created_at") @db.Timestamp
-  updatedAt  DateTime     @default(now()) @map("updated_at") @db.Timestamp
-  deletedAt  DateTime?    @map("deleted_at") @db.Timestamp
-  PersonRole PersonRole[]
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  username      String
+  email         String?
+  phone         String?
+  avatarUrl     String          @map("avatar_url")
+  access        Access          @relation(fields: [accessId], references: [id])
+  accessId      String          @unique @map("access_id") @db.ObjectId
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamp
+  updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt     DateTime?       @map("deleted_at") @db.Timestamp
+  PersonCompany PersonCompany[]
+  PersonRole    PersonRole[]
+}
+
+model PersonCompany {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person   @relation(fields: [personId], references: [id])
+  personId  String   @map("person_id") @db.ObjectId
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId String   @map("company_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
 
 model Address {
@@ -60,6 +71,18 @@ model PersonRole {
   roleId    String   @map("role_id") @db.ObjectId
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model Company {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  cnpj          Int
+  corporateName String          @map("corporate_name")
+  status        String
+  sector        String?
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamp
+  updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt     DateTime?       @map("deleted_at") @db.Timestamp
+  PersonCompany PersonCompany[]
 }
 
 model Role {

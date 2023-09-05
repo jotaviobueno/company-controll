@@ -19,6 +19,22 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type CompanyEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  cnpj: Int!
+  corporateName: String!
+  status: String!
+  sector: String!
+}
+
+type PersonCompanyEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type PersonRoleEntity {
   id: String!
   createdAt: DateTime!
@@ -39,6 +55,10 @@ type Query {
   findOnePerson(personId: IdInput!): PersonEntity!
   findAllRoles(paginationOptionsInput: PaginationOptionsInput!): [RoleEntity!]!
   findOneRole(roleId: IdInput!): RoleEntity!
+  findAllCompany(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
+  findOneCompany(companyId: IdInput!): CompanyEntity!
+  findAllPersonCompany(PaginationOptionsInput: PaginationOptionsInput!): [PersonCompanyEntity!]!
+  findOnePersonCompany(personCompanyId: IdInput!): PersonCompanyEntity!
 }
 
 input PaginationOptionsInput {
@@ -58,6 +78,9 @@ type Mutation {
   assignPersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
   removePersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
   updateRole(updateRoleInput: UpdateRoleInput!): RoleEntity!
+  createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
+  updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
+  removeCompany(companyId: IdInput!): Boolean!
 }
 
 input CreateAccessInput {
@@ -88,4 +111,19 @@ input UpdateRoleInput {
   id: String!
   name: String
   descriptions: String
+}
+
+input CreateCompanyInput {
+  cnpj: Int!
+  corporateName: String
+  status: String
+  sector: String
+}
+
+input UpdateCompanyInput {
+  cnpj: Int
+  corporateName: String
+  status: String
+  sector: String
+  id: String!
 }
