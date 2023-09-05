@@ -1,4 +1,4 @@
-import { Module, ModuleMetadata } from '@nestjs/common';
+import { Module, ModuleMetadata, forwardRef } from '@nestjs/common';
 import { PersonResolver } from './person.resolver';
 import {
   PersonCreateUseCase,
@@ -10,9 +10,10 @@ import {
 } from './use-cases';
 import { IPersonRepository, PersonRepository } from 'src/repositories/person';
 import { PrismaModule } from 'src/db/prisma.module';
+import { PersonRoleModule } from '../person-role/person-role.module';
 
 export const personModuleMock: ModuleMetadata = {
-  imports: [PrismaModule],
+  imports: [PrismaModule, forwardRef(() => PersonRoleModule)],
   providers: [
     PersonResolver,
     PersonCreateUseCase,
