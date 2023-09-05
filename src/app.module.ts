@@ -15,8 +15,8 @@ import { CompanyAddressModule } from './modules/company-address/company-address.
     AccessModule,
     GoogleModule,
     PersonModule,
-    AddressModule,
     CompanyModule,
+    AddressModule,
     CompanyAddressModule,
   ],
 })

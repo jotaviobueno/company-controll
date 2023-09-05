@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
 import { AccessFindByCodeOrUpdateUseCase } from './access-find-by-code-or-update.use-case';
 import { accessModuleMock } from '../../access.module';
-import { accessMock, createAccessInputMock } from 'src/domain/mocks';
+import { accessMock } from 'src/domain/mocks';
 
 describe('AccessFindByCodeOrUpdateUseCase', () => {
   let usecase: AccessFindByCodeOrUpdateUseCase;
@@ -35,7 +35,7 @@ describe('AccessFindByCodeOrUpdateUseCase', () => {
       .spyOn(prismaService.access, 'update')
       .mockResolvedValue(accessMock);
 
-    const response = await usecase.execute(createAccessInputMock);
+    const response = await usecase.execute('1');
 
     expect(response).toStrictEqual(accessMock);
     expect(updateRemove).toHaveBeenCalledWith({

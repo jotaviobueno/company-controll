@@ -7,6 +7,7 @@ import {
   CompanyAddressCreateUseCase,
   CompanyAddressFindAllUseCase,
   CompanyAddressFindOneUseCase,
+  CompanyAddressSoftDeleteUseCase,
   CompanyAddressUpdateUseCase,
 } from './use-cases';
 import {
@@ -22,6 +23,7 @@ export const companyAddressModuleMock: ModuleMetadata = {
     CompanyAddressFindAllUseCase,
     CompanyAddressFindOneUseCase,
     CompanyAddressUpdateUseCase,
+    CompanyAddressSoftDeleteUseCase,
     { provide: ICompanyAddressRepository, useClass: CompanyAddressRepository },
   ],
 };

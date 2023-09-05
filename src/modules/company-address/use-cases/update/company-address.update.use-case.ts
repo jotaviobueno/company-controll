@@ -20,8 +20,6 @@ export class CompanyAddressUpdateUseCase
   }: UpdateCompanyAddressInput): Promise<CompanyAddressEntity> {
     const companyAddress = await this.companyAddressFindOneUseCase.execute(id);
 
-    // TODO: TALVEZ IMPLEMENTAR UMA VALIDAÇÃO DE CASO O ADDRESS AINDA EXISTA
-
     await this.addressUpdateUseCase.execute({
       id: companyAddress.addressId,
       ...updateAddressInput,

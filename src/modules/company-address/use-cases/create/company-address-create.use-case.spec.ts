@@ -2,8 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
 import { CompanyAddressCreateUseCase } from './company-address-create.use-case';
 import { companyAddressModuleMock } from '../../company-address.module';
-import { companyMock } from 'src/domain/mocks';
-import { addressModuleMock } from 'src/modules/address/address.module';
+import {
+  addressMock,
+  companyAddressMock,
+  companyMock,
+  createAddressInputMock,
+  createCompanyAddressInputMock,
+} from 'src/domain/mocks';
 
 describe('CompanyAddressCreateUseCase', () => {
   let usecase: CompanyAddressCreateUseCase;
@@ -36,16 +41,21 @@ describe('CompanyAddressCreateUseCase', () => {
       .spyOn(prismaService.company, 'findFirst')
       .mockResolvedValue(companyMock);
 
+    jest.spyOn(prismaService.address, 'create').mockResolvedValue(addressMock);
+
     const createSpy = jest
-      .spyOn(prismaService.address, 'create')
-      .mockResolvedValue(addressModuleMock);
+      .spyOn(prismaService.companyAddress, 'create')
+      .mockResolvedValue(companyAddressMock);
 
-    const response = await usecase.execute(createPersonInputMock);
+    const response = await usecase.execute({
+      companyId: '1',
+      ...createAddressInputMock,
+    });
 
-    expect(response).toStrictEqual(personMock);
+    expect(response).toStrictEqual(companyAddressMock);
     expect(createSpy).toHaveBeenCalledWith({
       data: {
-        ...createPersonInputMock,
+        ...createCompanyAddressInputMock,
         deletedAt: null,
       },
     });
