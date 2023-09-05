@@ -3,7 +3,8 @@ import {
   companyMock,
   createCompanyInputMock,
   paginationOptionsInputMock,
-} from 'src/domain/mocks';
+  updateCompanyInputMock,
+} from '../../domain/mocks';
 import { companyModuleMock } from './company.module';
 import { CompanyResolver } from './company.resolver';
 import {
@@ -17,24 +18,28 @@ import { PersonEntity } from 'src/domain/entities';
 
 describe('CompanyResolver', () => {
   let resolver: CompanyResolver;
+  let moduleRef: TestingModule;
   let createUseCase: CompanyCreateUseCase;
   let findAllUseCase: CompanyFindAllUseCase;
   let findOneUseCase: CompanyFindOneUseCase;
   let softDeleteUseCase: CompanySoftDeleteUseCase;
   let updateUseCase: CompanyUpdateUseCase;
 
-  beforeEach(async () => {
-    const module: TestingModule =
-      await Test.createTestingModule(companyModuleMock).compile();
+  beforeAll(async () => {
+    moduleRef = await Test.createTestingModule(companyModuleMock).compile();
 
-    resolver = module.get<CompanyResolver>(CompanyResolver);
-    createUseCase = module.get<CompanyCreateUseCase>(CompanyCreateUseCase);
-    findAllUseCase = module.get<CompanyFindAllUseCase>(CompanyFindAllUseCase);
-    findOneUseCase = module.get<CompanyFindOneUseCase>(CompanyFindOneUseCase);
-    softDeleteUseCase = module.get<CompanySoftDeleteUseCase>(
+    resolver = moduleRef.get<CompanyResolver>(CompanyResolver);
+    createUseCase = moduleRef.get<CompanyCreateUseCase>(CompanyCreateUseCase);
+    findAllUseCase = moduleRef.get<CompanyFindAllUseCase>(
+      CompanyFindAllUseCase,
+    );
+    findOneUseCase = moduleRef.get<CompanyFindOneUseCase>(
+      CompanyFindOneUseCase,
+    );
+    softDeleteUseCase = moduleRef.get<CompanySoftDeleteUseCase>(
       CompanySoftDeleteUseCase,
     );
-    updateUseCase = module.get<CompanyUpdateUseCase>(CompanyUpdateUseCase);
+    updateUseCase = moduleRef.get<CompanyUpdateUseCase>(CompanyUpdateUseCase);
   });
 
   it('should be defined', () => {
@@ -71,7 +76,7 @@ describe('CompanyResolver', () => {
   it('should update', async () => {
     jest.spyOn(updateUseCase, 'execute').mockResolvedValue(companyMock);
 
-    expect(await resolver.updateCompany(createCompanyInputMock)).toStrictEqual(
+    expect(await resolver.updateCompany(updateCompanyInputMock)).toStrictEqual(
       companyMock,
     );
   });

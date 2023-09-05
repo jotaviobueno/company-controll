@@ -34,10 +34,20 @@ describe('CompanyCreateUseCase', () => {
     );
 
     jest.fn(getCnpj).mockResolvedValue({
-      cnpj: 10,
-      corporateName: 'test',
-      status: 'test',
-      sector: 'test',
+      createCompanyInput: {
+        cnpj: 10,
+        corporateName: 'test',
+        status: 'test',
+        sector: 'test',
+      },
+      createAddressInput: {
+        city: '1',
+        neighborhood: '1',
+        number: '1',
+        state: '1',
+        street: '1',
+        zipCode: 123,
+      },
     });
 
     jest

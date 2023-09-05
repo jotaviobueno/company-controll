@@ -44,6 +44,7 @@ describe('CompanyUpdateUseCase', () => {
         id: '1',
       },
       data: {
+        ...updateCompanyInputMock,
         updatedAt: expect.any(Date),
       },
     });

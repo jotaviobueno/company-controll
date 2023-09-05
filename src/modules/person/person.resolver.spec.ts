@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { paginationOptionsInputMock, personMock } from 'src/domain/mocks';
+import {
+  paginationOptionsInputMock,
+  personMock,
+  updatePersonInputMock,
+} from 'src/domain/mocks';
 import { PersonResolver } from './person.resolver';
 import {
   PersonFindAllUseCase,
@@ -33,7 +37,7 @@ describe('PersonResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  it('should create', async () => {
+  it('should findAll', async () => {
     jest.spyOn(findAllUseCase, 'execute').mockResolvedValue([personMock]);
 
     expect(
@@ -50,7 +54,9 @@ describe('PersonResolver', () => {
   it('should update', async () => {
     jest.spyOn(updateUseCase, 'execute').mockResolvedValue(personMock);
 
-    expect(await resolver.updatePerson({ id: '1' })).toStrictEqual(personMock);
+    expect(await resolver.updatePerson(updatePersonInputMock)).toStrictEqual(
+      personMock,
+    );
   });
 
   it('should remove', async () => {

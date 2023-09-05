@@ -16,7 +16,7 @@ export class CreateAddressInput {
   @Field()
   @IsString()
   @IsNotEmpty()
-  neighboord: string;
+  neighborhood: string;
 
   @Field()
   @IsString()

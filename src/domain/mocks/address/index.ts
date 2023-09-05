@@ -4,7 +4,7 @@ import { AddressEntity } from 'src/domain/entities';
 export const addressMock: AddressEntity = {
   street: 'test',
   number: 'test',
-  neighboord: 'test',
+  neighborhood: 'test',
   city: 'test',
   zipCode: 10,
   state: 'test',
@@ -17,7 +17,7 @@ export const addressMock: AddressEntity = {
 export const createAddressInputMock: CreateAddressInput = {
   street: 'test',
   number: 'test',
-  neighboord: 'test',
+  neighborhood: 'test',
   city: 'test',
   zipCode: 10,
   state: 'test',

@@ -51,16 +51,17 @@ model PersonCompany {
 }
 
 model Address {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  street     String
-  number     String
-  neighboord String
-  city       String
-  zipCode    Int       @map("zip_code")
-  state      String
-  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
-  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
-  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  street         String
+  number         String
+  neighborhood   String
+  city           String
+  zipCode        Int              @map("zip_code")
+  state          String
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
+  updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
+  CompanyAddress CompanyAddress[]
 }
 
 model PersonRole {
@@ -74,15 +75,27 @@ model PersonRole {
 }
 
 model Company {
-  id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  cnpj          Int
-  corporateName String          @map("corporate_name")
-  status        String
-  sector        String?
-  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamp
-  updatedAt     DateTime        @default(now()) @map("updated_at") @db.Timestamp
-  deletedAt     DateTime?       @map("deleted_at") @db.Timestamp
-  PersonCompany PersonCompany[]
+  id             String           @id @default(auto()) @map("_id") @db.ObjectId
+  cnpj           Int
+  corporateName  String           @map("corporate_name")
+  status         String
+  sector         String?
+  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
+  updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
+  PersonCompany  PersonCompany[]
+  CompanyAddress CompanyAddress[]
+}
+
+model CompanyAddress {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  company   Company   @relation(fields: [companyId], references: [id])
+  companyId String    @map("company_id") @db.ObjectId
+  address   Address   @relation(fields: [addressId], references: [id])
+  addressId String    @map("address_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Role {

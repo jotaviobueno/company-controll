@@ -27,6 +27,7 @@ export const companyModuleMock: ModuleMetadata = {
     CompanyUpdateUseCase,
     { provide: ICompanyRepository, useClass: CompanyRepository },
   ],
+  exports: [CompanyFindOneUseCase],
 };
 
 @Module(companyModuleMock)

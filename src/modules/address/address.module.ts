@@ -20,7 +20,12 @@ export const addressModuleMock: ModuleMetadata = {
     AddressSoftDeleteUseCase,
     { provide: IAddressRepository, useClass: AddressRepository },
   ],
-  exports: [AddressFindOneUseCase, AddressCreateUseCase, AddressUpdateUseCase],
+  exports: [
+    AddressFindOneUseCase,
+    AddressCreateUseCase,
+    AddressUpdateUseCase,
+    AddressSoftDeleteUseCase,
+  ],
 };
 
 @Module(addressModuleMock)

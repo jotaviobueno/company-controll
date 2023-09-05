@@ -24,10 +24,10 @@ export class CompanyCreateUseCase
     if (cnpjAlreadyExist)
       throw new HttpException('Cnpj already exists', HttpStatus.CONFLICT);
 
-    const cnpjInformationResponse = await getCnpj(data.cnpj);
+    const { createCompanyInput } = await getCnpj(data.cnpj);
 
     const company = await this.companyRepository.create({
-      ...cnpjInformationResponse,
+      ...createCompanyInput,
     });
 
     await this.createPersonCompanyUseCase.execute({
