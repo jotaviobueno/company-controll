@@ -32,7 +32,7 @@ export class CompanyResolver {
   }
 
   @Query(() => [CompanyEntity])
-  findAll(
+  findAllCompany(
     @Args('paginationOptionsInput')
     paginationOptionsInput: PaginationOptionsInput,
   ) {
@@ -40,7 +40,7 @@ export class CompanyResolver {
   }
 
   @Query(() => CompanyEntity)
-  findOne(@Args('companyId') { id }: IdInput) {
+  findOneCompany(@Args('companyId') { id }: IdInput) {
     return this.findOneUseCase.execute(id);
   }
 

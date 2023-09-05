@@ -62,6 +62,7 @@ type Mutation {
   removeCompany(companyId: IdInput!): CompanyEntity!
   createCompanyAddress(companyId: IdInput!, createAddressInput: CreateAddressInput!): CompanyAddressEntity!
   updateCompanyAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): CompanyAddressEntity!
+  removeCompanyAddress(companyAddressId: IdInput!): Boolean!
 }
 
 input CreateAccessInput {
@@ -101,7 +102,7 @@ input UpdateCompanyInput {
 input CreateAddressInput {
   street: String!
   number: String!
-  neighboord: String!
+  neighborhood: String!
   city: String!
   zipCode: Int!
   state: String!

@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Logger } from '@nestjs/common';
 import axios from 'axios';
+import { CreateAddressInput, CreateCompanyInput } from 'src/domain/dtos';
 import { CnpjResponseModel } from 'src/domain/models';
 
 export async function getCnpj(cnpj: number) {
@@ -16,10 +17,21 @@ export async function getCnpj(cnpj: number) {
     );
   }
 
-  return {
-    cnpj: +data.cnpj,
+  const createCompanyInput: CreateCompanyInput = {
+    cnpj,
     corporateName: data.razao_social,
     status: data.descricao_situacao_cadastral,
     sector: data.cnae_fiscal_descricao,
   };
+
+  const createAddressInput: CreateAddressInput = {
+    street: data.logradouro,
+    number: data.numero,
+    neighborhood: data.bairro,
+    city: data.municipio,
+    zipCode: +data.cep,
+    state: data.uf,
+  };
+
+  return { createCompanyInput, createAddressInput };
 }

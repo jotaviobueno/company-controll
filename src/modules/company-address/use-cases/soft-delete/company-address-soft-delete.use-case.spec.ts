@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
 import { HttpException } from '@nestjs/common';
-import { companyAddressMock } from 'src/domain/mocks';
+import { addressMock, companyAddressMock } from 'src/domain/mocks';
 import { CompanyAddressSoftDeleteUseCase } from './company-address-soft-delete.use-case';
 import { companyAddressModuleMock } from '../../company-address.module';
 
@@ -36,6 +36,12 @@ describe('CompanyAddressSoftDeleteUseCase', () => {
       .spyOn(prismaService.companyAddress, 'findFirst')
       .mockResolvedValue(companyAddressMock);
 
+    jest
+      .spyOn(prismaService.address, 'findFirst')
+      .mockResolvedValue(addressMock);
+
+    jest.spyOn(prismaService.address, 'update').mockResolvedValue(addressMock);
+
     const updateSpy = jest
       .spyOn(prismaService.companyAddress, 'update')
       .mockResolvedValue(companyAddressMock);
@@ -58,6 +64,12 @@ describe('CompanyAddressSoftDeleteUseCase', () => {
     jest
       .spyOn(prismaService.companyAddress, 'findFirst')
       .mockResolvedValue(companyAddressMock);
+
+    jest
+      .spyOn(prismaService.address, 'findFirst')
+      .mockResolvedValue(addressMock);
+
+    jest.spyOn(prismaService.address, 'update').mockResolvedValue(addressMock);
 
     jest.spyOn(prismaService.companyAddress, 'update').mockResolvedValue(null);
 

@@ -77,7 +77,7 @@ model Address {
   id             String           @id @default(auto()) @map("_id") @db.ObjectId
   street         String
   number         String
-  neighboord     String
+  neighborhood   String
   city           String
   zipCode        Int              @map("zip_code")
   state          String

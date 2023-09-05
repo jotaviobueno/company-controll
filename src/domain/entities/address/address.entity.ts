@@ -11,7 +11,7 @@ export class AddressEntity extends IBaseEntity implements Address {
   number: string;
 
   @Field()
-  neighboord: string;
+  neighborhood: string;
 
   @Field()
   city: string;

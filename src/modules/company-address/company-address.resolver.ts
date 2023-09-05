@@ -3,13 +3,13 @@ import {
   CreateAddressInput,
   IdInput,
   PaginationOptionsInput,
-  UpdateAddressInput,
 } from 'src/domain/dtos';
 import { CompanyAddressEntity } from 'src/domain/entities';
 import {
   CompanyAddressCreateUseCase,
   CompanyAddressFindAllUseCase,
   CompanyAddressFindOneUseCase,
+  CompanyAddressSoftDeleteUseCase,
   CompanyAddressUpdateUseCase,
 } from './use-cases';
 
@@ -20,6 +20,7 @@ export class CompanyAddressResolver {
     private readonly findAllUseCase: CompanyAddressFindAllUseCase,
     private readonly findOneUseCase: CompanyAddressFindOneUseCase,
     private readonly updateUseCase: CompanyAddressUpdateUseCase,
+    private readonly softDeleteUseCase: CompanyAddressSoftDeleteUseCase,
   ) {}
 
   @Mutation(() => CompanyAddressEntity)
@@ -42,7 +43,7 @@ export class CompanyAddressResolver {
   }
 
   @Query(() => CompanyAddressEntity)
-  findOne(@Args('companyAddressId') { id }: IdInput) {
+  findOneCompanyAddress(@Args('companyAddressId') { id }: IdInput) {
     return this.findOneUseCase.execute(id);
   }
 
@@ -53,9 +54,9 @@ export class CompanyAddressResolver {
   ) {
     return this.updateUseCase.execute({ id, ...updateAddressInput });
   }
-  //
-  //@Mutation(() => CompanyAddressEntity)
-  //removeCompanyAddress(@Args('companyAddressId') { id }: IdInput) {
-  //  return this.companyAddressService.remove(id);
-  //}
+
+  @Mutation(() => Boolean)
+  removeCompanyAddress(@Args('companyAddressId') { id }: IdInput) {
+    return this.softDeleteUseCase.execute(id);
+  }
 }

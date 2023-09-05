@@ -1,4 +1,7 @@
-import { CreateCompanyAddressInput } from 'src/domain/dtos';
+import {
+  CreateCompanyAddressInput,
+  UpdateCompanyAddressInput,
+} from 'src/domain/dtos';
 import { CompanyAddressEntity } from 'src/domain/entities';
 
 export const companyAddressMock: CompanyAddressEntity = {
@@ -13,4 +16,8 @@ export const companyAddressMock: CompanyAddressEntity = {
 export const createCompanyAddressInputMock: CreateCompanyAddressInput = {
   companyId: '1',
   addressId: '1',
+};
+
+export const updateCompanyAddressInputMock: UpdateCompanyAddressInput = {
+  id: '1',
 };
