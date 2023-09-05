@@ -7,6 +7,8 @@ import { PersonModule } from './modules/person/person.module';
 import { CompanyModule } from './modules/company/company.module';
 import { AddressModule } from './modules/address/address.module';
 import { CompanyAddressModule } from './modules/company-address/company-address.module';
+import { PersonCompanyModule } from './modules/person-company/person-company.module';
+import { PersonRoleModule } from './modules/person-role/person-role.module';
 
 @Module({
   imports: [
@@ -15,8 +17,10 @@ import { CompanyAddressModule } from './modules/company-address/company-address.
     AccessModule,
     GoogleModule,
     PersonModule,
-    CompanyModule,
     AddressModule,
+    CompanyModule,
+    PersonCompanyModule,
+    PersonRoleModule,
     CompanyAddressModule,
   ],
 })

@@ -3,6 +3,7 @@ import {
   cnpjResponseModelMock,
   companyMock,
   createCompanyInputMock,
+  personCompanyMock,
 } from 'src/domain/mocks';
 import { PrismaService } from 'src/db/prisma.service';
 import { companyModuleMock } from '../../company.module';
@@ -49,11 +50,15 @@ describe('CompanyCreateUseCase', () => {
       },
     });
 
+    jest
+      .spyOn(prismaService.personCompany, 'create')
+      .mockResolvedValue(personCompanyMock);
+
     const createSpy = jest
       .spyOn(prismaService.company, 'create')
       .mockResolvedValue(companyMock);
 
-    const response = await usecase.execute(createCompanyInputMock);
+    const response = await usecase.execute(createCompanyInputMock, '1');
 
     expect(response).toStrictEqual(companyMock);
     expect(createSpy).toHaveBeenCalledWith({
@@ -71,7 +76,7 @@ describe('CompanyCreateUseCase', () => {
 
     const spyCreate = jest.spyOn(usecase, 'execute');
 
-    await expect(usecase.execute(createCompanyInputMock)).rejects.toThrow(
+    await expect(usecase.execute(createCompanyInputMock, '1')).rejects.toThrow(
       HttpException,
     );
 

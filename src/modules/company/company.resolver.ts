@@ -1,11 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import {
   CreateCompanyInput,
   IdInput,
   PaginationOptionsInput,
   UpdateCompanyInput,
 } from 'src/domain/dtos';
-import { CompanyEntity } from 'src/domain/entities';
+import { CompanyEntity, PersonEntity } from 'src/domain/entities';
 import {
   CompanyCreateUseCase,
   CompanyFindAllUseCase,
@@ -13,6 +13,8 @@ import {
   CompanySoftDeleteUseCase,
   CompanyUpdateUseCase,
 } from './use-cases';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from '../access/guards';
 
 @Resolver(() => CompanyEntity)
 export class CompanyResolver {
@@ -25,10 +27,12 @@ export class CompanyResolver {
   ) {}
 
   @Mutation(() => CompanyEntity)
+  @UseGuards(AuthGuard)
   createCompany(
+    @Context('person') { id }: PersonEntity,
     @Args('createCompanyInput') createCompanyInput: CreateCompanyInput,
   ) {
-    return this.createUseCase.execute(createCompanyInput);
+    return this.createUseCase.execute(createCompanyInput, id);
   }
 
   @Query(() => [CompanyEntity])
@@ -51,7 +55,7 @@ export class CompanyResolver {
     return this.updateUseCase.execute(updateCompanyInput);
   }
 
-  @Mutation(() => CompanyEntity)
+  @Mutation(() => Boolean)
   removeCompany(@Args('companyId') { id }: IdInput) {
     return this.softDeleteUseCase.execute(id);
   }

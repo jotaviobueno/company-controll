@@ -11,6 +11,7 @@ type PersonEntity {
   email: String
   phone: String
   avatarUrl: String!
+  roles: [RoleEntity!]
 }
 
 """
@@ -29,9 +30,24 @@ type CompanyEntity {
 }
 
 type CompanyAddressEntity {
+type PersonCompanyEntity {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type PersonRoleEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type RoleEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String!
 }
 
 type Query {
@@ -41,6 +57,12 @@ type Query {
   findAll(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
   findOne(companyAddressId: IdInput!): CompanyAddressEntity!
   findAllCompanyAddress(PaginationOptionsInput: PaginationOptionsInput!): [CompanyAddressEntity!]!
+  findAllRoles(paginationOptionsInput: PaginationOptionsInput!): [RoleEntity!]!
+  findOneRole(roleId: IdInput!): RoleEntity!
+  findAllCompany(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
+  findOneCompany(companyId: IdInput!): CompanyEntity!
+  findAllPersonCompany(PaginationOptionsInput: PaginationOptionsInput!): [PersonCompanyEntity!]!
+  findOnePersonCompany(personCompanyId: IdInput!): PersonCompanyEntity!
 }
 
 input PaginationOptionsInput {
@@ -57,12 +79,16 @@ type Mutation {
   createAccessForDev: String!
   updatePerson(updatePersonInput: UpdatePersonInput!): PersonEntity!
   removePerson(personId: IdInput!): Boolean!
+  assignPersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
+  removePersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
+  updateRole(updateRoleInput: UpdateRoleInput!): RoleEntity!
   createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
   updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
   removeCompany(companyId: IdInput!): CompanyEntity!
   createCompanyAddress(companyId: IdInput!, createAddressInput: CreateAddressInput!): CompanyAddressEntity!
   updateCompanyAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): CompanyAddressEntity!
   removeCompanyAddress(companyAddressId: IdInput!): Boolean!
+  removeCompany(companyId: IdInput!): Boolean!
 }
 
 input CreateAccessInput {
@@ -82,6 +108,17 @@ input UpdatePersonInput {
   phone: String
   avatarUrl: String
   id: String!
+}
+
+input PersonRoleInput {
+  personId: String!
+  roleId: String!
+}
+
+input UpdateRoleInput {
+  id: String!
+  name: String
+  descriptions: String
 }
 
 input CreateCompanyInput {

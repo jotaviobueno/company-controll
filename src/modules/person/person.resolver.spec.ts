@@ -1,17 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { paginationOptionsInputMock, personMock } from 'src/domain/mocks';
 import { PersonResolver } from './person.resolver';
-import { accessModuleMock } from '../access/access.module';
 import {
   PersonFindAllUseCase,
   PersonFindOneUseCase,
   PersonSoftDeleteUseCase,
   PersonUpdateUseCase,
 } from './use-cases';
-import {
-  paginationOptionsInputMock,
-  personMock,
-  updatePersonInputMock,
-} from 'src/domain/mocks';
+import { personModuleMock } from './person.module';
 
 describe('PersonResolver', () => {
   let resolver: PersonResolver;
@@ -22,7 +18,7 @@ describe('PersonResolver', () => {
 
   beforeEach(async () => {
     const module: TestingModule =
-      await Test.createTestingModule(accessModuleMock).compile();
+      await Test.createTestingModule(personModuleMock).compile();
 
     resolver = module.get<PersonResolver>(PersonResolver);
     findAllUseCase = module.get<PersonFindAllUseCase>(PersonFindAllUseCase);

@@ -20,9 +20,7 @@ export const createCompanyInputMock: CreateCompanyInput = {
   sector: 'test',
 };
 
-export const updateCompanyInputMock: UpdateCompanyInput = {
-  corporateName: 'test',
-};
+export const updateCompanyInputMock: UpdateCompanyInput = {};
 
 export const cnpjResponseModelMock: CnpjResponseModel = {
   uf: 'RJ',
