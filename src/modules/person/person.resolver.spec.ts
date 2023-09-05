@@ -1,5 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { paginationOptionsInputMock, personMock } from 'src/domain/mocks';
+import {
+  paginationOptionsInputMock,
+  personMock,
+  updatePersonInputMock,
+} from 'src/domain/mocks';
 import { PersonResolver } from './person.resolver';
 import {
   PersonFindAllUseCase,

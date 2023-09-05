@@ -14,6 +14,7 @@ import {
   CompanySoftDeleteUseCase,
   CompanyUpdateUseCase,
 } from './use-cases';
+import { PersonEntity } from 'src/domain/entities';
 
 describe('CompanyResolver', () => {
   let resolver: CompanyResolver;
@@ -48,9 +49,12 @@ describe('CompanyResolver', () => {
   it('should create', async () => {
     jest.spyOn(createUseCase, 'execute').mockResolvedValue(companyMock);
 
-    expect(await resolver.createCompany(createCompanyInputMock)).toStrictEqual(
-      companyMock,
-    );
+    expect(
+      await resolver.createCompany(
+        { id: '1' } as PersonEntity,
+        createCompanyInputMock,
+      ),
+    ).toStrictEqual(companyMock);
   });
 
   it('should findAll', async () => {
