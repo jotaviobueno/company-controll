@@ -30,6 +30,11 @@ type CompanyEntity {
 }
 
 type PersonCompanyEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type PersonRoleEntity {
   id: String!
   createdAt: DateTime!
@@ -48,12 +53,12 @@ type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
   findOnePerson(personId: IdInput!): PersonEntity!
+  findAllRoles(paginationOptionsInput: PaginationOptionsInput!): [RoleEntity!]!
+  findOneRole(roleId: IdInput!): RoleEntity!
   findAllCompany(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
   findOneCompany(companyId: IdInput!): CompanyEntity!
   findAllPersonCompany(PaginationOptionsInput: PaginationOptionsInput!): [PersonCompanyEntity!]!
   findOnePersonCompany(personCompanyId: IdInput!): PersonCompanyEntity!
-  findAllRoles(paginationOptionsInput: PaginationOptionsInput!): [RoleEntity!]!
-  findOneRole(roleId: IdInput!): RoleEntity!
 }
 
 input PaginationOptionsInput {
@@ -70,12 +75,12 @@ type Mutation {
   createAccessForDev: String!
   updatePerson(updatePersonInput: UpdatePersonInput!): PersonEntity!
   removePerson(personId: IdInput!): Boolean!
-  createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
-  updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
-  removeCompany(companyId: IdInput!): CompanyEntity!
   assignPersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
   removePersonRole(personRoleInput: PersonRoleInput!): PersonRoleEntity!
   updateRole(updateRoleInput: UpdateRoleInput!): RoleEntity!
+  createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
+  updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
+  removeCompany(companyId: IdInput!): Boolean!
 }
 
 input CreateAccessInput {
@@ -97,6 +102,17 @@ input UpdatePersonInput {
   id: String!
 }
 
+input PersonRoleInput {
+  personId: String!
+  roleId: String!
+}
+
+input UpdateRoleInput {
+  id: String!
+  name: String
+  descriptions: String
+}
+
 input CreateCompanyInput {
   cnpj: Int!
   corporateName: String
@@ -110,13 +126,4 @@ input UpdateCompanyInput {
   status: String
   sector: String
   id: String!
-input PersonRoleInput {
-  personId: String!
-  roleId: String!
-}
-
-input UpdateRoleInput {
-  id: String!
-  name: String
-  descriptions: String
 }

@@ -41,11 +41,13 @@ model Person {
 }
 
 model PersonCompany {
-  id        String  @id @default(auto()) @map("_id") @db.ObjectId
-  person    Person  @relation(fields: [personId], references: [id])
-  personId  String  @map("person_id") @db.ObjectId
-  company   Company @relation(fields: [companyId], references: [id])
-  companyId String  @map("company_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person   @relation(fields: [personId], references: [id])
+  personId  String   @map("person_id") @db.ObjectId
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId String   @map("company_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
 
 model Address {
