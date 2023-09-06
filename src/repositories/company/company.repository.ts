@@ -30,7 +30,7 @@ export class CompanyRepository implements Partial<ICompanyRepository> {
     });
   }
 
-  findByCnpj(cnpj: number): Promise<CompanyEntity> {
+  findByCnpj(cnpj: string): Promise<CompanyEntity> {
     return this.prismaService.company.findFirst({
       where: {
         cnpj,

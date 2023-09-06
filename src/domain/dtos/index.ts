@@ -8,3 +8,4 @@ export * from './company-address/index';
 export * from './person-company/index';
 export * from './person-role/index';
 export * from './role/index';
+export * from './person-address/index';

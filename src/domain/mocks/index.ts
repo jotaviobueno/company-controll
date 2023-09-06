@@ -7,3 +7,4 @@ export * from './person-company/index';
 export * from './address/index';
 export * from './user-role/index';
 export * from './role/index';
+export * from './person-address/index';

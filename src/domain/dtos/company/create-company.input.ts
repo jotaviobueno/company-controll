@@ -1,12 +1,14 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsCnpj } from 'src/domain/validators';
 
 @InputType()
 export class CreateCompanyInput {
-  @Field(() => Int)
-  @IsNumber()
+  @Field()
+  @IsString()
   @IsNotEmpty()
-  cnpj: number;
+  @IsCnpj()
+  cnpj: string;
 
   @Field({ nullable: true })
   @IsString()

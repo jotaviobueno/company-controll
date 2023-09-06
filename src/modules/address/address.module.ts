@@ -3,6 +3,7 @@ import {
   AddressFindOneUseCase,
   AddressCreateUseCase,
   AddressUpdateUseCase,
+  AddressFindManyWithIdsUseCase,
 } from './use-cases';
 import { PrismaModule } from 'src/db/prisma.module';
 import {
@@ -18,6 +19,7 @@ export const addressModuleMock: ModuleMetadata = {
     AddressCreateUseCase,
     AddressUpdateUseCase,
     AddressSoftDeleteUseCase,
+    AddressFindManyWithIdsUseCase,
     { provide: IAddressRepository, useClass: AddressRepository },
   ],
   exports: [
@@ -25,6 +27,7 @@ export const addressModuleMock: ModuleMetadata = {
     AddressCreateUseCase,
     AddressUpdateUseCase,
     AddressSoftDeleteUseCase,
+    AddressFindManyWithIdsUseCase,
   ],
 };
 

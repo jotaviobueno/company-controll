@@ -9,6 +9,7 @@ import { AddressModule } from './modules/address/address.module';
 import { CompanyAddressModule } from './modules/company-address/company-address.module';
 import { PersonCompanyModule } from './modules/person-company/person-company.module';
 import { PersonRoleModule } from './modules/person-role/person-role.module';
+import { PersonAddressModule } from './modules/person-address/person-address.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PersonRoleModule } from './modules/person-role/person-role.module';
     PersonCompanyModule,
     PersonRoleModule,
     CompanyAddressModule,
+    PersonAddressModule,
   ],
 })
 export class AppModule {}

@@ -34,6 +34,16 @@ export class AddressRepository implements Partial<IAddressRepository> {
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<AddressEntity[]> {
+    return this.prismaService.address.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findById(id: string): Promise<AddressEntity> {
     return this.prismaService.address.findFirst({
       where: {

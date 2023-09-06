@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CreateAddressInput, CreateCompanyInput } from 'src/domain/dtos';
 import { CnpjResponseModel } from 'src/domain/models';
 
-export async function getCnpj(cnpj: number) {
+export async function getCnpj(cnpj: string) {
   const { data } = await axios.get<CnpjResponseModel>(
     `https://brasilapi.com.br/api/cnpj/v1/${cnpj}`,
   );

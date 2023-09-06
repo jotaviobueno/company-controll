@@ -7,6 +7,6 @@ export class RoleEntity extends IBaseEntity implements Role {
   @Field()
   name: string;
 
-  @Field()
+  @Field({ nullable: true })
   description: string;
 }

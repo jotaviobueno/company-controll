@@ -1,11 +1,23 @@
-import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Context,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import {
   CreateCompanyInput,
   IdInput,
   PaginationOptionsInput,
   UpdateCompanyInput,
 } from 'src/domain/dtos';
-import { CompanyEntity, PersonEntity } from 'src/domain/entities';
+import {
+  AddressEntity,
+  CompanyEntity,
+  PersonEntity,
+} from 'src/domain/entities';
 import {
   CompanyCreateUseCase,
   CompanyFindAllUseCase,
@@ -15,6 +27,7 @@ import {
 } from './use-cases';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../access/guards';
+import { LoaderAddressByCompanyId } from '../company-address/dataloaders';
 
 @Resolver(() => CompanyEntity)
 export class CompanyResolver {
@@ -24,6 +37,7 @@ export class CompanyResolver {
     private readonly findOneUseCase: CompanyFindOneUseCase,
     private readonly softDeleteUseCase: CompanySoftDeleteUseCase,
     private readonly updateUseCase: CompanyUpdateUseCase,
+    private readonly loaderAddressByCompanyId: LoaderAddressByCompanyId,
   ) {}
 
   @Mutation(() => CompanyEntity)
@@ -58,5 +72,13 @@ export class CompanyResolver {
   @Mutation(() => Boolean)
   removeCompany(@Args('companyId') { id }: IdInput) {
     return this.softDeleteUseCase.execute(id);
+  }
+
+  @ResolveField(() => [AddressEntity], { nullable: true })
+  addresses(
+    @Parent()
+    { id }: CompanyEntity,
+  ) {
+    return this.loaderAddressByCompanyId.load(id);
   }
 }

@@ -23,13 +23,31 @@ type CompanyEntity {
   id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  cnpj: Int!
+  cnpj: String!
   corporateName: String!
   status: String!
   sector: String!
+  addresses: [AddressEntity!]
+}
+
+type AddressEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  street: String!
+  number: String!
+  neighborhood: String!
+  city: String!
+  zipCode: Float!
+  state: String!
 }
 
 type CompanyAddressEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type PersonCompanyEntity {
   id: String!
   createdAt: DateTime!
@@ -47,22 +65,29 @@ type RoleEntity {
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
-  description: String!
+  description: String
+}
+
+type PersonAddressEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
 
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
   findOnePerson(personId: IdInput!): PersonEntity!
-  findAll(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
-  findOne(companyAddressId: IdInput!): CompanyAddressEntity!
-  findAllCompanyAddress(PaginationOptionsInput: PaginationOptionsInput!): [CompanyAddressEntity!]!
   findAllRoles(paginationOptionsInput: PaginationOptionsInput!): [RoleEntity!]!
   findOneRole(roleId: IdInput!): RoleEntity!
   findAllCompany(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
   findOneCompany(companyId: IdInput!): CompanyEntity!
   findAllPersonCompany(PaginationOptionsInput: PaginationOptionsInput!): [PersonCompanyEntity!]!
   findOnePersonCompany(personCompanyId: IdInput!): PersonCompanyEntity!
+  findAllCompanyAddress(PaginationOptionsInput: PaginationOptionsInput!): [CompanyAddressEntity!]!
+  findOneCompanyAddress(companyAddressId: IdInput!): CompanyAddressEntity!
+  findAllPersonAddress(PaginationOptionsInput: PaginationOptionsInput!): [PersonAddressEntity!]!
+  findOnePersonAddress(personAddressId: IdInput!): PersonAddressEntity!
 }
 
 input PaginationOptionsInput {
@@ -84,11 +109,13 @@ type Mutation {
   updateRole(updateRoleInput: UpdateRoleInput!): RoleEntity!
   createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
   updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
-  removeCompany(companyId: IdInput!): CompanyEntity!
+  removeCompany(companyId: IdInput!): Boolean!
   createCompanyAddress(companyId: IdInput!, createAddressInput: CreateAddressInput!): CompanyAddressEntity!
   updateCompanyAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): CompanyAddressEntity!
   removeCompanyAddress(companyAddressId: IdInput!): Boolean!
-  removeCompany(companyId: IdInput!): Boolean!
+  createPersonAddress(personId: IdInput!, createAddressInput: CreateAddressInput!): PersonAddressEntity!
+  updatePersonAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): PersonAddressEntity!
+  removePersonAddress(personAddressId: IdInput!): PersonAddressEntity!
 }
 
 input CreateAccessInput {
@@ -122,14 +149,14 @@ input UpdateRoleInput {
 }
 
 input CreateCompanyInput {
-  cnpj: Int!
+  cnpj: String!
   corporateName: String
   status: String
   sector: String
 }
 
 input UpdateCompanyInput {
-  cnpj: Int
+  cnpj: String
   corporateName: String
   status: String
   sector: String
