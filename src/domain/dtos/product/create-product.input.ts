@@ -1,11 +1,14 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
 import {
-  IsDecimal,
   IsMongoId,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
+  Max,
+  Min,
 } from 'class-validator';
+import { IsCents } from 'src/domain/validators/is-cents';
 
 @InputType()
 export class CreateProductInput {
@@ -15,12 +18,14 @@ export class CreateProductInput {
   name: string;
 
   @Field(() => Int)
-  @IsDecimal()
+  @IsCents()
   @IsNotEmpty()
   unitPrice: number;
 
-  @Field(() => Int)
-  @IsDecimal()
+  @Field(() => Int, { nullable: true })
+  @Min(0)
+  @Max(99)
+  @IsNumber()
   @IsOptional()
   discountPercentage?: number;
 

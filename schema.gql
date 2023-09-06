@@ -190,7 +190,7 @@ input CreateAddressInput {
 input CreateProductInput {
   name: String!
   unitPrice: Int!
-  discountPercentage: Int!
+  discountPercentage: Int
   imagesUrl: [String!]!
   companyId: String!
 }
