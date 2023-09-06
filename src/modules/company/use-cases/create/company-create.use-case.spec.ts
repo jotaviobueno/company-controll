@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import {
   cnpjResponseModelMock,
   companyMock,
+  createAddressInputMock,
   createCompanyInputMock,
   personCompanyMock,
 } from 'src/domain/mocks';
@@ -34,20 +35,8 @@ describe('CompanyCreateUseCase', () => {
     );
 
     jest.fn(getCnpj).mockResolvedValue({
-      createCompanyInput: {
-        cnpj: '10',
-        corporateName: 'test',
-        status: 'test',
-        sector: 'test',
-      },
-      createAddressInput: {
-        city: '1',
-        neighborhood: '1',
-        number: '1',
-        state: '1',
-        street: '1',
-        zipCode: 123,
-      },
+      createCompanyInput: createCompanyInputMock,
+      createAddressInput: createAddressInputMock,
     });
 
     jest
