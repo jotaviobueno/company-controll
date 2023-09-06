@@ -8,7 +8,8 @@ import { ICompanyRepository } from 'src/repositories/company';
 
 @Injectable()
 export class CompanyCreateUseCase
-  implements IBaseUseCase<CreateCompanyInput, CompanyEntity, string>
+  implements
+    IBaseUseCase<CreateCompanyInput & { personId: string }, CompanyEntity>
 {
   constructor(
     private readonly companyRepository: ICompanyRepository,
@@ -16,8 +17,7 @@ export class CompanyCreateUseCase
   ) {}
 
   async execute(
-    data: CreateCompanyInput,
-    value: string,
+    data: CreateCompanyInput & { personId: string },
   ): Promise<CompanyEntity> {
     const cnpjAlreadyExist = await this.companyRepository.findByCnpj(data.cnpj);
 
@@ -32,7 +32,7 @@ export class CompanyCreateUseCase
 
     await this.createPersonCompanyUseCase.execute({
       companyId: company.id,
-      personId: value,
+      personId: data.personId,
     });
 
     // TODO: na resposta agente recebe o endereço

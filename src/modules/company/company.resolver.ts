@@ -46,7 +46,7 @@ export class CompanyResolver {
     @Context('person') { id }: PersonEntity,
     @Args('createCompanyInput') createCompanyInput: CreateCompanyInput,
   ) {
-    return this.createUseCase.execute(createCompanyInput, id);
+    return this.createUseCase.execute({ ...createCompanyInput, personId: id });
   }
 
   @Query(() => [CompanyEntity])

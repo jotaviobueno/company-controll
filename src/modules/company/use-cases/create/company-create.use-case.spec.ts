@@ -47,7 +47,10 @@ describe('CompanyCreateUseCase', () => {
       .spyOn(prismaService.company, 'create')
       .mockResolvedValue(companyMock);
 
-    const response = await usecase.execute(createCompanyInputMock, '1');
+    const response = await usecase.execute({
+      personId: '1',
+      ...createCompanyInputMock,
+    });
 
     expect(response).toStrictEqual(companyMock);
     expect(createSpy).toHaveBeenCalledWith({
@@ -65,9 +68,12 @@ describe('CompanyCreateUseCase', () => {
 
     const spyCreate = jest.spyOn(usecase, 'execute');
 
-    await expect(usecase.execute(createCompanyInputMock, '1')).rejects.toThrow(
-      HttpException,
-    );
+    await expect(
+      usecase.execute({
+        personId: '1',
+        ...createCompanyInputMock,
+      }),
+    ).rejects.toThrow(HttpException);
 
     expect(spyCreate).toHaveBeenCalledTimes(1);
   });

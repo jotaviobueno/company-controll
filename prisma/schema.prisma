@@ -87,6 +87,7 @@ model Company {
   deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
   PersonCompany  PersonCompany[]
   CompanyAddress CompanyAddress[]
+  Product        Product[]
 }
 
 model CompanyAddress {
@@ -137,4 +138,17 @@ model Permission {
   createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
   updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
   RolePermission RolePermission[]
+}
+
+model Product {
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  name               String
+  unitPrice          Int
+  discountPercentage Int?      @map("discount_percentage")
+  imagesUrl          String[]  @default([]) @map("images_url")
+  company            Company   @relation(fields: [companyId], references: [id])
+  companyId          String    @map("company_id") @db.ObjectId
+  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt          DateTime? @map("deleted_at") @db.Timestamp
 }
