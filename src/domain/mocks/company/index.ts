@@ -3,7 +3,7 @@ import { CompanyEntity } from 'src/domain/entities';
 import { CnpjResponseModel } from 'src/domain/models';
 
 export const companyMock: CompanyEntity = {
-  cnpj: 10,
+  cnpj: '10',
   corporateName: 'test',
   status: 'test',
   sector: 'test',
@@ -14,7 +14,7 @@ export const companyMock: CompanyEntity = {
 };
 
 export const createCompanyInputMock: CreateCompanyInput = {
-  cnpj: 10,
+  cnpj: '10',
   corporateName: 'test',
   status: 'test',
   sector: 'test',

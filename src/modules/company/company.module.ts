@@ -1,4 +1,4 @@
-import { Module, ModuleMetadata } from '@nestjs/common';
+import { Module, ModuleMetadata, forwardRef } from '@nestjs/common';
 import { CompanyResolver } from './company.resolver';
 import {
   CompanyFindAllUseCase,
@@ -15,9 +15,16 @@ import {
 import { PersonCompanyModule } from '../person-company/person-company.module';
 import { PersonModule } from '../person/person.module';
 import { AccessModule } from '../access/access.module';
+import { CompanyAddressModule } from '../company-address/company-address.module';
 
 export const companyModuleMock: ModuleMetadata = {
-  imports: [PrismaModule, PersonCompanyModule, PersonModule, AccessModule],
+  imports: [
+    PrismaModule,
+    PersonCompanyModule,
+    PersonModule,
+    AccessModule,
+    forwardRef(() => CompanyAddressModule),
+  ],
   providers: [
     CompanyResolver,
     CompanyCreateUseCase,

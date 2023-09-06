@@ -5,4 +5,8 @@ import { CompanyAddressEntity } from 'src/domain/entities';
 export abstract class ICompanyAddressRepository extends IBaseRepository<
   CreateCompanyAddressInput,
   CompanyAddressEntity
-> {}
+> {
+  abstract findManyWithCompanyId(
+    companiesIds: string[],
+  ): Promise<CompanyAddressEntity[]>;
+}

@@ -38,6 +38,7 @@ model Person {
   deletedAt     DateTime?       @map("deleted_at") @db.Timestamp
   PersonCompany PersonCompany[]
   PersonRole    PersonRole[]
+  PersonAddress PersonAddress[]
 }
 
 model PersonCompany {
@@ -62,6 +63,7 @@ model Address {
   updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
   deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
   CompanyAddress CompanyAddress[]
+  PersonAddress  PersonAddress[]
 }
 
 model PersonRole {
@@ -76,7 +78,7 @@ model PersonRole {
 
 model Company {
   id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  cnpj           Int
+  cnpj           String
   corporateName  String           @map("corporate_name")
   status         String
   sector         String?
@@ -91,6 +93,17 @@ model CompanyAddress {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   company   Company   @relation(fields: [companyId], references: [id])
   companyId String    @map("company_id") @db.ObjectId
+  address   Address   @relation(fields: [addressId], references: [id])
+  addressId String    @map("address_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
+}
+
+model PersonAddress {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person    @relation(fields: [personId], references: [id])
+  personId  String    @map("person_id") @db.ObjectId
   address   Address   @relation(fields: [addressId], references: [id])
   addressId String    @map("address_id") @db.ObjectId
   createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp

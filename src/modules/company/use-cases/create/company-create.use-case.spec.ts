@@ -35,7 +35,7 @@ describe('CompanyCreateUseCase', () => {
 
     jest.fn(getCnpj).mockResolvedValue({
       createCompanyInput: {
-        cnpj: 10,
+        cnpj: '10',
         corporateName: 'test',
         status: 'test',
         sector: 'test',

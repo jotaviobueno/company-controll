@@ -44,6 +44,18 @@ export class CompanyAddressRepository
     });
   }
 
+  findManyWithCompanyId(
+    companiesIds: string[],
+  ): Promise<CompanyAddressEntity[]> {
+    return this.prismaService.companyAddress.findMany({
+      where: {
+        companyId: {
+          in: companiesIds,
+        },
+      },
+    });
+  }
+
   update({ id, ...updateDto }): Promise<CompanyAddressEntity> {
     return this.prismaService.companyAddress.update({
       where: {

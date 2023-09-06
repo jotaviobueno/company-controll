@@ -7,5 +7,5 @@ export abstract class ICompanyRepository extends IBaseRepository<
   CompanyEntity,
   UpdateCompanyInput
 > {
-  abstract findByCnpj(cnpj: number): Promise<CompanyEntity>;
+  abstract findByCnpj(cnpj: string): Promise<CompanyEntity>;
 }

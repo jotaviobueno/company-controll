@@ -37,6 +37,8 @@ export class CompanyAddressCreateUseCase
       companyId: company.id,
     });
 
+    console.log(companyAddress, address);
+
     return companyAddress;
   }
 }
