@@ -84,6 +84,16 @@ type ProductEntity {
   imagesUrl: [String!]!
 }
 
+type StockEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: String!
+  description: String
+  provider: String
+  quantity: Int!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -131,6 +141,7 @@ type Mutation {
   createProduct(createProductInput: CreateProductInput!): ProductEntity!
   updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
   removeProduct(productId: IdInput!): ProductEntity!
+  createStock(createStockInput: CreateStockInput!): StockEntity!
 }
 
 input CreateAccessInput {
@@ -201,4 +212,17 @@ input UpdateProductInput {
   discountPercentage: Int
   imagesUrl: [String!]
   id: String!
+}
+
+input CreateStockInput {
+  type: StockTypeStatus!
+  description: String
+  provider: String
+  quantity: Int!
+  productId: String!
+}
+
+enum StockTypeStatus {
+  INCOME
+  OUTCOME
 }

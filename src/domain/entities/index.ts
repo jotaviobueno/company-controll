@@ -10,3 +10,4 @@ export * from './role-permission/index';
 export * from './permission/index';
 export * from './person-address/index';
 export * from './product/index';
+export * from './stock/index';
