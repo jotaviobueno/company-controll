@@ -153,6 +153,24 @@ model Product {
   createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamp
   updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamp
   deletedAt          DateTime? @map("deleted_at") @db.Timestamp
+  Stock              Stock[]
+}
+
+model Stock {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  type        StockTypeStatus
+  description String?
+  provider    String?
+  quantity    Int
+  product     Product         @relation(fields: [productId], references: [id])
+  productId   String          @map("product_id") @db.ObjectId
+  createdAt   DateTime        @default(now()) @map("created_at") @db.Timestamp
+  updatedAt   DateTime        @default(now()) @map("updated_at") @db.Timestamp
+}
+
+enum StockTypeStatus {
+  INCOME
+  OUTCOME
 }
 
 model CustomerCompany {
