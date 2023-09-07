@@ -11,6 +11,7 @@ import { PersonCompanyModule } from './modules/person-company/person-company.mod
 import { PersonRoleModule } from './modules/person-role/person-role.module';
 import { PersonAddressModule } from './modules/person-address/person-address.module';
 import { ProductModule } from './modules/product/product.module';
+import { CustomerModule } from './modules/customer/customer.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ProductModule } from './modules/product/product.module';
     CompanyAddressModule,
     PersonAddressModule,
     ProductModule,
+    CustomerModule,
   ],
 })
 export class AppModule {}
