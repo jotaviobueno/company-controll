@@ -77,17 +77,19 @@ model PersonRole {
 }
 
 model Company {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  cnpj           String
-  corporateName  String           @map("corporate_name")
-  status         String
-  sector         String?
-  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
-  updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
-  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
-  PersonCompany  PersonCompany[]
-  CompanyAddress CompanyAddress[]
-  Product        Product[]
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  cnpj            String
+  corporateName   String            @map("corporate_name")
+  status          String
+  sector          String?
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamp
+  updatedAt       DateTime          @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt       DateTime?         @map("deleted_at") @db.Timestamp
+  PersonCompany   PersonCompany[]
+  CompanyAddress  CompanyAddress[]
+  Product         Product[]
+  Customer        Customer[]
+  CustomerCompany CustomerCompany[]
 }
 
 model CompanyAddress {
@@ -169,4 +171,28 @@ model Stock {
 enum StockTypeStatus {
   INCOME
   OUTCOME
+}
+
+model CustomerCompany {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  company    Company   @relation(fields: [companyId], references: [id])
+  companyId  String    @map("company_id") @db.ObjectId
+  customer   Customer  @relation(fields: [customerId], references: [id])
+  customerId String    @map("customer_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
+}
+
+model Customer {
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  cpf             String?
+  email           String?
+  company         Company           @relation(fields: [companyId], references: [id])
+  companyId       String            @map("company_id") @db.ObjectId
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamp
+  updatedAt       DateTime          @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt       DateTime?         @map("deleted_at") @db.Timestamp
+  CustomerCompany CustomerCompany[]
 }

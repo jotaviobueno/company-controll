@@ -1,0 +1,52 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { CustomerCompanyResolver } from './customer-company.resolver';
+import { customerCompanyModuleMock } from './customer-company.module';
+import {
+  CustomerCompanyCreateUseCase,
+  CustomerCompanyRemoveUseCase,
+} from './use-cases';
+import {
+  customerCompanyInputMock,
+  customerCompanyMock,
+} from 'src/domain/mocks';
+
+describe('CustomerCompanyResolver', () => {
+  let resolver: CustomerCompanyResolver;
+
+  let createUseCase: CustomerCompanyCreateUseCase;
+  let removeUseCase: CustomerCompanyRemoveUseCase;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule(
+      customerCompanyModuleMock,
+    ).compile();
+
+    resolver = module.get<CustomerCompanyResolver>(CustomerCompanyResolver);
+    createUseCase = module.get<CustomerCompanyCreateUseCase>(
+      CustomerCompanyCreateUseCase,
+    );
+    removeUseCase = module.get<CustomerCompanyRemoveUseCase>(
+      CustomerCompanyRemoveUseCase,
+    );
+  });
+
+  it('should be defined', () => {
+    expect(resolver).toBeDefined();
+  });
+
+  it('should create', async () => {
+    jest.spyOn(createUseCase, 'execute').mockResolvedValue(customerCompanyMock);
+
+    expect(
+      await resolver.createCustomerCompany(customerCompanyInputMock),
+    ).toStrictEqual(customerCompanyMock);
+  });
+
+  it('should remove', async () => {
+    jest.spyOn(removeUseCase, 'execute').mockResolvedValue(true);
+
+    expect(await resolver.removeCustomerCompany({ id: '1' })).toStrictEqual(
+      true,
+    );
+  });
+});
