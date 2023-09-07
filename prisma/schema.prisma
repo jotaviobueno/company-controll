@@ -156,13 +156,14 @@ model Product {
 }
 
 model CustomerCompany {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  company    Company  @relation(fields: [companyId], references: [id])
-  companyId  String   @map("company_id") @db.ObjectId
-  customer   Customer @relation(fields: [customerId], references: [id])
-  customerId String   @map("customer_id") @db.ObjectId
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  company    Company   @relation(fields: [companyId], references: [id])
+  companyId  String    @map("company_id") @db.ObjectId
+  customer   Customer  @relation(fields: [customerId], references: [id])
+  customerId String    @map("customer_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Customer {

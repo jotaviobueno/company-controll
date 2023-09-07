@@ -11,3 +11,4 @@ export * from './role/index';
 export * from './person-address/index';
 export * from './product/index';
 export * from './customer/index';
+export * from './customer-company/index';

@@ -93,6 +93,12 @@ type CustomerEntity {
   email: String
 }
 
+type CustomerCompanyEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -144,6 +150,8 @@ type Mutation {
   removeProduct(productId: IdInput!): ProductEntity!
   updateCustomer(updateCustomerInput: UpdateCustomerInput!): CustomerEntity!
   removeCustomer(customerId: IdInput!): CustomerEntity!
+  createCustomerCompany(CustomerCompanyInput: CustomerCompanyInput!): CustomerCompanyEntity!
+  removeCustomerCompany(customerCompanyId: IdInput!): CustomerCompanyEntity!
 }
 
 input CreateAccessInput {
@@ -222,4 +230,9 @@ input UpdateCustomerInput {
   email: String
   companyId: String
   id: String!
+}
+
+input CustomerCompanyInput {
+  companyId: String!
+  customerId: String!
 }
