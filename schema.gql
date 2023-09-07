@@ -74,6 +74,16 @@ type PersonAddressEntity {
   updatedAt: DateTime!
 }
 
+type ProductEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  unitPrice: Float!
+  discountPercentage: Float
+  imagesUrl: [String!]!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -88,6 +98,8 @@ type Query {
   findOneCompanyAddress(companyAddressId: IdInput!): CompanyAddressEntity!
   findAllPersonAddress(PaginationOptionsInput: PaginationOptionsInput!): [PersonAddressEntity!]!
   findOnePersonAddress(personAddressId: IdInput!): PersonAddressEntity!
+  findAllProduct(PaginationOptionsInput: PaginationOptionsInput!): [ProductEntity!]!
+  findOneProduct(productId: IdInput!): ProductEntity!
 }
 
 input PaginationOptionsInput {
@@ -116,6 +128,9 @@ type Mutation {
   createPersonAddress(personId: IdInput!, createAddressInput: CreateAddressInput!): PersonAddressEntity!
   updatePersonAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): PersonAddressEntity!
   removePersonAddress(personAddressId: IdInput!): PersonAddressEntity!
+  createProduct(createProductInput: CreateProductInput!): ProductEntity!
+  updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
+  removeProduct(productId: IdInput!): ProductEntity!
 }
 
 input CreateAccessInput {
@@ -170,4 +185,20 @@ input CreateAddressInput {
   city: String!
   zipCode: Int!
   state: String!
+}
+
+input CreateProductInput {
+  name: String!
+  unitPrice: Int!
+  discountPercentage: Int
+  imagesUrl: [String!]!
+  companyId: String!
+}
+
+input UpdateProductInput {
+  name: String
+  unitPrice: Int
+  discountPercentage: Int
+  imagesUrl: [String!]
+  id: String!
 }
