@@ -1,11 +1,11 @@
 import {
-  CreateCompanyAddressInput,
-  UpdateCompanyAddressInput,
+  CreateCustomerAddressInput,
+  UpdateCustomerAddressInput,
 } from 'src/domain/dtos';
-import { CompanyAddressEntity } from 'src/domain/entities';
+import { CustomerAddressEntity } from 'src/domain/entities';
 
-export const companyAddressMock: CompanyAddressEntity = {
-  companyId: '1',
+export const customerAddressMock: CustomerAddressEntity = {
+  customerId: '1',
   addressId: '1',
   deletedAt: null,
   id: '1',
@@ -13,11 +13,11 @@ export const companyAddressMock: CompanyAddressEntity = {
   updatedAt: expect.any(Date),
 };
 
-export const createCompanyAddressInputMock: CreateCompanyAddressInput = {
-  companyId: '1',
+export const createCustomerAddressInputMock: CreateCustomerAddressInput = {
+  customerId: '1',
   addressId: '1',
 };
 
-export const updateCompanyAddressInputMock: UpdateCompanyAddressInput = {
+export const updateCustomerAddressInputMock: UpdateCustomerAddressInput = {
   id: '1',
 };
