@@ -39,6 +39,7 @@ model Person {
   PersonCompany PersonCompany[]
   PersonRole    PersonRole[]
   PersonAddress PersonAddress[]
+  Log           Log[]
 }
 
 model PersonCompany {
@@ -52,18 +53,19 @@ model PersonCompany {
 }
 
 model Address {
-  id             String           @id @default(auto()) @map("_id") @db.ObjectId
-  street         String
-  number         String
-  neighborhood   String
-  city           String
-  zipCode        Int              @map("zip_code")
-  state          String
-  createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
-  updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
-  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
-  CompanyAddress CompanyAddress[]
-  PersonAddress  PersonAddress[]
+  id              String            @id @default(auto()) @map("_id") @db.ObjectId
+  street          String
+  number          String
+  neighborhood    String
+  city            String
+  zipCode         Int               @map("zip_code")
+  state           String
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamp
+  updatedAt       DateTime          @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt       DateTime?         @map("deleted_at") @db.Timestamp
+  CompanyAddress  CompanyAddress[]
+  PersonAddress   PersonAddress[]
+  CustomerAddress CustomerAddress[]
 }
 
 model PersonRole {
@@ -195,4 +197,27 @@ model Customer {
   updatedAt       DateTime          @default(now()) @map("updated_at") @db.Timestamp
   deletedAt       DateTime?         @map("deleted_at") @db.Timestamp
   CustomerCompany CustomerCompany[]
+  CustomerAddress CustomerAddress[]
+}
+
+model CustomerAddress {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  address    Address   @relation(fields: [addressId], references: [id])
+  addressId  String    @map("address_id") @db.ObjectId
+  customer   Customer  @relation(fields: [customerId], references: [id])
+  customerId String    @map("customer_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
+}
+
+model Log {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  modelName String?  @map("model_name") @db.String
+  person    Person?  @relation(fields: [personId], references: [id])
+  personId  String?  @map("person_id") @db.ObjectId
+  action    String
+  oldValue  Json?    @map("old_value")
+  newValue  Json     @map("new_value")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
 }

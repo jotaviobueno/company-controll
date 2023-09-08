@@ -84,38 +84,57 @@ type ProductEntity {
   imagesUrl: [String!]!
 }
 
+type CustomerEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  cpf: String
+  email: String
+}
+
+type CustomerCompanyEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type StockEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  type: String!
+  description: String
+  provider: String
+  quantity: Int!
+}
+
+type CustomerAddressEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   whoAmI: PersonEntity!
-  findAllPerson(
-    PaginationOptionsInput: PaginationOptionsInput!
-  ): [PersonEntity!]!
+  findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
   findOnePerson(personId: IdInput!): PersonEntity!
   findAllRoles(paginationOptionsInput: PaginationOptionsInput!): [RoleEntity!]!
   findOneRole(roleId: IdInput!): RoleEntity!
-  findAllCompany(
-    paginationOptionsInput: PaginationOptionsInput!
-  ): [CompanyEntity!]!
+  findAllCompany(paginationOptionsInput: PaginationOptionsInput!): [CompanyEntity!]!
   findOneCompany(companyId: IdInput!): CompanyEntity!
-  findAllPersonCompany(
-    PaginationOptionsInput: PaginationOptionsInput!
-  ): [PersonCompanyEntity!]!
+  findAllPersonCompany(PaginationOptionsInput: PaginationOptionsInput!): [PersonCompanyEntity!]!
   findOnePersonCompany(personCompanyId: IdInput!): PersonCompanyEntity!
-  findAllCompanyAddress(
-    PaginationOptionsInput: PaginationOptionsInput!
-  ): [CompanyAddressEntity!]!
+  findAllCompanyAddress(PaginationOptionsInput: PaginationOptionsInput!): [CompanyAddressEntity!]!
   findOneCompanyAddress(companyAddressId: IdInput!): CompanyAddressEntity!
-  findAllPersonAddress(
-    PaginationOptionsInput: PaginationOptionsInput!
-  ): [PersonAddressEntity!]!
+  findAllPersonAddress(PaginationOptionsInput: PaginationOptionsInput!): [PersonAddressEntity!]!
   findOnePersonAddress(personAddressId: IdInput!): PersonAddressEntity!
-  findAllProduct(
-    PaginationOptionsInput: PaginationOptionsInput!
-  ): [ProductEntity!]!
+  findAllProduct(PaginationOptionsInput: PaginationOptionsInput!): [ProductEntity!]!
   findOneProduct(productId: IdInput!): ProductEntity!
-  findAllCustomer(
-    PaginationOptionsInput: PaginationOptionsInput!
-  ): [CustomerEntity!]!
+  findAllCustomer(PaginationOptionsInput: PaginationOptionsInput!): [CustomerEntity!]!
   findOneCustomer(customerId: IdInput!): CustomerEntity!
+  findAllCustomerAddress(paginationOptionsInput: PaginationOptionsInput!): [CustomerAddressEntity!]!
+  findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
 }
 
 input PaginationOptionsInput {
@@ -138,27 +157,23 @@ type Mutation {
   createCompany(createCompanyInput: CreateCompanyInput!): CompanyEntity!
   updateCompany(updateCompanyInput: UpdateCompanyInput!): CompanyEntity!
   removeCompany(companyId: IdInput!): Boolean!
-  createCompanyAddress(
-    companyId: IdInput!
-    createAddressInput: CreateAddressInput!
-  ): CompanyAddressEntity!
-  updateCompanyAddress(
-    companyId: IdInput!
-    updateAddressInput: CreateAddressInput!
-  ): CompanyAddressEntity!
+  createCompanyAddress(companyId: IdInput!, createAddressInput: CreateAddressInput!): CompanyAddressEntity!
+  updateCompanyAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): CompanyAddressEntity!
   removeCompanyAddress(companyAddressId: IdInput!): Boolean!
-  createPersonAddress(
-    personId: IdInput!
-    createAddressInput: CreateAddressInput!
-  ): PersonAddressEntity!
-  updatePersonAddress(
-    companyId: IdInput!
-    updateAddressInput: CreateAddressInput!
-  ): PersonAddressEntity!
+  createPersonAddress(personId: IdInput!, createAddressInput: CreateAddressInput!): PersonAddressEntity!
+  updatePersonAddress(companyId: IdInput!, updateAddressInput: CreateAddressInput!): PersonAddressEntity!
   removePersonAddress(personAddressId: IdInput!): PersonAddressEntity!
   createProduct(createProductInput: CreateProductInput!): ProductEntity!
   updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
   removeProduct(productId: IdInput!): ProductEntity!
+  updateCustomer(updateCustomerInput: UpdateCustomerInput!): CustomerEntity!
+  removeCustomer(customerId: IdInput!): CustomerEntity!
+  createCustomerCompany(CustomerCompanyInput: CustomerCompanyInput!): CustomerCompanyEntity!
+  removeCustomerCompany(customerCompanyId: IdInput!): CustomerCompanyEntity!
+  createStock(createStockInput: CreateStockInput!): StockEntity!
+  createCustomerAddress(createCustomerAddressInput: CreateAddressInput!, customerId: IdInput!): CustomerAddressEntity!
+  updateCustomerAddress(updateCustomerAddressInput: UpdateCustomerAddressInput!): CustomerAddressEntity!
+  removeCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
 }
 
 input CreateAccessInput {
@@ -228,5 +243,41 @@ input UpdateProductInput {
   unitPrice: Int
   discountPercentage: Int
   imagesUrl: [String!]
+  id: String!
+}
+
+input UpdateCustomerInput {
+  name: String
+  cpf: String
+  email: String
+  companyId: String
+  id: String!
+}
+
+input CustomerCompanyInput {
+  companyId: String!
+  customerId: String!
+}
+
+input CreateStockInput {
+  type: StockTypeStatus!
+  description: String
+  provider: String
+  quantity: Int!
+  productId: String!
+}
+
+enum StockTypeStatus {
+  INCOME
+  OUTCOME
+}
+
+input UpdateCustomerAddressInput {
+  street: String
+  number: String
+  neighborhood: String
+  city: String
+  zipCode: Int
+  state: String
   id: String!
 }
