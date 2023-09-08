@@ -39,6 +39,7 @@ model Person {
   PersonCompany PersonCompany[]
   PersonRole    PersonRole[]
   PersonAddress PersonAddress[]
+  Log           Log[]
 }
 
 model PersonCompany {
@@ -208,4 +209,15 @@ model CustomerAddress {
   createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
   updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
   deletedAt  DateTime? @map("deleted_at") @db.Timestamp
+}
+
+model Log {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  modelName String?  @map("model_name") @db.String
+  person    Person?  @relation(fields: [personId], references: [id])
+  personId  String?  @map("person_id") @db.ObjectId
+  action    String
+  oldValue  Json?    @map("old_value")
+  newValue  Json     @map("new_value")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
 }
