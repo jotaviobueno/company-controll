@@ -5,7 +5,11 @@ import {
   CreatePaymentNotificationDto,
   CustomerCompanyInput,
 } from 'src/domain/dtos';
-import { INVOICE_PAYMENT_TYPE, INVOICE_STATUS } from 'src/domain/enums';
+import {
+  INVOICE_PAYMENT_TYPE,
+  INVOICE_STATUS,
+  STOCK_TYPE_STATUS,
+} from 'src/domain/enums';
 import { MercadoPago } from 'src/domain/utils';
 import { CustomerCompanyCreateManyUseCase } from 'src/modules/customer-company/use-cases';
 import {
@@ -25,6 +29,7 @@ import {
   PaymentFindByPaymentIdUseCase,
 } from 'src/modules/payment/use-cases';
 import { ProductFindManyWithIdsUseCase } from 'src/modules/product/use-cases';
+import { StockHandlerUseCase } from 'src/modules/stock/use-cases';
 
 @Injectable()
 export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
@@ -42,6 +47,7 @@ export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
     private readonly customerCompanyCreateManyUseCase: CustomerCompanyCreateManyUseCase,
     private readonly invoiceCustomerCreateUseCase: InvoiceCustomerCreateUseCase,
     private readonly paymentNotificationFindByPaymentIdUseCase: PaymentNotificationFindByPaymentIdUseCase,
+    private readonly stockHandlerUseCase: StockHandlerUseCase,
   ) {}
 
   async execute(data: any): Promise<boolean> {
@@ -57,7 +63,7 @@ export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
 
       let finalPrice = 0;
 
-      (response.additional_info.items as any).forEach(
+      const items = (response.additional_info.items as any).map(
         ({ id, ...item }) => (
           (finalPrice += +item.unit_price),
           {
@@ -168,8 +174,22 @@ export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
         customerId: customer.id,
       });
 
+      console.log(items);
+
+      // TODO: ARRUMAR AQUI, RETIRADA DE STOCK APOS A VENDA
+      // AO EMITIR UM PREFERENCES VERIFICAR SE O PRODUTO TEM ESTOQUE ANTES DE EMITIR
+      items.forEach(async (item) => {
+        await this.stockHandlerUseCase.execute({
+          productId: item.productId,
+          quantity: +item.quantity,
+          type: STOCK_TYPE_STATUS.OUTCOME,
+        });
+      });
+
       return true;
     } catch (e) {
+      console.log(e);
+
       Logger.debug('FAILED TO HANDLE PAYMENT NOTIFICATION', e.message);
 
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);

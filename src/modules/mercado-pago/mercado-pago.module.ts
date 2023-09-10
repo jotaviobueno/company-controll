@@ -16,6 +16,7 @@ import { InvoiceProductModule } from '../invoice-product/invoice-product.module'
 import { InvoiceCompanyModule } from '../invoice-company/invoice-company.module';
 import { InvoiceCustomerModule } from '../invoice-customer/invoice-customer.module';
 import { CustomerCompanyModule } from '../customer-company/customer-company.module';
+import { StockModule } from '../stock/stock.module';
 
 export const mercadoPagoModuleMock: ModuleMetadata = {
   imports: [
@@ -29,6 +30,7 @@ export const mercadoPagoModuleMock: ModuleMetadata = {
     InvoiceProductModule,
     InvoiceCompanyModule,
     InvoiceCustomerModule,
+    StockModule,
   ],
   controllers: [MercadoPagoController],
   providers: [

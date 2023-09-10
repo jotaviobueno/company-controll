@@ -16,6 +16,8 @@ export class StockHandlerUseCase
   ) {}
 
   async execute(data: CreateStockInput): Promise<StockEntity> {
+    console.log(data);
+
     switch (data.type) {
       case STOCK_TYPE_STATUS.INCOME:
         return this.stockCreateIncomeUseCase.execute(data);
