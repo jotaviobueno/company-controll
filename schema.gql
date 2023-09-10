@@ -134,6 +134,13 @@ type InvoiceEntity {
   finalPrice: Int!
 }
 
+type PricingGroupEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -156,6 +163,8 @@ type Query {
   findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
   findAll(paginationOptionsInput: PaginationOptionsInput!): [InvoiceEntity!]!
   findOne(invoiceId: IdInput!): InvoiceEntity!
+  findAllPricingGroup(PaginationOptionsInput: PaginationOptionsInput!): [PricingGroupEntity!]!
+  findOnePricingGroup(pricingGroupId: IdInput!): PricingGroupEntity!
 }
 
 input PaginationOptionsInput {
@@ -196,6 +205,9 @@ type Mutation {
   updateCustomerAddress(updateCustomerAddressInput: UpdateCustomerAddressInput!): CustomerAddressEntity!
   removeCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
   createInvoice(createInvoiceInput: CreateInvoiceInput!): InvoiceEntity!
+  createPricingGroup(createPricingGroupInput: CreatePricingGroupInput!): PricingGroupEntity!
+  updatePricingGroup(updatePricingGroupInput: UpdatePricingGroupInput!): PricingGroupEntity!
+  removePricingGroup(pricingGroupId: IdInput!): PricingGroupEntity!
 }
 
 input CreateAccessInput {
@@ -305,4 +317,13 @@ input UpdateCustomerAddressInput {
 
 input CreateInvoiceInput {
   operation: String!
+}
+
+input CreatePricingGroupInput {
+  name: String!
+}
+
+input UpdatePricingGroupInput {
+  name: String
+  id: String!
 }

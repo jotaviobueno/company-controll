@@ -22,3 +22,4 @@ export * from './payment/index';
 export * from './invoice-product/index';
 export * from './invoice-company/index';
 export * from './invoice-customer/index';
+export * from './pricing-group/index';

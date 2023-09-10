@@ -221,6 +221,7 @@ model Log {
   oldValue  Json?    @map("old_value")
   newValue  Json     @map("new_value")
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
 
 model PaymentNotification {
@@ -281,6 +282,7 @@ enum FinanceStatus {
   PENDING
 }
 
+// TODO: ISSO NÃO FOI IMPLEMENTADO
 model InvoicePerson {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   person    Person   @relation(fields: [personId], references: [id])
@@ -321,6 +323,7 @@ model InvoiceProduct {
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
 
+// TODO: ISSO NÃO FOI IMPLEMENTADO
 model InvoicePricingGroup {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
   invoiceId      String       @map("invoice_id") @db.ObjectId
@@ -364,6 +367,9 @@ model Invoice {
 model PricingGroup {
   id                  String                @id @default(auto()) @map("_id") @db.ObjectId
   name                String                @unique
+  createdAt           DateTime              @default(now()) @map("created_at") @db.Timestamp
+  updatedAt           DateTime              @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt           DateTime?             @map("deleted_at") @db.Timestamp
   InvoicePricingGroup InvoicePricingGroup[]
 }
 
