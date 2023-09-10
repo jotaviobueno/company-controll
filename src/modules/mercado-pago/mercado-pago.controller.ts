@@ -13,8 +13,6 @@ export class MercadoPagoController {
 
   @Post()
   create(@Body() body: any, @Query() query: any) {
-    console.log(body, query);
-
     return this.mercadoPagoHandlerUseCase.execute({ ...body, ...query });
   }
 
@@ -22,9 +20,4 @@ export class MercadoPagoController {
   preferences() {
     return this.mercadoPagoPreferencesUseCase.execute();
   }
-
-  // @Get(':id')
-  // findPayment(@Param('id') id: string) {
-  //   return this.mercadopagoService.findPayment(id);
-  // }
 }

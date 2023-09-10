@@ -10,8 +10,10 @@ export class InvoiceCustomerRepository
   constructor(private readonly prismaService: PrismaService) {}
 
   create(createDto: CreateInvoiceCustomerDto): Promise<any> {
-    return this.prismaService.invoiceCustomer.createMany({
-      data: createDto,
+    return this.prismaService.invoiceCustomer.create({
+      data: {
+        ...createDto,
+      },
     });
   }
 }

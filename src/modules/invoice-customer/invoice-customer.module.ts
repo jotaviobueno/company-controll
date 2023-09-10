@@ -4,8 +4,12 @@ import {
   InvoiceCustomerRepository,
 } from 'src/repositories/invoice-customer';
 import { InvoiceCustomerCreateUseCase } from './use-cases';
+import { PrismaModule } from 'src/db/prisma.module';
 
-@Module({
+// TODO: Criar testes nesse module
+
+export const invoiceCustomerModuleMock = {
+  imports: [PrismaModule],
   providers: [
     {
       provide: IInvoiceCustomerRepository,
@@ -14,5 +18,7 @@ import { InvoiceCustomerCreateUseCase } from './use-cases';
     InvoiceCustomerCreateUseCase,
   ],
   exports: [InvoiceCustomerCreateUseCase],
-})
+};
+
+@Module(invoiceCustomerModuleMock)
 export class InvoiceCustomerModule {}

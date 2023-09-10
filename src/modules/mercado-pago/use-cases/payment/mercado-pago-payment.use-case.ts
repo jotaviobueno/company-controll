@@ -174,8 +174,6 @@ export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
         customerId: customer.id,
       });
 
-      console.log(items);
-
       // TODO: ARRUMAR AQUI, RETIRADA DE STOCK APOS A VENDA
       // AO EMITIR UM PREFERENCES VERIFICAR SE O PRODUTO TEM ESTOQUE ANTES DE EMITIR
       items.forEach(async (item) => {
@@ -188,8 +186,6 @@ export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
 
       return true;
     } catch (e) {
-      console.log(e);
-
       Logger.debug('FAILED TO HANDLE PAYMENT NOTIFICATION', e.message);
 
       throw new HttpException(e.message, HttpStatus.BAD_REQUEST);

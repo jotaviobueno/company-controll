@@ -8,9 +8,11 @@ import { IInvoiceCustomerRepository } from 'src/repositories/invoice-customer';
 export class InvoiceCustomerCreateUseCase
   implements IBaseUseCase<CreateInvoiceCustomerDto, InvoiceCustomerEntity>
 {
-  constructor(private readonly invoiceRepository: IInvoiceCustomerRepository) {}
+  constructor(
+    private readonly invoiceCustomerRepository: IInvoiceCustomerRepository,
+  ) {}
 
   execute(data: CreateInvoiceCustomerDto): Promise<InvoiceCustomerEntity> {
-    return this.invoiceRepository.create(data);
+    return this.invoiceCustomerRepository.create(data);
   }
 }

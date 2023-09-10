@@ -207,7 +207,7 @@ type Mutation {
   createInvoice(createInvoiceInput: CreateInvoiceInput!): InvoiceEntity!
   createPricingGroup(createPricingGroupInput: CreatePricingGroupInput!): PricingGroupEntity!
   updatePricingGroup(updatePricingGroupInput: UpdatePricingGroupInput!): PricingGroupEntity!
-  removePricingGroup(pricingGroupId: IdInput!): PricingGroupEntity!
+  removePricingGroup(pricingGroupId: IdInput!): Boolean!
 }
 
 input CreateAccessInput {
@@ -316,7 +316,31 @@ input UpdateCustomerAddressInput {
 }
 
 input CreateInvoiceInput {
-  operation: String!
+  operation: String
+  description: String
+  paymentType: InvoicePaymentType!
+  status: InvoiceStatusEnum
+  quantity: Int
+  unitPrice: Int
+  totalAfterInstallment: Int
+  totalInstallments: Int
+  lastInstallment: Int
+  discountPercentage: Int
+  discountMoney: Int
+  priceBeforeDiscount: Int
+  finalPrice: Int!
+}
+
+enum InvoicePaymentType {
+  INCOME
+  OUTCOME
+}
+
+enum InvoiceStatusEnum {
+  OPEN
+  PAID
+  CANCEL
+  PENDING
 }
 
 input CreatePricingGroupInput {

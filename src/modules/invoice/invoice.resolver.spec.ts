@@ -1,14 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { InvoiceResolver } from './invoice.resolver';
-import { InvoiceService } from './invoice.service';
+import { invoiceModuleMock } from './invoice.module';
 
 describe('InvoiceResolver', () => {
   let resolver: InvoiceResolver;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [InvoiceResolver, InvoiceService],
-    }).compile();
+    const module: TestingModule =
+      await Test.createTestingModule(invoiceModuleMock).compile();
 
     resolver = module.get<InvoiceResolver>(InvoiceResolver);
   });

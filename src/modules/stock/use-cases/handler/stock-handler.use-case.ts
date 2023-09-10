@@ -6,6 +6,8 @@ import { STOCK_TYPE_STATUS } from 'src/domain/enums';
 import { StockCreateOutcomeUseCase } from '../create-outcome';
 import { StockCreateIncomeUseCase } from '../create-income';
 
+// TODO: Criar os nesse arquivo module
+
 @Injectable()
 export class StockHandlerUseCase
   implements IBaseUseCase<CreateStockInput, StockEntity>
@@ -16,8 +18,6 @@ export class StockHandlerUseCase
   ) {}
 
   async execute(data: CreateStockInput): Promise<StockEntity> {
-    console.log(data);
-
     switch (data.type) {
       case STOCK_TYPE_STATUS.INCOME:
         return this.stockCreateIncomeUseCase.execute(data);

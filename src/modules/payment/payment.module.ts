@@ -7,8 +7,10 @@ import {
   PaymentCreateUseCase,
   PaymentFindByPaymentIdUseCase,
 } from './use-cases';
+import { PrismaModule } from 'src/db/prisma.module';
 
-@Module({
+export const paymentModuleMock = {
+  imports: [PrismaModule],
   providers: [
     PaymentCreateUseCase,
     PaymentFindByPaymentIdUseCase,
@@ -18,5 +20,7 @@ import {
     },
   ],
   exports: [PaymentCreateUseCase, PaymentFindByPaymentIdUseCase],
-})
+};
+
+@Module(paymentModuleMock)
 export class PaymentModule {}

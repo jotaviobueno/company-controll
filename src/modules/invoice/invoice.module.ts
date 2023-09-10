@@ -17,6 +17,8 @@ import { PersonModule } from '../person/person.module';
 import { CustomerModule } from '../customer/customer.module';
 import { FinanceModule } from '../finance/finance.module';
 
+// TODO: Criar testes nesse module
+
 export const invoiceModuleMock: ModuleMetadata = {
   imports: [
     PrismaModule,

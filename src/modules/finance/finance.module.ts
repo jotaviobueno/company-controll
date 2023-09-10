@@ -8,6 +8,8 @@ import {
 import { PrismaModule } from 'src/db/prisma.module';
 import { FinanceController } from './finance.controller';
 
+// TODO: Criar testes nesse module
+
 export const financeModuleMock: ModuleMetadata = {
   imports: [PrismaModule],
   controllers: [FinanceController],

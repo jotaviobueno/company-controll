@@ -18,6 +18,8 @@ export class MercadoPago {
   preferences() {
     return mercadopago.preferences.create({
       notification_url: `${environment.MERCADOPAGO_CALLBACK}/mercado-pago`,
+      // TODO: Deixar isso de outra forma
+
       items: [
         {
           id: '64f8b82a51d639a95bdecf87',

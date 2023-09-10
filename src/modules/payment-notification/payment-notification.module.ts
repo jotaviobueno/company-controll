@@ -7,8 +7,10 @@ import {
   PaymentNotificationCreateUseCase,
   PaymentNotificationFindByPaymentIdUseCase,
 } from './use-cases';
+import { PrismaModule } from 'src/db/prisma.module';
 
-export const mercadoPagoModuleMock = {
+export const paymentNotificationModuleMock = {
+  imports: [PrismaModule],
   providers: [
     {
       provide: IPaymentNotificationRepository,
@@ -23,5 +25,5 @@ export const mercadoPagoModuleMock = {
   ],
 };
 
-@Module(mercadoPagoModuleMock)
+@Module(paymentNotificationModuleMock)
 export class PaymentNotificationModule {}

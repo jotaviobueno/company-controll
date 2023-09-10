@@ -53,7 +53,7 @@ export class PricingGroupResolver {
     return this.updateUseCase.execute(updatePricingGroupInput);
   }
 
-  @Mutation(() => PricingGroupEntity)
+  @Mutation(() => Boolean)
   removePricingGroup(@Args('pricingGroupId') { id }: IdInput) {
     return this.softDeleteUseCase.execute(id);
   }

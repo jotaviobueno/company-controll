@@ -1,1 +1,1 @@
-export * from './customer-create.use-case';
+export * from './customer-simple-create.use-case';

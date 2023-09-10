@@ -1,1 +1,1 @@
-export * from './invoice-customer-create-many.use-case';
+export * from './invoice-customer-create.use-case';
