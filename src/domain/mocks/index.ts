@@ -21,3 +21,4 @@ export * from './invoice-customer/index';
 export * from './invoice-company/index';
 export * from './invoice/index';
 export * from './finance/index';
+export * from './invoice-pricing-group/index';

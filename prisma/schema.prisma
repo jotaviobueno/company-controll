@@ -323,7 +323,6 @@ model InvoiceProduct {
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
 
-// TODO: ISSO NÃO FOI IMPLEMENTADO
 model InvoicePricingGroup {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
   invoiceId      String       @map("invoice_id") @db.ObjectId
