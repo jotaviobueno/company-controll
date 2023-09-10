@@ -40,6 +40,7 @@ model Person {
   PersonRole    PersonRole[]
   PersonAddress PersonAddress[]
   Log           Log[]
+  InvoicePerson InvoicePerson[]
 }
 
 model PersonCompany {
@@ -90,8 +91,8 @@ model Company {
   PersonCompany   PersonCompany[]
   CompanyAddress  CompanyAddress[]
   Product         Product[]
-  Customer        Customer[]
   CustomerCompany CustomerCompany[]
+  InvoiceCompany  InvoiceCompany[]
 }
 
 model CompanyAddress {
@@ -145,17 +146,18 @@ model Permission {
 }
 
 model Product {
-  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  id                 String           @id @default(auto()) @map("_id") @db.ObjectId
   name               String
   unitPrice          Int
-  discountPercentage Int?      @map("discount_percentage")
-  imagesUrl          String[]  @default([]) @map("images_url")
-  company            Company   @relation(fields: [companyId], references: [id])
-  companyId          String    @map("company_id") @db.ObjectId
-  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamp
-  updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamp
-  deletedAt          DateTime? @map("deleted_at") @db.Timestamp
+  discountPercentage Int?             @map("discount_percentage")
+  imagesUrl          String[]         @default([]) @map("images_url")
+  company            Company          @relation(fields: [companyId], references: [id])
+  companyId          String           @map("company_id") @db.ObjectId
+  createdAt          DateTime         @default(now()) @map("created_at") @db.Timestamp
+  updatedAt          DateTime         @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt          DateTime?        @map("deleted_at") @db.Timestamp
   Stock              Stock[]
+  InvoiceProduct     InvoiceProduct[]
 }
 
 model Stock {
@@ -191,13 +193,12 @@ model Customer {
   name            String
   cpf             String?
   email           String?
-  company         Company           @relation(fields: [companyId], references: [id])
-  companyId       String            @map("company_id") @db.ObjectId
   createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamp
   updatedAt       DateTime          @default(now()) @map("updated_at") @db.Timestamp
   deletedAt       DateTime?         @map("deleted_at") @db.Timestamp
   CustomerCompany CustomerCompany[]
   CustomerAddress CustomerAddress[]
+  InvoiceCustomer InvoiceCustomer[]
 }
 
 model CustomerAddress {
@@ -220,4 +221,158 @@ model Log {
   oldValue  Json?    @map("old_value")
   newValue  Json     @map("new_value")
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+}
+
+model PaymentNotification {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  action            String?
+  resource          String?
+  topic             String?
+  apiVersion        String?  @map("api_version")
+  transferId        String?  @map("transfer_id")
+  genericId         String?  @map("generic_id")
+  paymentId         String?  @map("payment_id")
+  mercadoPagoUserId String?  @map("mercado_pago_user_id")
+  liveMode          Boolean? @map("live_mode")
+  type              String?
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt         DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model Finance {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId String?  @map("invoice_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model Payment {
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  status             String
+  statusDetail       String    @map("status_detail")
+  operationType      String    @map("operation_type")
+  paymentId          String    @map("payment_id")
+  brand              String
+  method             String
+  cardFirstSixDigits String?   @map("card_first_six_digits")
+  cardLastFourDigits String?   @map("card_last_four_digits")
+  currency           String
+  fees               Json[]    @default([])
+  amount             Int       @map("amount")
+  installmentAmount  Int       @map("installment_ammount")
+  totalPaidWithFees  Int       @map("total_paid_with_fees")
+  invoice            Invoice   @relation(fields: [invoiceId], references: [id])
+  invoiceId          String    @map("invoice_id") @db.ObjectId
+  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  approvedAt         DateTime? @map("approved_at") @db.Timestamp
+}
+
+enum PaymentType {
+  INCOME
+  OUTCOME
+}
+
+enum FinanceStatus {
+  OPEN
+  PAID
+  CANCEL
+  PENDING
+}
+
+model InvoicePerson {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person   @relation(fields: [personId], references: [id])
+  personId  String   @map("person_id") @db.ObjectId
+  invoiceId String   @map("invoice_id") @db.ObjectId
+  Invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model InvoiceCustomer {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId  String   @map("invoice_id") @db.ObjectId
+  Invoice    Invoice  @relation(fields: [invoiceId], references: [id])
+  customer   Customer @relation(fields: [customerId], references: [id])
+  customerId String   @map("customer_id") @db.ObjectId
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model InvoiceCompany {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId String   @map("invoice_id") @db.ObjectId
+  Invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId String   @map("company_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model InvoiceProduct {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId String   @map("invoice_id") @db.ObjectId
+  Invoice   Invoice  @relation(fields: [invoiceId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String   @map("product_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model InvoicePricingGroup {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId      String       @map("invoice_id") @db.ObjectId
+  Invoice        Invoice      @relation(fields: [invoiceId], references: [id])
+  pricingGroup   PricingGroup @relation(fields: [pricingGroupId], references: [id])
+  pricingGroupId String       @map("pricing_group_id") @db.ObjectId
+  createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamp
+  updatedAt      DateTime     @default(now()) @map("updated_at") @db.Timestamp
+}
+
+model Invoice {
+  id                    String                @id @default(auto()) @map("_id") @db.ObjectId
+  operation             String?
+  description           String?
+  paymentType           PaymentType           @map("payment_type")
+  status                FinanceStatus?
+  quantity              Int?
+  unitPrice             Int?                  @map("unit_price")
+  // 
+  totalAfterInstallment Int?                  @map("total_after_installment")
+  totalInstallments     Int?                  @map("total_installments")
+  lastInstallment       Float?                @map("last_installment")
+  // 
+  discountPercentage    Int?                  @map("discount_percentage")
+  discountMoney         Int?                  @map("discount_money")
+  priceBeforeDiscount   Int?                  @map("price_before_discount")
+  finalPrice            Int                   @map("final_price")
+  //
+  createdAt             DateTime              @default(now()) @map("created_at") @db.Timestamp
+  updatedAt             DateTime              @default(now()) @map("updated_at") @db.Timestamp
+  Finance               Finance[]
+  Installment           Installment[]
+  Payment               Payment[]
+  InvoicePerson         InvoicePerson[]
+  InvoiceCustomer       InvoiceCustomer[]
+  InvoiceCompany        InvoiceCompany[]
+  InvoicePricingGroup   InvoicePricingGroup[]
+  InvoiceProduct        InvoiceProduct[]
+}
+
+model PricingGroup {
+  id                  String                @id @default(auto()) @map("_id") @db.ObjectId
+  name                String                @unique
+  InvoicePricingGroup InvoicePricingGroup[]
+}
+
+model Installment {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  status      FinanceStatus
+  invoice     Invoice       @relation(fields: [invoiceId], references: [id])
+  invoiceId   String        @map("invoice_id") @db.ObjectId
+  value       Float
+  issuedDate  DateTime      @default(now()) @map("issued_date") @db.Timestamp
+  paymentDate DateTime?     @map("payment_date") @db.Timestamp
 }

@@ -21,6 +21,16 @@ export class ProductRepository implements Partial<IProductRepository> {
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<ProductEntity[]> {
+    return this.prismaService.product.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findById(id: string): Promise<ProductEntity> {
     return this.prismaService.product.findFirst({
       where: {

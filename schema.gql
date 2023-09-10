@@ -115,6 +115,25 @@ type CustomerAddressEntity {
   updatedAt: DateTime!
 }
 
+type InvoiceEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  operation: String
+  description: String
+  paymentType: String
+  status: String
+  quantity: Int
+  unitPrice: Int
+  totalAfterInstallment: Int
+  totalInstallments: Int
+  lastInstallment: Int
+  discountPercentage: Int
+  discountMoney: Int
+  priceBeforeDiscount: Int
+  finalPrice: Int!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -135,6 +154,8 @@ type Query {
   findOneCustomer(customerId: IdInput!): CustomerEntity!
   findAllCustomerAddress(paginationOptionsInput: PaginationOptionsInput!): [CustomerAddressEntity!]!
   findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
+  findAll(paginationOptionsInput: PaginationOptionsInput!): [InvoiceEntity!]!
+  findOne(invoiceId: IdInput!): InvoiceEntity!
 }
 
 input PaginationOptionsInput {
@@ -174,6 +195,7 @@ type Mutation {
   createCustomerAddress(createCustomerAddressInput: CreateAddressInput!, customerId: IdInput!): CustomerAddressEntity!
   updateCustomerAddress(updateCustomerAddressInput: UpdateCustomerAddressInput!): CustomerAddressEntity!
   removeCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
+  createInvoice(createInvoiceInput: CreateInvoiceInput!): InvoiceEntity!
 }
 
 input CreateAccessInput {
@@ -250,7 +272,6 @@ input UpdateCustomerInput {
   name: String
   cpf: String
   email: String
-  companyId: String
   id: String!
 }
 
@@ -280,4 +301,8 @@ input UpdateCustomerAddressInput {
   zipCode: Int
   state: String
   id: String!
+}
+
+input CreateInvoiceInput {
+  operation: String!
 }

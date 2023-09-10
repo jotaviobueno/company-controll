@@ -19,6 +19,12 @@ export class CustomerCompanyRepository
     });
   }
 
+  createMany(createDto: CustomerCompanyInput[]): Promise<any> {
+    return this.prismaService.customerCompany.createMany({
+      data: createDto,
+    });
+  }
+
   findById(id: string): Promise<CustomerCompanyEntity> {
     return this.prismaService.customerCompany.findFirst({
       where: {

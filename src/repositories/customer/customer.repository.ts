@@ -21,6 +21,15 @@ export class CustomerRepository implements Partial<ICustomerRepository> {
     });
   }
 
+  createMany(createDto: CreateCustomerInput[]): Promise<any> {
+    return this.prismaService.customer.createMany({
+      data: {
+        ...createDto,
+        deletedAt: null,
+      },
+    });
+  }
+
   findAll({
     page,
     per_page,

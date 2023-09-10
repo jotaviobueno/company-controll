@@ -15,6 +15,13 @@ import { CustomerModule } from './modules/customer/customer.module';
 import { CustomerCompanyModule } from './modules/customer-company/customer-company.module';
 import { StockModule } from './modules/stock/stock.module';
 import { CustomerAddressModule } from './modules/customer-address/customer-address.module';
+import { MercadoPagoModule } from './modules/mercado-pago/mercado-pago.module';
+import { InvoiceModule } from './modules/invoice/invoice.module';
+import { FinanceModule } from './modules/finance/finance.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { InvoiceProductModule } from './modules/invoice-product/invoice-product.module';
+import { InvoiceCompanyModule } from './modules/invoice-company/invoice-company.module';
+import { InvoiceCustomerModule } from './modules/invoice-customer/invoice-customer.module';
 
 @Module({
   imports: [
@@ -34,6 +41,13 @@ import { CustomerAddressModule } from './modules/customer-address/customer-addre
     CustomerCompanyModule,
     StockModule,
     CustomerAddressModule,
+    MercadoPagoModule,
+    InvoiceModule,
+    FinanceModule,
+    PaymentModule,
+    InvoiceProductModule,
+    InvoiceCompanyModule,
+    InvoiceCustomerModule,
   ],
 })
 export class AppModule {}

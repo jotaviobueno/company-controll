@@ -3,19 +3,20 @@ import { CustomerResolver } from './customer.resolver';
 import {
   CustomerCreateUseCase,
   CustomerFindAllUseCase,
+  CustomerFindByCpfUseCase,
   CustomerFindOneUseCase,
+  CustomerSimpleCreateUseCase,
   CustomerSoftDeleteUseCase,
   CustomerUpdateUseCase,
 } from './use-cases';
 import { PrismaModule } from 'src/db/prisma.module';
-import { CompanyModule } from '../company/company.module';
 import {
   CustomerRepository,
   ICustomerRepository,
 } from 'src/repositories/customer';
 
 export const customerModuleMock: ModuleMetadata = {
-  imports: [PrismaModule, CompanyModule],
+  imports: [PrismaModule],
   providers: [
     CustomerResolver,
     CustomerCreateUseCase,
@@ -23,9 +24,15 @@ export const customerModuleMock: ModuleMetadata = {
     CustomerFindOneUseCase,
     CustomerUpdateUseCase,
     CustomerSoftDeleteUseCase,
+    CustomerFindByCpfUseCase,
+    CustomerSimpleCreateUseCase,
     { provide: ICustomerRepository, useClass: CustomerRepository },
   ],
-  exports: [CustomerCreateUseCase, CustomerFindOneUseCase],
+  exports: [
+    CustomerSimpleCreateUseCase,
+    CustomerFindOneUseCase,
+    CustomerFindByCpfUseCase,
+  ],
 };
 
 @Module(customerModuleMock)
