@@ -169,10 +169,13 @@ export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
         createCustomerCompanyInput,
       );
 
-      await this.invoiceCustomerCreateUseCase.execute({
-        invoiceId: invoice.id,
-        customerId: customer.id,
-      });
+      // TODO: GAMBIARRA
+      await this.invoiceCustomerCreateUseCase.execute([
+        {
+          invoiceId: invoice.id,
+          customerId: customer.id,
+        },
+      ]);
 
       // TODO: ARRUMAR AQUI, RETIRADA DE STOCK APOS A VENDA
       // AO EMITIR UM PREFERENCES VERIFICAR SE O PRODUTO TEM ESTOQUE ANTES DE EMITIR

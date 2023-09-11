@@ -3,7 +3,10 @@ import {
   IInvoicePricingGroupRepository,
   InvoicePricingGroupRepository,
 } from 'src/repositories/invoice-pricing-group';
-import { InvoicePricingGroupCreateManyUseCase } from './use-cases';
+import {
+  InvoicePricingGroupCreateManyUseCase,
+  InvoicePricingGroupFindManyWithInvoicesIds,
+} from './use-cases';
 import { PrismaModule } from 'src/db/prisma.module';
 
 export const invoicePricingGroupModuleMock = {
@@ -13,6 +16,11 @@ export const invoicePricingGroupModuleMock = {
       provide: IInvoicePricingGroupRepository,
       useClass: InvoicePricingGroupRepository,
     },
+    InvoicePricingGroupCreateManyUseCase,
+    InvoicePricingGroupFindManyWithInvoicesIds,
+  ],
+  exports: [
+    InvoicePricingGroupFindManyWithInvoicesIds,
     InvoicePricingGroupCreateManyUseCase,
   ],
 };

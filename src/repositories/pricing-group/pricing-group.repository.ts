@@ -44,6 +44,16 @@ export class PricingGroupRepository
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<PricingGroupEntity[]> {
+    return this.prismaService.pricingGroup.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findById(id: string): Promise<PricingGroupEntity> {
     return this.prismaService.pricingGroup.findFirst({
       where: {

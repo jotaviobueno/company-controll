@@ -10,6 +10,9 @@ import {
   CompanyEntity,
   CustomerEntity,
   InvoiceEntity,
+  PersonEntity,
+  PricingGroupEntity,
+  ProductEntity,
 } from 'src/domain/entities';
 import {
   InvoiceCreateUseCase,
@@ -24,6 +27,9 @@ import {
 import {
   LoaderCompanyByInvoiceId,
   LoaderCustomerByInvoiceId,
+  LoaderPersonByInvoiceId,
+  LoaderPricingGroupByInvoiceId,
+  LoaderProductByInvoiceId,
 } from './dataloders';
 
 @Resolver(() => InvoiceEntity)
@@ -34,6 +40,9 @@ export class InvoiceResolver {
     private readonly invoiceFindOneUseCase: InvoiceFindOneUseCase,
     private readonly loaderCompanyByInvoiceId: LoaderCompanyByInvoiceId,
     private readonly loaderCustomerByInvoiceId: LoaderCustomerByInvoiceId,
+    private readonly loaderPersonByInvoiceId: LoaderPersonByInvoiceId,
+    private readonly loaderPricingGroupByInvoiceId: LoaderPricingGroupByInvoiceId,
+    private readonly loaderProductByInvoiceId: LoaderProductByInvoiceId,
   ) {}
 
   @Mutation(() => InvoiceEntity)
@@ -70,5 +79,29 @@ export class InvoiceResolver {
     { id }: InvoiceEntity,
   ) {
     return this.loaderCustomerByInvoiceId.load(id);
+  }
+
+  @ResolveField(() => [PersonEntity], { nullable: true })
+  persons(
+    @Parent()
+    { id }: InvoiceEntity,
+  ) {
+    return this.loaderPersonByInvoiceId.load(id);
+  }
+
+  @ResolveField(() => [PricingGroupEntity], { nullable: true })
+  pricingGroups(
+    @Parent()
+    { id }: InvoiceEntity,
+  ) {
+    return this.loaderPricingGroupByInvoiceId.load(id);
+  }
+
+  @ResolveField(() => [ProductEntity], { nullable: true })
+  products(
+    @Parent()
+    { id }: InvoiceEntity,
+  ) {
+    return this.loaderProductByInvoiceId.load(id);
   }
 }

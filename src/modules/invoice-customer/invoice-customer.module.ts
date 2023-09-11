@@ -5,7 +5,7 @@ import {
 } from 'src/repositories/invoice-customer';
 import {
   InvoiceCustomerCreateUseCase,
-  InvoiceCustomerFindManyWithIdsUseCase,
+  InvoiceCustomerFindManyWithInvoicesIdsUseCase,
 } from './use-cases';
 import { PrismaModule } from 'src/db/prisma.module';
 
@@ -19,11 +19,11 @@ export const invoiceCustomerModuleMock = {
       useClass: InvoiceCustomerRepository,
     },
     InvoiceCustomerCreateUseCase,
-    InvoiceCustomerFindManyWithIdsUseCase,
+    InvoiceCustomerFindManyWithInvoicesIdsUseCase,
   ],
   exports: [
     InvoiceCustomerCreateUseCase,
-    InvoiceCustomerFindManyWithIdsUseCase,
+    InvoiceCustomerFindManyWithInvoicesIdsUseCase,
   ],
 };
 

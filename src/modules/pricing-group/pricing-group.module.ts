@@ -8,6 +8,7 @@ import {
   PricingGroupCreateUseCase,
   PricingGroupFindAllUseCase,
   PricingGroupFindByNameUseCase,
+  PricingGroupFindManyWithIdsUseCase,
   PricingGroupFindOneUseCase,
   PricingGroupSoftDeleteUseCase,
   PricingGroupUpdateUseCase,
@@ -24,8 +25,10 @@ export const pricingGroupModuleMock = {
     PricingGroupFindOneUseCase,
     PricingGroupSoftDeleteUseCase,
     PricingGroupUpdateUseCase,
+    PricingGroupFindManyWithIdsUseCase,
     { provide: IPricingGroupRepository, useClass: PricingGroupRepository },
   ],
+  exports: [PricingGroupFindManyWithIdsUseCase, PricingGroupFindOneUseCase],
 };
 
 @Module(pricingGroupModuleMock)

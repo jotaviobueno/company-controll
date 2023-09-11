@@ -1,5 +1,7 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
 import {
+  IsArray,
+  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -81,4 +83,34 @@ export class CreateInvoiceInput {
   @IsNumber()
   @IsNotEmpty()
   finalPrice: number;
+
+  @Field(() => [String], { nullable: true })
+  @IsMongoId({ each: true })
+  @IsArray()
+  @IsOptional()
+  personsIds?: string[];
+
+  @Field(() => [String], { nullable: true })
+  @IsMongoId({ each: true })
+  @IsArray()
+  @IsOptional()
+  customersIds?: string[];
+
+  @Field(() => [String], { nullable: true })
+  @IsMongoId({ each: true })
+  @IsArray()
+  @IsOptional()
+  companiesIds?: string[];
+
+  @Field(() => [String], { nullable: true })
+  @IsMongoId({ each: true })
+  @IsArray()
+  @IsOptional()
+  productsIds?: string[];
+
+  @Field(() => [String], { nullable: true })
+  @IsMongoId({ each: true })
+  @IsArray()
+  @IsOptional()
+  pricingGroupsId?: string[];
 }

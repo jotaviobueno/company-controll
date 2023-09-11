@@ -19,11 +19,17 @@ import { InvoiceCompanyModule } from '../invoice-company/invoice-company.module'
 import {
   LoaderCompanyByInvoiceId,
   LoaderCustomerByInvoiceId,
+  LoaderPersonByInvoiceId,
+  LoaderPricingGroupByInvoiceId,
+  LoaderProductByInvoiceId,
 } from './dataloders';
 import { InvoiceResolver } from './invoice.resolver';
 import { InvoiceCustomerModule } from '../invoice-customer/invoice-customer.module';
-
-// TODO: Criar testes nesse module
+import { InvoicePersonModule } from '../invoice-person/invoice-person.module';
+import { InvoicePricingGroupModule } from '../invoice-pricing-group/invoice-pricing-group.module';
+import { PricingGroupModule } from '../pricing-group/pricing-group.module';
+import { InvoiceProductModule } from '../invoice-product/invoice-product.module';
+import { ProductModule } from '../product/product.module';
 
 export const invoiceModuleMock: ModuleMetadata = {
   imports: [
@@ -34,6 +40,11 @@ export const invoiceModuleMock: ModuleMetadata = {
     FinanceModule,
     InvoiceCompanyModule,
     InvoiceCustomerModule,
+    PricingGroupModule,
+    InvoicePersonModule,
+    InvoicePricingGroupModule,
+    InvoiceProductModule,
+    ProductModule,
   ],
   providers: [
     InvoiceResolver,
@@ -44,6 +55,9 @@ export const invoiceModuleMock: ModuleMetadata = {
     InvoiceHandlerUseCase,
     LoaderCompanyByInvoiceId,
     LoaderCustomerByInvoiceId,
+    LoaderPersonByInvoiceId,
+    LoaderPricingGroupByInvoiceId,
+    LoaderProductByInvoiceId,
     { provide: IInvoiceRepository, useClass: InvoiceRepository },
   ],
   exports: [

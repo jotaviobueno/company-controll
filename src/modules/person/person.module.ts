@@ -7,6 +7,7 @@ import {
   PersonFindOneUseCase,
   PersonSoftDeleteUseCase,
   PersonUpdateUseCase,
+  PersonFindManyWithIdsUseCase,
 } from './use-cases';
 import { IPersonRepository, PersonRepository } from 'src/repositories/person';
 import { PrismaModule } from 'src/db/prisma.module';
@@ -22,12 +23,14 @@ export const personModuleMock: ModuleMetadata = {
     PersonUpdateUseCase,
     PersonFindByAccessIdUseCase,
     PersonSoftDeleteUseCase,
+    PersonFindManyWithIdsUseCase,
     { provide: IPersonRepository, useClass: PersonRepository },
   ],
   exports: [
     PersonCreateUseCase,
     PersonFindByAccessIdUseCase,
     PersonFindOneUseCase,
+    PersonFindManyWithIdsUseCase,
   ],
 };
 

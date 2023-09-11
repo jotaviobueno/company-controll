@@ -1,6 +1,9 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
 import { PrismaModule } from 'src/db/prisma.module';
-import { InvoicePersonCreateManyUseCase } from './use-cases';
+import {
+  InvoicePersonCreateManyUseCase,
+  InvoicePersonFindManyWithInvoicesIdsUseCase,
+} from './use-cases';
 import {
   IInvoicePersonRepository,
   InvoicePersonRepository,
@@ -10,12 +13,16 @@ export const invoicePersonModuleMock: ModuleMetadata = {
   imports: [PrismaModule],
   providers: [
     InvoicePersonCreateManyUseCase,
+    InvoicePersonFindManyWithInvoicesIdsUseCase,
     {
       provide: IInvoicePersonRepository,
       useClass: InvoicePersonRepository,
     },
   ],
-  exports: [InvoicePersonCreateManyUseCase],
+  exports: [
+    InvoicePersonCreateManyUseCase,
+    InvoicePersonFindManyWithInvoicesIdsUseCase,
+  ],
 };
 
 @Module(invoicePersonModuleMock)

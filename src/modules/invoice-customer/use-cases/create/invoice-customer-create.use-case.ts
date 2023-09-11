@@ -6,13 +6,13 @@ import { IInvoiceCustomerRepository } from 'src/repositories/invoice-customer';
 
 @Injectable()
 export class InvoiceCustomerCreateUseCase
-  implements IBaseUseCase<CreateInvoiceCustomerDto, InvoiceCustomerEntity>
+  implements IBaseUseCase<CreateInvoiceCustomerDto[], InvoiceCustomerEntity[]>
 {
   constructor(
     private readonly invoiceCustomerRepository: IInvoiceCustomerRepository,
   ) {}
 
-  execute(data: CreateInvoiceCustomerDto): Promise<InvoiceCustomerEntity> {
-    return this.invoiceCustomerRepository.create(data);
+  execute(data: CreateInvoiceCustomerDto[]): Promise<InvoiceCustomerEntity[]> {
+    return this.invoiceCustomerRepository.createMany(data);
   }
 }

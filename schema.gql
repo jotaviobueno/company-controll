@@ -134,6 +134,9 @@ type InvoiceEntity {
   finalPrice: Int!
   companies: [CompanyEntity!]
   customers: [CustomerEntity!]
+  persons: [PersonEntity!]
+  pricingGroups: [PricingGroupEntity!]
+  products: [ProductEntity!]
 }
 
 type PricingGroupEntity {
@@ -331,6 +334,11 @@ input CreateInvoiceInput {
   discountMoney: Int
   priceBeforeDiscount: Int
   finalPrice: Int!
+  personsIds: [String!]
+  customersIds: [String!]
+  companiesIds: [String!]
+  productsIds: [String!]
+  pricingGroupsId: [String!]
 }
 
 enum InvoicePaymentType {

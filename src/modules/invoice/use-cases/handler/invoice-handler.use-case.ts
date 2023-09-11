@@ -14,9 +14,12 @@ export class InvoiceHandlerUseCase
     private readonly invoiceCalculatorUseCase: InvoiceCalculatorUseCase,
   ) {}
 
-  async execute(data: CreateInvoiceInput): Promise<InvoiceEntity> {
+  execute(data: CreateInvoiceInput): Promise<InvoiceEntity> {
     const invoiceCalculator = this.invoiceCalculatorUseCase.execute(data);
 
-    return this.invoiceCreateUseCase.execute({ ...invoiceCalculator, ...data });
+    return this.invoiceCreateUseCase.execute({
+      ...invoiceCalculator,
+      ...data,
+    });
   }
 }

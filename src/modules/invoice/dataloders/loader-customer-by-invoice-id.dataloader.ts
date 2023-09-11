@@ -3,7 +3,7 @@ import * as DataLoader from 'dataloader';
 import { IBaseDataloader } from 'src/domain/base';
 import { CustomerEntity } from 'src/domain/entities';
 import { CustomerFindManyWithIdsUseCase } from 'src/modules/customer/use-cases';
-import { InvoiceCustomerFindManyWithIdsUseCase } from 'src/modules/invoice-customer/use-cases';
+import { InvoiceCustomerFindManyWithInvoicesIdsUseCase } from 'src/modules/invoice-customer/use-cases';
 
 @Injectable()
 export class LoaderCustomerByInvoiceId
@@ -12,7 +12,7 @@ export class LoaderCustomerByInvoiceId
   dataLoader: DataLoader<string, CustomerEntity[]>;
 
   constructor(
-    private readonly invoiceCustomerFindManyWithIdsUseCase: InvoiceCustomerFindManyWithIdsUseCase,
+    private readonly invoiceCustomerFindManyWithInvoicesIdsUseCase: InvoiceCustomerFindManyWithInvoicesIdsUseCase,
     private readonly customerFindManyWithIdsUseCase: CustomerFindManyWithIdsUseCase,
   ) {
     this.dataLoader = new DataLoader<string, CustomerEntity[]>(
@@ -25,7 +25,7 @@ export class LoaderCustomerByInvoiceId
 
   async batch(data: string[]): Promise<CustomerEntity[][]> {
     const invoiceCustomers =
-      await this.invoiceCustomerFindManyWithIdsUseCase.execute(data);
+      await this.invoiceCustomerFindManyWithInvoicesIdsUseCase.execute(data);
 
     const customersIds = invoiceCustomers.map(
       (invoiceCustomer) => invoiceCustomer.customerId,

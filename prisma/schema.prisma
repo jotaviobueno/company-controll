@@ -282,7 +282,6 @@ enum FinanceStatus {
   PENDING
 }
 
-// TODO: ISSO NÃO FOI IMPLEMENTADO
 model InvoicePerson {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   person    Person   @relation(fields: [personId], references: [id])

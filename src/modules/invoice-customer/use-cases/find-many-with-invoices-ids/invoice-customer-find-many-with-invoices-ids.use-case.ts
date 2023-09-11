@@ -4,7 +4,7 @@ import { InvoiceCustomerEntity } from 'src/domain/entities';
 import { IInvoiceCustomerRepository } from 'src/repositories/invoice-customer';
 
 @Injectable()
-export class InvoiceCustomerFindManyWithIdsUseCase
+export class InvoiceCustomerFindManyWithInvoicesIdsUseCase
   implements IBaseUseCase<string[], InvoiceCustomerEntity[]>
 {
   constructor(
