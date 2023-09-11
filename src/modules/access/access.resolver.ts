@@ -5,11 +5,13 @@ import { AccessHandlerUseCase } from './use-cases';
 import { ACCESS_PROVIDER } from 'src/domain/enums';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from './guards';
+import { IsPublic } from './decorators';
 
 @Resolver()
 export class AccessResolver {
   constructor(private readonly accessHandlerUseCase: AccessHandlerUseCase) {}
 
+  @IsPublic()
   @Mutation(() => String)
   createAccess(
     @Args('createAccessInput') createAccessInput: CreateAccessInput,
@@ -17,6 +19,7 @@ export class AccessResolver {
     return this.accessHandlerUseCase.execute(createAccessInput);
   }
 
+  @IsPublic()
   @Mutation(() => String)
   createAccessForDev() {
     return this.accessHandlerUseCase.execute({

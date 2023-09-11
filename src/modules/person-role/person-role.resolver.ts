@@ -6,14 +6,13 @@ import {
   PersonRoleRemoveRoleUseCase,
 } from './use-cases';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../access/guards';
-import { RoleGuard } from './guards';
 import { Roles } from '../role/decorator';
 import { PERMISSION, ROLE } from 'src/domain/enums';
 import { Permissions } from '../permission/decorator';
+import { RoleGuard } from '../access/guards';
 
 @Resolver(() => PersonRoleEntity)
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(RoleGuard)
 @Roles(ROLE.ADMIN)
 export class PersonRoleResolver {
   constructor(

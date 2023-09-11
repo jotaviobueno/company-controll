@@ -2,10 +2,10 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
 import { personRoleModuleMock } from '../../person-role.module';
 import { personRoleMock } from 'src/domain/mocks';
-import { PersonRoleFindAllWithPersonid } from './person-role-find-all-roles-with-person-id';
+import { PersonRoleFindAllWithPersonId } from './person-role-find-all-roles-with-person-id';
 
-describe('PersonRoleFindAllWithPersonid', () => {
-  let usecase: PersonRoleFindAllWithPersonid;
+describe('PersonRoleFindAllWithPersonId', () => {
+  let usecase: PersonRoleFindAllWithPersonId;
   let moduleRef: TestingModule;
   let prismaService: PrismaService;
 
@@ -13,8 +13,8 @@ describe('PersonRoleFindAllWithPersonid', () => {
     moduleRef = await Test.createTestingModule(personRoleModuleMock).compile();
 
     prismaService = moduleRef.get<PrismaService>(PrismaService);
-    usecase = moduleRef.get<PersonRoleFindAllWithPersonid>(
-      PersonRoleFindAllWithPersonid,
+    usecase = moduleRef.get<PersonRoleFindAllWithPersonId>(
+      PersonRoleFindAllWithPersonId,
     );
   });
 

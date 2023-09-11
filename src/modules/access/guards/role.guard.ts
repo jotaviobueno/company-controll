@@ -3,14 +3,14 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { Reflector } from '@nestjs/core';
 import { ROLE_KEY } from 'src/modules/role/decorator';
 import { PersonEntity } from 'src/domain/entities';
-import { PersonRoleFindAllWithPersonid } from '../use-cases';
 import { PERMISSION_KEY } from 'src/modules/permission/decorator';
+import { PersonRoleFindAllWithPersonId } from 'src/modules/person-role/use-cases';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    private readonly personRoleFindAllWithPersonid: PersonRoleFindAllWithPersonid,
+    private readonly personRoleFindAllWithPersonid: PersonRoleFindAllWithPersonId,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

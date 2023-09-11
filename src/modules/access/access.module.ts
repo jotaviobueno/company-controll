@@ -1,4 +1,4 @@
-import { Module, ModuleMetadata, forwardRef } from '@nestjs/common';
+import { Global, Module, ModuleMetadata, forwardRef } from '@nestjs/common';
 import { AccessResolver } from './access.resolver';
 import {
   AccessCreateUseCase,
@@ -12,12 +12,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { environment } from 'src/config';
 import { AccessRepository, IAccessRepository } from 'src/repositories/access';
 import { PersonModule } from '../person/person.module';
-import { AuthGuard } from './guards';
+import { AuthGuard, RoleGuard } from './guards';
+import { APP_GUARD } from '@nestjs/core';
+import { PersonRoleModule } from '../person-role/person-role.module';
 
 export const accessModuleMock: ModuleMetadata = {
   imports: [
     GoogleModule,
     forwardRef(() => PersonModule),
+    PersonRoleModule,
     PrismaModule,
     JwtModule.register({
       global: true,
@@ -32,10 +35,16 @@ export const accessModuleMock: ModuleMetadata = {
     AccessCreateUseCase,
     AccessFindOneUseCase,
     AuthGuard,
+    RoleGuard,
+    {
+      provide: APP_GUARD,
+      useExisting: AuthGuard,
+    },
     { provide: IAccessRepository, useClass: AccessRepository },
   ],
-  exports: [AuthGuard, AccessFindOneUseCase],
+  exports: [AccessFindOneUseCase, RoleGuard],
 };
 
+@Global()
 @Module(accessModuleMock)
 export class AccessModule {}

@@ -7,18 +7,11 @@ import {
 } from './use-cases';
 import { RoleFindOneUseCase } from './use-cases/find-one';
 import { PrismaModule } from 'src/db/prisma.module';
-import { PersonModule } from '../person/person.module';
-import { AccessModule } from '../access/access.module';
 import { IRoleRepository, RoleRepository } from 'src/repositories/role';
 import { PersonRoleModule } from '../person-role/person-role.module';
 
 export const roleModuleMock: ModuleMetadata = {
-  imports: [
-    PrismaModule,
-    forwardRef(() => PersonModule),
-    forwardRef(() => PersonRoleModule),
-    forwardRef(() => AccessModule),
-  ],
+  imports: [PrismaModule, forwardRef(() => PersonRoleModule)],
   providers: [
     RoleResolver,
     RoleFindAllUseCase,

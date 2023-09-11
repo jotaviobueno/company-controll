@@ -6,9 +6,7 @@ import {
   RoleUpdateUseCase,
 } from './use-cases';
 import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from '../access/guards/auth.guard';
 import { Roles } from './decorator';
-import { RoleGuard } from '../person-role/guards';
 import { PERMISSION, ROLE } from 'src/domain/enums';
 import {
   IdInput,
@@ -16,9 +14,10 @@ import {
   UpdateRoleInput,
 } from 'src/domain/dtos';
 import { Permissions } from 'src/modules/permission/decorator';
+import { RoleGuard } from '../access/guards';
 
 @Resolver(() => RoleEntity)
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(RoleGuard)
 @Roles(ROLE.ADMIN)
 export class RoleResolver {
   constructor(

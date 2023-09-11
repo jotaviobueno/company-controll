@@ -9,7 +9,7 @@ import {
 import { IPersonRoleRepository } from 'src/repositories/person-role';
 
 @Injectable()
-export class PersonRoleFindAllWithPersonid
+export class PersonRoleFindAllWithPersonId
   implements
     IBaseUseCase<
       string,

@@ -1,40 +1,36 @@
 import { Module, ModuleMetadata, forwardRef } from '@nestjs/common';
 import { PersonRoleResolver } from './person-role.resolver';
 import {
-  PersonRoleFindAllWithPersonid,
+  PersonRoleFindAllWithPersonId,
   PersonRoleAssigRoleUseCase,
   PersonRoleRemoveRoleUseCase,
   PersonRoleFindManyWithPersonIdUseCase,
 } from './use-cases';
-import { PersonModule } from '../person/person.module';
 import { PrismaModule } from 'src/db/prisma.module';
 import {
   IPersonRoleRepository,
   PersonRoleRepository,
 } from 'src/repositories/person-role';
-import { RoleGuard } from './guards';
-import { RoleModule } from '../role/role.module';
-import { AccessModule } from '../access/access.module';
 import { LoaderRolesByPersonId } from './dataloaders';
+import { PersonModule } from '../person/person.module';
+import { RoleModule } from '../role/role.module';
 
 export const personRoleModuleMock: ModuleMetadata = {
   imports: [
-    forwardRef(() => PersonModule),
-    forwardRef(() => AccessModule),
     PrismaModule,
+    forwardRef(() => PersonModule),
     forwardRef(() => RoleModule),
   ],
   providers: [
     PersonRoleResolver,
     PersonRoleAssigRoleUseCase,
-    PersonRoleFindAllWithPersonid,
+    PersonRoleFindAllWithPersonId,
     PersonRoleRemoveRoleUseCase,
     PersonRoleFindManyWithPersonIdUseCase,
-    RoleGuard,
     LoaderRolesByPersonId,
     { provide: IPersonRoleRepository, useClass: PersonRoleRepository },
   ],
-  exports: [RoleGuard, PersonRoleFindAllWithPersonid, LoaderRolesByPersonId],
+  exports: [PersonRoleFindAllWithPersonId, LoaderRolesByPersonId],
 };
 
 @Module(personRoleModuleMock)
