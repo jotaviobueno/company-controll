@@ -18,7 +18,7 @@ jobs:
         run: |
           yarn
           npx prisma generate
-          npx jest:cov --runInBand --maxWorkers=2
+          npx jest --runInBand --maxWorkers=2
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
