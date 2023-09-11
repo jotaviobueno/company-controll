@@ -17,6 +17,7 @@ jobs:
       - name: yarn install, build and test
         run: |
           yarn
+          npx prisma generate
           yarn run build 
           yarn run test
       - name: Upload coverage reports to Codecov
