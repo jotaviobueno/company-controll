@@ -14,11 +14,12 @@ jobs:
         with:
           node-version: 16.
 
-      - name: run install, build and test
+      - name: yarn install, npx prisma generate and testes
         run: |
           yarn
           npx prisma generate
-          yarn run test
-
+          yarn run test:cov
+        env:
+          NODE_ENV: test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
