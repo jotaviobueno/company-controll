@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
-import { InvoiceCompanyCreateManyUseCase } from './use-cases';
+import {
+  InvoiceCompanyCreateManyUseCase,
+  InvoiceCompanyFindManyWithInvoicesIdsUseCase,
+} from './use-cases';
 import {
   IInvoiceCompanyRepository,
   InvoiceCompanyRepository,
@@ -10,9 +13,13 @@ export const invoiceCompanyModuleMock = {
   imports: [PrismaModule],
   providers: [
     InvoiceCompanyCreateManyUseCase,
+    InvoiceCompanyFindManyWithInvoicesIdsUseCase,
     { provide: IInvoiceCompanyRepository, useClass: InvoiceCompanyRepository },
   ],
-  exports: [InvoiceCompanyCreateManyUseCase],
+  exports: [
+    InvoiceCompanyCreateManyUseCase,
+    InvoiceCompanyFindManyWithInvoicesIdsUseCase,
+  ],
 };
 
 @Module(invoiceCompanyModuleMock)

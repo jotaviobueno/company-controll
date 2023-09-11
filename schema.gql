@@ -132,6 +132,8 @@ type InvoiceEntity {
   discountMoney: Int
   priceBeforeDiscount: Int
   finalPrice: Int!
+  companies: [CompanyEntity!]
+  customers: [CustomerEntity!]
 }
 
 type PricingGroupEntity {
@@ -161,8 +163,8 @@ type Query {
   findOneCustomer(customerId: IdInput!): CustomerEntity!
   findAllCustomerAddress(paginationOptionsInput: PaginationOptionsInput!): [CustomerAddressEntity!]!
   findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
-  findAll(paginationOptionsInput: PaginationOptionsInput!): [InvoiceEntity!]!
-  findOne(invoiceId: IdInput!): InvoiceEntity!
+  findAllInvoice(paginationOptionsInput: PaginationOptionsInput!): [InvoiceEntity!]!
+  findOneInvoice(invoiceId: IdInput!): InvoiceEntity!
   findAllPricingGroup(PaginationOptionsInput: PaginationOptionsInput!): [PricingGroupEntity!]!
   findOnePricingGroup(pricingGroupId: IdInput!): PricingGroupEntity!
 }

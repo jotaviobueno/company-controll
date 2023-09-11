@@ -43,6 +43,16 @@ export class CustomerRepository implements Partial<ICustomerRepository> {
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<CustomerEntity[]> {
+    return this.prismaService.customer.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findById(id: string): Promise<CustomerEntity> {
     return this.prismaService.customer.findFirst({
       where: {

@@ -6,6 +6,7 @@ import {
   CompanySoftDeleteUseCase,
   CompanyUpdateUseCase,
   CompanyCreateUseCase,
+  CompanyFindManyWithIdsUseCase,
 } from './use-cases';
 import { PrismaModule } from 'src/db/prisma.module';
 import {
@@ -32,9 +33,10 @@ export const companyModuleMock: ModuleMetadata = {
     CompanyFindOneUseCase,
     CompanySoftDeleteUseCase,
     CompanyUpdateUseCase,
+    CompanyFindManyWithIdsUseCase,
     { provide: ICompanyRepository, useClass: CompanyRepository },
   ],
-  exports: [CompanyFindOneUseCase],
+  exports: [CompanyFindOneUseCase, CompanyFindManyWithIdsUseCase],
 };
 
 @Module(companyModuleMock)

@@ -5,4 +5,8 @@ import { InvoiceCompanyEntity } from 'src/domain/entities';
 export abstract class IInvoiceCompanyRepository extends IBaseRepository<
   CreateInvoiceCompanyDto,
   InvoiceCompanyEntity
-> {}
+> {
+  abstract findManyWithInvoicesIds(
+    invoicesIds: string[],
+  ): Promise<InvoiceCompanyEntity[]>;
+}

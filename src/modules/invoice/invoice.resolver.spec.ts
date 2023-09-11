@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { InvoiceResolver } from './invoice.resolver';
+import { InvoiceResolver } from './InvoiceResolver';
 import { invoiceModuleMock } from './invoice.module';
 
 describe('InvoiceResolver', () => {

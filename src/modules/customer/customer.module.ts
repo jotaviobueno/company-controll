@@ -4,6 +4,7 @@ import {
   CustomerCreateUseCase,
   CustomerFindAllUseCase,
   CustomerFindByCpfUseCase,
+  CustomerFindManyWithIdsUseCase,
   CustomerFindOneUseCase,
   CustomerSimpleCreateUseCase,
   CustomerSoftDeleteUseCase,
@@ -28,12 +29,14 @@ export const customerModuleMock: ModuleMetadata = {
     CustomerSoftDeleteUseCase,
     CustomerFindByCpfUseCase,
     CustomerSimpleCreateUseCase,
+    CustomerFindManyWithIdsUseCase,
     { provide: ICustomerRepository, useClass: CustomerRepository },
   ],
   exports: [
     CustomerSimpleCreateUseCase,
     CustomerFindOneUseCase,
     CustomerFindByCpfUseCase,
+    CustomerFindManyWithIdsUseCase,
   ],
 };
 
