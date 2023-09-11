@@ -9,7 +9,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: bash scripts/test.sh
+      - name: Using Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.
+
+      - name: run install, build and test
+        run: |
+          yarn
+          npx prisma generate
+          npx jest --runInBand
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
