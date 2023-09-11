@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: bash scripts/test.sh
+      - run: |
+          npm install --if-present
+          npx prisma generate
+          npm run test --if-present
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
