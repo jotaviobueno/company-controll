@@ -1,28 +1,16 @@
-# Docs: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+name: Tests
 
-name: Testes
-
-on: pull_request
+on:
+  push:
+    branches: ['main']
+  pull_request:
+    branches: ['main']
 
 jobs:
-  continuos-integration:
+  test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-      - name: Set Swap Space
-        uses: pierotofy/set-swap-space@master
-        with:
-          swap-size-gb: 10
-      - name: Using Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.
-      - name: yarn install, build and test
-        run: |
-          yarn
-          npx prisma generate
-          yarn run build 
-          yarn run test
+      - run: bash scripts/test.sh
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
