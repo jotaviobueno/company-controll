@@ -7,19 +7,17 @@ on: pull_request
 jobs:
   continuos-integration:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
       - name: Using Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 16.
-
-      - name: yarn install, npx prisma generate and testes
+      - name: run install, build and test
         run: |
-          yarn
-          npx prisma generate
-          yarn run test:cov
-        env:
-          NODE_ENV: test
+          npm install
+          npm run build 
+          npm run test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
