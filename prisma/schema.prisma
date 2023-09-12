@@ -66,6 +66,7 @@ model Address {
   CompanyAddress  CompanyAddress[]
   PersonAddress   PersonAddress[]
   CustomerAddress CustomerAddress[]
+  ProviderAddress ProviderAddress[]
 }
 
 model PersonRole {
@@ -92,6 +93,69 @@ model Company {
   Product         Product[]
   Customer        Customer[]
   CustomerCompany CustomerCompany[]
+  CompanyProvider CompanyProvider[]
+}
+
+// TODO: NÃO FEITO
+
+model Category {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  name             String             @unique
+  createdAt        DateTime           @default(now()) @map("created_at") @db.Timestamp
+  updatedAt        DateTime           @default(now()) @map("updated_at") @db.Timestamp
+  ProviderCategory ProviderCategory[]
+}
+
+// TODO: NÃO FEITO
+
+model ProviderCategory {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  provider   Provider @relation(fields: [providerId], references: [id])
+  providerId String   @map("provider_id") @db.ObjectId
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String   @map("category_id") @db.ObjectId
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
+// TODO: Implementar redesocial depois
+model Provider {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  name             String
+  description      String?
+  cnpj             String?
+  createdAt        DateTime           @default(now()) @map("created_at") @db.Timestamp
+  updatedAt        DateTime           @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt        DateTime?          @map("deleted_at") @db.Timestamp
+  ProviderCategory ProviderCategory[]
+  CompanyProvider  CompanyProvider[]
+  ProviderAddress  ProviderAddress[]
+}
+
+// TODO: NÃO FEITO
+
+model CompanyProvider {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  company    Company   @relation(fields: [companyId], references: [id])
+  companyId  String    @map("company_id") @db.ObjectId
+  provider   Provider  @relation(fields: [providerId], references: [id])
+  providerId String    @map("provider_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
+}
+
+// TODO: NÃO FEITO
+
+model ProviderAddress {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  address    Address   @relation(fields: [addressId], references: [id])
+  addressId  String    @map("address_id") @db.ObjectId
+  provider   Provider  @relation(fields: [providerId], references: [id])
+  providerId String    @map("provider_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model CompanyAddress {

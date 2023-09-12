@@ -115,6 +115,15 @@ type CustomerAddressEntity {
   updatedAt: DateTime!
 }
 
+type ProviderEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  cnpj: String
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -135,6 +144,8 @@ type Query {
   findOneCustomer(customerId: IdInput!): CustomerEntity!
   findAllCustomerAddress(paginationOptionsInput: PaginationOptionsInput!): [CustomerAddressEntity!]!
   findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
+  findAllProvider(paginationOptionsInput: PaginationOptionsInput!): [ProviderEntity!]!
+  findOneProvider(providerId: IdInput!): ProviderEntity!
 }
 
 input PaginationOptionsInput {
@@ -174,6 +185,9 @@ type Mutation {
   createCustomerAddress(createCustomerAddressInput: CreateAddressInput!, customerId: IdInput!): CustomerAddressEntity!
   updateCustomerAddress(updateCustomerAddressInput: UpdateCustomerAddressInput!): CustomerAddressEntity!
   removeCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
+  createProvider(createProviderInput: CreateProviderInput!): ProviderEntity!
+  updateProvider(updateProviderInput: UpdateProviderInput!): ProviderEntity!
+  removeProvider(providerId: IdInput!): ProviderEntity!
 }
 
 input CreateAccessInput {
@@ -279,5 +293,18 @@ input UpdateCustomerAddressInput {
   city: String
   zipCode: Int
   state: String
+  id: String!
+}
+
+input CreateProviderInput {
+  name: String!
+  description: String
+  cnpj: String
+}
+
+input UpdateProviderInput {
+  name: String
+  description: String
+  cnpj: String
   id: String!
 }

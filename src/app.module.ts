@@ -15,6 +15,8 @@ import { CustomerModule } from './modules/customer/customer.module';
 import { CustomerCompanyModule } from './modules/customer-company/customer-company.module';
 import { StockModule } from './modules/stock/stock.module';
 import { CustomerAddressModule } from './modules/customer-address/customer-address.module';
+import { ProviderModule } from './modules/provider/provider.module';
+import { ProviderCategoryModule } from './modules/provider-category/provider-category.module';
 
 @Module({
   imports: [
@@ -34,6 +36,8 @@ import { CustomerAddressModule } from './modules/customer-address/customer-addre
     CustomerCompanyModule,
     StockModule,
     CustomerAddressModule,
+    ProviderModule,
+    ProviderCategoryModule,
   ],
 })
 export class AppModule {}
