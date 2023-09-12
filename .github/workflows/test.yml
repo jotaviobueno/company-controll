@@ -11,11 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set Node.js memory limit
-        env:
-          NODE_OPTIONS: --max-old-space-size=4096
-
       - name: Use Node.js 20.5.1
         uses: actions/setup-node@v3
         with:
