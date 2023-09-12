@@ -2,14 +2,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProviderResolver } from './provider.resolver';
 import { providerModuleMock } from './provider.module';
 import {
-  ProdiverCreateUseCase,
   ProviderFindAllUseCase,
   ProviderFindOneUseCase,
   ProviderSoftDeleteUseCase,
   ProviderUpdateUseCase,
 } from './use-cases';
 import {
-  createProviderInputMock,
   paginationOptionsInputMock,
   providerMock,
   updateProviderInputMock,
@@ -18,22 +16,25 @@ import {
 describe('ProviderResolver', () => {
   let resolver: ProviderResolver;
 
-  let createUseCase: ProdiverCreateUseCase;
+  let moduleRef: TestingModule;
+
   let findAllUseCase: ProviderFindAllUseCase;
   let findOneUseCase: ProviderFindOneUseCase;
   let updateUseCase: ProviderUpdateUseCase;
   let softDeleteUseCase: ProviderSoftDeleteUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule =
-      await Test.createTestingModule(providerModuleMock).compile();
+    moduleRef = await Test.createTestingModule(providerModuleMock).compile();
 
-    resolver = module.get<ProviderResolver>(ProviderResolver);
-    createUseCase = module.get<ProdiverCreateUseCase>(ProdiverCreateUseCase);
-    findAllUseCase = module.get<ProviderFindAllUseCase>(ProviderFindAllUseCase);
-    findOneUseCase = module.get<ProviderFindOneUseCase>(ProviderFindOneUseCase);
-    updateUseCase = module.get<ProviderUpdateUseCase>(ProviderUpdateUseCase);
-    softDeleteUseCase = module.get<ProviderSoftDeleteUseCase>(
+    resolver = moduleRef.get<ProviderResolver>(ProviderResolver);
+    findAllUseCase = moduleRef.get<ProviderFindAllUseCase>(
+      ProviderFindAllUseCase,
+    );
+    findOneUseCase = moduleRef.get<ProviderFindOneUseCase>(
+      ProviderFindOneUseCase,
+    );
+    updateUseCase = moduleRef.get<ProviderUpdateUseCase>(ProviderUpdateUseCase);
+    softDeleteUseCase = moduleRef.get<ProviderSoftDeleteUseCase>(
       ProviderSoftDeleteUseCase,
     );
   });
@@ -42,12 +43,8 @@ describe('ProviderResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  it('should create', async () => {
-    jest.spyOn(createUseCase, 'execute').mockResolvedValue(providerMock);
-
-    expect(
-      await resolver.createProvider(createProviderInputMock),
-    ).toStrictEqual(providerMock);
+  afterEach(async () => {
+    await moduleRef.close();
   });
 
   it('should findAll', async () => {

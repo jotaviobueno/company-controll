@@ -16,6 +16,8 @@ import {
 
 describe('CompanyAddressResolver', () => {
   let resolver: CompanyAddressResolver;
+  let moduleRef: TestingModule;
+
   let createUseCase: CompanyAddressCreateUseCase;
   let findAllUseCase: CompanyAddressFindAllUseCase;
   let findOneUseCase: CompanyAddressFindOneUseCase;
@@ -23,30 +25,34 @@ describe('CompanyAddressResolver', () => {
   let softDeleteUseCase: CompanyAddressSoftDeleteUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
+    moduleRef = await Test.createTestingModule(
       companyAddressModuleMock,
     ).compile();
 
-    resolver = module.get<CompanyAddressResolver>(CompanyAddressResolver);
-    createUseCase = module.get<CompanyAddressCreateUseCase>(
+    resolver = moduleRef.get<CompanyAddressResolver>(CompanyAddressResolver);
+    createUseCase = moduleRef.get<CompanyAddressCreateUseCase>(
       CompanyAddressCreateUseCase,
     );
-    findAllUseCase = module.get<CompanyAddressFindAllUseCase>(
+    findAllUseCase = moduleRef.get<CompanyAddressFindAllUseCase>(
       CompanyAddressFindAllUseCase,
     );
-    findOneUseCase = module.get<CompanyAddressFindOneUseCase>(
+    findOneUseCase = moduleRef.get<CompanyAddressFindOneUseCase>(
       CompanyAddressFindOneUseCase,
     );
-    updateUseCase = module.get<CompanyAddressUpdateUseCase>(
+    updateUseCase = moduleRef.get<CompanyAddressUpdateUseCase>(
       CompanyAddressUpdateUseCase,
     );
-    softDeleteUseCase = module.get<CompanyAddressSoftDeleteUseCase>(
+    softDeleteUseCase = moduleRef.get<CompanyAddressSoftDeleteUseCase>(
       CompanyAddressSoftDeleteUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(async () => {
+    await moduleRef.close();
   });
 
   it('should create', async () => {

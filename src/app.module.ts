@@ -16,7 +16,7 @@ import { CustomerCompanyModule } from './modules/customer-company/customer-compa
 import { StockModule } from './modules/stock/stock.module';
 import { CustomerAddressModule } from './modules/customer-address/customer-address.module';
 import { ProviderModule } from './modules/provider/provider.module';
-import { ProviderCategoryModule } from './modules/provider-category/provider-category.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
@@ -37,7 +37,7 @@ import { ProviderCategoryModule } from './modules/provider-category/provider-cat
     StockModule,
     CustomerAddressModule,
     ProviderModule,
-    ProviderCategoryModule,
+    CategoryModule,
   ],
 })
 export class AppModule {}

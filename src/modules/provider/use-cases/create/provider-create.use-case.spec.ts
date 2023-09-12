@@ -3,6 +3,7 @@ import { PrismaService } from '../../../../db/prisma.service';
 import { ProdiverCreateUseCase } from './provider-create.use-case';
 import { providerModuleMock } from '../../provider.module';
 import { createProviderInputMock, providerMock } from 'src/domain/mocks';
+import {} from 'jest-leak-detector';
 
 describe('ProdiverCreateUseCase', () => {
   let usecase: ProdiverCreateUseCase;
@@ -20,10 +21,10 @@ describe('ProdiverCreateUseCase', () => {
     expect(usecase).toBeDefined();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     prismaService.$disconnect();
 
-    moduleRef.close();
+    await moduleRef.close();
   });
 
   it('should create', async () => {

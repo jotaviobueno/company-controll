@@ -15,6 +15,7 @@ import {
 describe('RoleResolver', () => {
   let resolver: RoleResolver;
   let moduleRef: TestingModule;
+
   let findAllUseCase: RoleFindAllUseCase;
   let findOneUseCase: RoleFindOneUseCase;
   let updateUseCase: RoleUpdateUseCase;
@@ -30,6 +31,10 @@ describe('RoleResolver', () => {
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(async () => {
+    await moduleRef.close();
   });
 
   it('should findAll', async () => {

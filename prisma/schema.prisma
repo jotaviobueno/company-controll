@@ -103,6 +103,7 @@ model Category {
   name             String             @unique
   createdAt        DateTime           @default(now()) @map("created_at") @db.Timestamp
   updatedAt        DateTime           @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt        DateTime?          @map("deleted_at") @db.Timestamp
   ProviderCategory ProviderCategory[]
 }
 
