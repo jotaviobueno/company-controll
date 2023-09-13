@@ -45,7 +45,6 @@ export class PaymentEntity extends IBaseEntity implements Payment {
   @Field(() => Int)
   totalPaidWithFees: number;
 
-  @Field()
   invoiceId: string;
 
   @Field(() => Date, { nullable: true })

@@ -137,7 +137,40 @@ type InvoiceEntity {
   persons: [PersonEntity!]
   pricingGroups: [PricingGroupEntity!]
   products: [ProductEntity!]
+  payment: [PaymentEntity!]
 }
+
+type FinanceEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  companies: [InvoiceEntity!]
+}
+
+type PaymentEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  status: String!
+  statusDetail: String!
+  operationType: String!
+  paymentId: String!
+  brand: String!
+  method: String!
+  cardFirstSixDigits: String
+  cardLastFourDigits: String
+  currency: String!
+  fees: [JSON!]!
+  amount: Int!
+  installmentAmount: Int!
+  totalPaidWithFees: Int!
+  approvedAt: DateTime
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 type PricingGroupEntity {
   id: String!
@@ -168,6 +201,7 @@ type Query {
   findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
   findAllInvoice(paginationOptionsInput: PaginationOptionsInput!): [InvoiceEntity!]!
   findOneInvoice(invoiceId: IdInput!): InvoiceEntity!
+  findAllFinances(paginationOptionsInput: PaginationOptionsInput!): [FinanceEntity!]!
   findAllPricingGroup(PaginationOptionsInput: PaginationOptionsInput!): [PricingGroupEntity!]!
   findOnePricingGroup(pricingGroupId: IdInput!): PricingGroupEntity!
 }

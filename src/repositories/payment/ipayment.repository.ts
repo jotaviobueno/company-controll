@@ -7,4 +7,5 @@ export abstract class IPaymentRepository extends IBaseRepository<
   PaymentEntity
 > {
   abstract findByPaymentId(paymentId: string): Promise<PaymentEntity>;
+  abstract findManyWithInvoiceId(invoicesIds: string[]): Promise<PaymentEntity>;
 }

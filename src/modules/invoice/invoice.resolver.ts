@@ -10,6 +10,7 @@ import {
   CompanyEntity,
   CustomerEntity,
   InvoiceEntity,
+  PaymentEntity,
   PersonEntity,
   PricingGroupEntity,
   ProductEntity,
@@ -27,6 +28,7 @@ import {
 import {
   LoaderCompanyByInvoiceId,
   LoaderCustomerByInvoiceId,
+  LoaderPaymentByInvoiceId,
   LoaderPersonByInvoiceId,
   LoaderPricingGroupByInvoiceId,
   LoaderProductByInvoiceId,
@@ -43,6 +45,7 @@ export class InvoiceResolver {
     private readonly loaderPersonByInvoiceId: LoaderPersonByInvoiceId,
     private readonly loaderPricingGroupByInvoiceId: LoaderPricingGroupByInvoiceId,
     private readonly loaderProductByInvoiceId: LoaderProductByInvoiceId,
+    private readonly loaderPaymentByInvoiceId: LoaderPaymentByInvoiceId,
   ) {}
 
   @Mutation(() => InvoiceEntity)
@@ -103,5 +106,13 @@ export class InvoiceResolver {
     { id }: InvoiceEntity,
   ) {
     return this.loaderProductByInvoiceId.load(id);
+  }
+
+  @ResolveField(() => [PaymentEntity], { nullable: true })
+  payment(
+    @Parent()
+    { id }: InvoiceEntity,
+  ) {
+    return this.loaderPaymentByInvoiceId.load(id);
   }
 }

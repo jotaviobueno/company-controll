@@ -1,4 +1,4 @@
-import { Module, ModuleMetadata } from '@nestjs/common';
+import { Module, ModuleMetadata, forwardRef } from '@nestjs/common';
 import {
   IInvoiceRepository,
   InvoiceRepository,
@@ -7,6 +7,7 @@ import {
   InvoiceCalculatorUseCase,
   InvoiceCreateUseCase,
   InvoiceFindAllUseCase,
+  InvoiceFindManyWithInvoicesIdsUseCase,
   InvoiceFindOneUseCase,
   InvoiceHandlerUseCase,
 } from './use-cases';
@@ -19,6 +20,7 @@ import { InvoiceCompanyModule } from '../invoice-company/invoice-company.module'
 import {
   LoaderCompanyByInvoiceId,
   LoaderCustomerByInvoiceId,
+  LoaderPaymentByInvoiceId,
   LoaderPersonByInvoiceId,
   LoaderPricingGroupByInvoiceId,
   LoaderProductByInvoiceId,
@@ -30,14 +32,16 @@ import { InvoicePricingGroupModule } from '../invoice-pricing-group/invoice-pric
 import { PricingGroupModule } from '../pricing-group/pricing-group.module';
 import { InvoiceProductModule } from '../invoice-product/invoice-product.module';
 import { ProductModule } from '../product/product.module';
+import { PaymentModule } from '../payment/payment.module';
 
 export const invoiceModuleMock: ModuleMetadata = {
   imports: [
     PrismaModule,
+    PaymentModule,
     CompanyModule,
     PersonModule,
     CustomerModule,
-    FinanceModule,
+    forwardRef(() => FinanceModule),
     InvoiceCompanyModule,
     InvoiceCustomerModule,
     PricingGroupModule,
@@ -58,6 +62,8 @@ export const invoiceModuleMock: ModuleMetadata = {
     LoaderPersonByInvoiceId,
     LoaderPricingGroupByInvoiceId,
     LoaderProductByInvoiceId,
+    LoaderPaymentByInvoiceId,
+    InvoiceFindManyWithInvoicesIdsUseCase,
     { provide: IInvoiceRepository, useClass: InvoiceRepository },
   ],
   exports: [
@@ -65,6 +71,7 @@ export const invoiceModuleMock: ModuleMetadata = {
     InvoiceCreateUseCase,
     InvoiceFindOneUseCase,
     InvoiceCalculatorUseCase,
+    InvoiceFindManyWithInvoicesIdsUseCase,
   ],
 };
 

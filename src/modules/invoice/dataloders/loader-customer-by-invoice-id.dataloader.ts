@@ -24,6 +24,8 @@ export class LoaderCustomerByInvoiceId
   }
 
   async batch(data: string[]): Promise<CustomerEntity[][]> {
+    console.log(data);
+
     const invoiceCustomers =
       await this.invoiceCustomerFindManyWithInvoicesIdsUseCase.execute(data);
 
@@ -50,6 +52,8 @@ export class LoaderCustomerByInvoiceId
   }
 
   load(data: string): Promise<CustomerEntity[]> {
+    console.log(data);
+
     return this.dataLoader.load(data);
   }
 }

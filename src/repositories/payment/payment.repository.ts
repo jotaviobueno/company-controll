@@ -23,4 +23,14 @@ export class PaymentRepository implements Partial<IPaymentRepository> {
       },
     });
   }
+
+  findManyWithIds(invoicesIds: string[]): Promise<PaymentEntity[]> {
+    return this.prismaService.payment.findMany({
+      where: {
+        invoiceId: {
+          in: invoicesIds,
+        },
+      },
+    });
+  }
 }

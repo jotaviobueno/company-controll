@@ -28,6 +28,16 @@ export class InvoiceRepository implements Partial<IInvoiceRepository> {
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<InvoiceEntity[]> {
+    return this.prismaService.invoice.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findById(id: string): Promise<InvoiceEntity> {
     return this.prismaService.invoice.findFirst({
       where: {

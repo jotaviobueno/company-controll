@@ -6,6 +6,7 @@ import {
 import {
   PaymentCreateUseCase,
   PaymentFindByPaymentIdUseCase,
+  PaymentFindManyWithInvoicesIdsUseCase,
 } from './use-cases';
 import { PrismaModule } from 'src/db/prisma.module';
 
@@ -14,12 +15,17 @@ export const paymentModuleMock = {
   providers: [
     PaymentCreateUseCase,
     PaymentFindByPaymentIdUseCase,
+    PaymentFindManyWithInvoicesIdsUseCase,
     {
       provide: IPaymentRepository,
       useClass: PaymentRepository,
     },
   ],
-  exports: [PaymentCreateUseCase, PaymentFindByPaymentIdUseCase],
+  exports: [
+    PaymentCreateUseCase,
+    PaymentFindByPaymentIdUseCase,
+    PaymentFindManyWithInvoicesIdsUseCase,
+  ],
 };
 
 @Module(paymentModuleMock)
