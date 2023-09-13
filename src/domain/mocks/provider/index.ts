@@ -3,6 +3,7 @@ import { ProviderEntity } from 'src/domain/entities';
 
 export const createProviderInputMock: CreateProviderInput = {
   name: 'test',
+  categories: ['teste'],
 };
 
 export const updateProviderInputMock: UpdateProviderInput = {

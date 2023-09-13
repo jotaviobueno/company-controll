@@ -1,21 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { ICategoryRepository } from './icategory.repository';
 import { PrismaService } from 'src/db/prisma.service';
-import {
-  CreateCategoryInput,
-  PaginationOptionsInput,
-  UpdateCategoryInput,
-} from 'src/domain/dtos';
+import { PaginationOptionsInput, UpdateCategoryInput } from 'src/domain/dtos';
 import { CategoryEntity } from 'src/domain/entities';
 
 @Injectable()
 export class CategoryRepository implements Partial<ICategoryRepository> {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(createDto: CreateCategoryInput): Promise<CategoryEntity> {
+  create(name: string): Promise<CategoryEntity> {
     return this.prismaService.category.create({
       data: {
-        ...createDto,
+        name,
         deletedAt: null,
       },
     });

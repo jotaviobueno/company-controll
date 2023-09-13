@@ -131,6 +131,12 @@ type CategoryEntity {
   name: String!
 }
 
+type CompanyProviderEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -151,6 +157,7 @@ type Query {
   findOneCustomer(customerId: IdInput!): CustomerEntity!
   findAllCustomerAddress(paginationOptionsInput: PaginationOptionsInput!): [CustomerAddressEntity!]!
   findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
+  createProivder(createProviderInput: CreateProviderInput!): ProviderEntity!
   findAllProvider(paginationOptionsInput: PaginationOptionsInput!): [ProviderEntity!]!
   findOneProvider(providerId: IdInput!): ProviderEntity!
   findAllCategory(PaginationOptionsInput: PaginationOptionsInput!): [CategoryEntity!]!
@@ -164,6 +171,13 @@ input PaginationOptionsInput {
 
 input IdInput {
   id: String!
+}
+
+input CreateProviderInput {
+  name: String!
+  description: String
+  categories: [String!]!
+  cnpj: String
 }
 
 type Mutation {
@@ -198,6 +212,7 @@ type Mutation {
   removeProvider(providerId: IdInput!): ProviderEntity!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): CategoryEntity!
   removeCategory(categoryId: IdInput!): Boolean!
+  createCompanyProvider(companyId: IdInput!, createProviderInput: CreateProviderInput!): CompanyProviderEntity!
 }
 
 input CreateAccessInput {
@@ -309,6 +324,7 @@ input UpdateCustomerAddressInput {
 input UpdateProviderInput {
   name: String
   description: String
+  categories: [String!]
   cnpj: String
   id: String!
 }

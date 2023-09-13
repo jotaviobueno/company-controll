@@ -1,7 +1,7 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
 import { ProviderResolver } from './provider.resolver';
 import {
-  ProdiverCreateUseCase,
+  ProviderCreateUseCase,
   ProviderFindAllUseCase,
   ProviderFindOneUseCase,
   ProviderUpdateUseCase,
@@ -12,19 +12,21 @@ import {
   ProviderRepository,
 } from 'src/repositories/provider';
 import { PrismaModule } from 'src/db/prisma.module';
+import { CategoryModule } from '../category/category.module';
+import { ProviderCategoryModule } from '../provider-category/provider-category.module';
 
 export const providerModuleMock: ModuleMetadata = {
-  imports: [PrismaModule],
+  imports: [PrismaModule, CategoryModule, ProviderCategoryModule],
   providers: [
     ProviderResolver,
-    ProdiverCreateUseCase,
+    ProviderCreateUseCase,
     ProviderFindAllUseCase,
     ProviderFindOneUseCase,
     ProviderUpdateUseCase,
     ProviderSoftDeleteUseCase,
     { provide: IProviderRepository, useClass: ProviderRepository },
   ],
-  exports: [ProviderFindOneUseCase, ProdiverCreateUseCase],
+  exports: [ProviderFindOneUseCase, ProviderCreateUseCase],
 };
 
 @Module(providerModuleMock)

@@ -1,7 +1,7 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
 import { CategoryResolver } from './category.resolver';
 import {
-  CategoryCreateUseCase,
+  CategoryFindOrCreateUseCase,
   CategoryFindAllUseCase,
   CategoryFindOneUseCase,
   CategorySoftDeleteUseCase,
@@ -15,14 +15,14 @@ export const categoryModuleMock: ModuleMetadata = {
   imports: [PrismaModule],
   providers: [
     CategoryResolver,
-    CategoryCreateUseCase,
+    CategoryFindOrCreateUseCase,
     CategoryFindAllUseCase,
     CategoryFindOneUseCase,
     CategorySoftDeleteUseCase,
     CategoryUpdateUseCase,
     { provide: ICategoryRepository, useClass: CategoryRepository },
   ],
-  exports: [CategoryCreateUseCase, CategoryFindOneUseCase],
+  exports: [CategoryFindOrCreateUseCase, CategoryFindOneUseCase],
 };
 
 @Module(categoryModuleMock)

@@ -1,5 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import {
+  CreateProviderInput,
   IdInput,
   PaginationOptionsInput,
   UpdateProviderInput,
@@ -10,16 +11,25 @@ import {
   ProviderFindOneUseCase,
   ProviderUpdateUseCase,
   ProviderSoftDeleteUseCase,
+  ProviderCreateUseCase,
 } from './use-cases';
 
 @Resolver(() => ProviderEntity)
 export class ProviderResolver {
   constructor(
+    private readonly createUseCase: ProviderCreateUseCase,
     private readonly findAllUseCase: ProviderFindAllUseCase,
     private readonly findOneUseCase: ProviderFindOneUseCase,
     private readonly updateUseCase: ProviderUpdateUseCase,
     private readonly softDeleteUseCase: ProviderSoftDeleteUseCase,
   ) {}
+
+  @Query(() => ProviderEntity)
+  createProvivder(
+    @Args('createProviderInput') createProivderInput: CreateProviderInput,
+  ) {
+    return this.createUseCase.execute(createProivderInput);
+  }
 
   @Query(() => [ProviderEntity])
   findAllProvider(

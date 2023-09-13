@@ -1,14 +1,7 @@
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ResolveField,
-  Parent,
-} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { IdInput, PaginationOptionsInput } from 'src/domain/dtos';
 import { CreateAddressInput } from 'src/domain/dtos';
-import { AddressEntity, PersonAddressEntity } from 'src/domain/entities';
+import { PersonAddressEntity } from 'src/domain/entities';
 import {
   PersonAddressCreateUseCase,
   PersonAddressFindAllUseCase,

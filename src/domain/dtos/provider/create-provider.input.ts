@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { IsCnpj } from 'src/domain/validators';
 
 @InputType()
@@ -13,6 +13,12 @@ export class CreateProviderInput {
   @IsString()
   @IsOptional()
   description?: string;
+
+  @Field(() => [String])
+  @IsString({ each: true })
+  @IsNotEmpty()
+  @IsArray()
+  categories?: string[];
 
   @Field({ nullable: true })
   @IsCnpj()

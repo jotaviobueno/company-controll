@@ -1,9 +1,5 @@
-import { CreateCategoryInput, UpdateCategoryInput } from 'src/domain/dtos';
+import { UpdateCategoryInput } from 'src/domain/dtos';
 import { CategoryEntity } from 'src/domain/entities';
-
-export const createCategoryInputMock: CreateCategoryInput = {
-  name: 'test',
-};
 
 export const updateCategoryInputMock: UpdateCategoryInput = { id: '1' };
 

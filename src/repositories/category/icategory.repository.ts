@@ -1,11 +1,11 @@
 import { IBaseRepository } from 'src/domain/base';
-import { CreateCategoryInput, UpdateCategoryInput } from 'src/domain/dtos';
+import { UpdateCategoryInput } from 'src/domain/dtos';
 import { CategoryEntity } from 'src/domain/entities';
 
 export abstract class ICategoryRepository extends IBaseRepository<
-  CreateCategoryInput,
+  string,
   CategoryEntity,
   UpdateCategoryInput
 > {
-  abstract findByName(name: string): Promise<CategoryEntity>;
+  abstract findByName(names: string): Promise<CategoryEntity>;
 }

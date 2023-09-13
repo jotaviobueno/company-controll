@@ -2,12 +2,14 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ProviderResolver } from './provider.resolver';
 import { providerModuleMock } from './provider.module';
 import {
+  ProviderCreateUseCase,
   ProviderFindAllUseCase,
   ProviderFindOneUseCase,
   ProviderSoftDeleteUseCase,
   ProviderUpdateUseCase,
 } from './use-cases';
 import {
+  createProviderInputMock,
   paginationOptionsInputMock,
   providerMock,
   updateProviderInputMock,
@@ -22,11 +24,13 @@ describe('ProviderResolver', () => {
   let findOneUseCase: ProviderFindOneUseCase;
   let updateUseCase: ProviderUpdateUseCase;
   let softDeleteUseCase: ProviderSoftDeleteUseCase;
+  let createUseCase: ProviderCreateUseCase;
 
   beforeEach(async () => {
     moduleRef = await Test.createTestingModule(providerModuleMock).compile();
 
     resolver = moduleRef.get<ProviderResolver>(ProviderResolver);
+    createUseCase = moduleRef.get<ProviderCreateUseCase>(ProviderCreateUseCase);
     findAllUseCase = moduleRef.get<ProviderFindAllUseCase>(
       ProviderFindAllUseCase,
     );
@@ -45,6 +49,13 @@ describe('ProviderResolver', () => {
 
   afterEach(async () => {
     await moduleRef.close();
+  });
+
+  it('should CREATE', async () => {
+    jest.spyOn(createUseCase, 'execute').mockResolvedValue(providerMock);
+    expect(
+      await resolver.createProvivder(createProviderInputMock),
+    ).toStrictEqual(providerMock);
   });
 
   it('should findAll', async () => {
