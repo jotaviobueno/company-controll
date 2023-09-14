@@ -17,14 +17,13 @@ import { customerAddressModuleMock } from './customer-address.module';
 
 describe('CustomerAddressResolver', () => {
   let resolver: CustomerAddressResolver;
+  let moduleRef: TestingModule;
 
   let createUseCase: CustomerAddressCreateUseCase;
   let findAllUseCase: CustomerAddressFindAllUseCase;
   let findOneUseCase: CustomerAddressFindOneUseCase;
   let softDeleteUseCase: CustomerAddressSoftDeleteUseCase;
   let updateUseCase: CustomerAddressUpdateUseCase;
-
-  let moduleRef: TestingModule;
 
   beforeEach(async () => {
     moduleRef = await Test.createTestingModule(

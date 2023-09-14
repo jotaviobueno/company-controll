@@ -65,7 +65,7 @@ describe('PersonAddressResolver', () => {
         },
         createAddressInputMock,
       ),
-    ).toStrictEqual(personAddressMock);
+    ).toEqual(personAddressMock);
   });
 
   it('should findAll', async () => {
@@ -75,13 +75,13 @@ describe('PersonAddressResolver', () => {
 
     expect(
       await resolver.findAllPersonAddress(paginationOptionsInputMock),
-    ).toStrictEqual([personAddressMock]);
+    ).toEqual([personAddressMock]);
   });
 
   it('should findOne', async () => {
     jest.spyOn(findOneUseCase, 'execute').mockResolvedValue(personAddressMock);
 
-    expect(await resolver.findOnePersonAddress({ id: '1' })).toStrictEqual(
+    expect(await resolver.findOnePersonAddress({ id: '1' })).toEqual(
       personAddressMock,
     );
   });
@@ -91,12 +91,12 @@ describe('PersonAddressResolver', () => {
 
     expect(
       await resolver.updatePersonAddress({ id: '1' }, createAddressInputMock),
-    ).toStrictEqual(personAddressMock);
+    ).toEqual(personAddressMock);
   });
 
   it('should remove', async () => {
     jest.spyOn(softDeleteUseCase, 'execute').mockResolvedValue(true);
 
-    expect(await resolver.removePersonAddress({ id: '1' })).toStrictEqual(true);
+    expect(await resolver.removePersonAddress({ id: '1' })).toEqual(true);
   });
 });

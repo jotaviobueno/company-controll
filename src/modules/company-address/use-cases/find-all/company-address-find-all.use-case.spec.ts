@@ -27,10 +27,10 @@ describe('CompanyAddressFindAllUseCase', () => {
     expect(usecase).toBeDefined();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     prismaService.$disconnect();
 
-    moduleRef.close();
+    await moduleRef.close();
   });
 
   it('should findAll', async () => {

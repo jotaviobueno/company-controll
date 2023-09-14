@@ -16,6 +16,7 @@
     "test": "jest --logHeapUsage",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage --logHeapUsage",
+    "test:node-execute": "node --expose-gc ./node_modules/.bin/jest",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:seed-role": "ts-node prisma/seed-role.ts"
@@ -61,7 +62,7 @@
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
-    "jest": "^29.5.0",
+    "jest": "^29.7.0",
     "prettier": "^3.0.0",
     "source-map-support": "^0.5.21",
     "supertest": "^6.3.3",

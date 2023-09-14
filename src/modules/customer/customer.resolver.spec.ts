@@ -15,7 +15,6 @@ import {
 
 describe('CustomerResolver', () => {
   let resolver: CustomerResolver;
-
   let moduleRef: TestingModule;
 
   let findAllUseCase: CustomerFindAllUseCase;

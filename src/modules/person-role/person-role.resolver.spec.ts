@@ -9,6 +9,7 @@ import { personRoleInputMock, personRoleMock } from 'src/domain/mocks';
 
 describe('PersonRoleResolver', () => {
   let resolver: PersonRoleResolver;
+
   let assigRoleUseCase: PersonRoleAssigRoleUseCase;
   let removeRoleUseCase: PersonRoleRemoveRoleUseCase;
   let moduleRef: TestingModule;

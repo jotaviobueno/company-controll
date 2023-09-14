@@ -12,11 +12,10 @@ import {
 
 describe('CustomerCompanyResolver', () => {
   let resolver: CustomerCompanyResolver;
+  let moduleRef: TestingModule;
 
   let createUseCase: CustomerCompanyCreateUseCase;
   let removeUseCase: CustomerCompanyRemoveUseCase;
-
-  let moduleRef: TestingModule;
 
   beforeEach(async () => {
     moduleRef = await Test.createTestingModule(

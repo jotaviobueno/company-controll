@@ -15,6 +15,7 @@ import {
 describe('RoleResolver', () => {
   let resolver: RoleResolver;
   let moduleRef: TestingModule;
+
   let findAllUseCase: RoleFindAllUseCase;
   let findOneUseCase: RoleFindOneUseCase;
   let updateUseCase: RoleUpdateUseCase;

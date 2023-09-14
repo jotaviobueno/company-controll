@@ -15,8 +15,9 @@ import {
 } from 'src/domain/mocks';
 
 describe('CompanyAddressResolver', () => {
-  let moduleRef: TestingModule;
   let resolver: CompanyAddressResolver;
+  let moduleRef: TestingModule;
+
   let createUseCase: CompanyAddressCreateUseCase;
   let findAllUseCase: CompanyAddressFindAllUseCase;
   let findOneUseCase: CompanyAddressFindOneUseCase;
@@ -50,8 +51,8 @@ describe('CompanyAddressResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  afterEach(() => {
-    moduleRef.close();
+  afterEach(async () => {
+    await moduleRef.close();
   });
 
   it('should create', async () => {

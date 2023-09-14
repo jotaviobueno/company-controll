@@ -25,6 +25,10 @@ import { InvoiceCustomerModule } from './modules/invoice-customer/invoice-custom
 import { PricingGroupModule } from './modules/pricing-group/pricing-group.module';
 import { InvoicePricingGroupModule } from './modules/invoice-pricing-group/invoice-pricing-group.module';
 import { InvoicePersonModule } from './modules/invoice-person/invoice-person.module';
+import { ProviderModule } from './modules/provider/provider.module';
+import { CategoryModule } from './modules/category/category.module';
+import { ProviderCategoryModule } from './modules/provider-category/provider-category.module';
+import { CompanyProviderModule } from './modules/company-provider/company-provider.module';
 
 @Module({
   imports: [
@@ -54,6 +58,10 @@ import { InvoicePersonModule } from './modules/invoice-person/invoice-person.mod
     PricingGroupModule,
     InvoicePricingGroupModule,
     InvoicePersonModule,
+    ProviderModule,
+    CategoryModule,
+    ProviderCategoryModule,
+    CompanyProviderModule,
   ],
 })
 export class AppModule {}
