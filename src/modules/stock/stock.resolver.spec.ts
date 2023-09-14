@@ -1,32 +1,34 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { StockResolver } from './stock.resolver';
 import { stockModuleStock } from './stock.module';
-import { StockCreateUseCase } from './use-cases';
+import { StockHandlerUseCase } from './use-cases';
 import { createStockInputMock, stockMock } from 'src/domain/mocks';
 
 describe('StockResolver', () => {
   let resolver: StockResolver;
+
   let moduleRef: TestingModule;
 
-  let createUseCase: StockCreateUseCase;
+  let stockHandlerUseCase: StockHandlerUseCase;
 
   beforeEach(async () => {
     moduleRef = await Test.createTestingModule(stockModuleStock).compile();
 
     resolver = moduleRef.get<StockResolver>(StockResolver);
-    createUseCase = moduleRef.get<StockCreateUseCase>(StockCreateUseCase);
+    stockHandlerUseCase =
+      moduleRef.get<StockHandlerUseCase>(StockHandlerUseCase);
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
 
-  afterEach(async () => {
-    await moduleRef.close();
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {
-    jest.spyOn(createUseCase, 'execute').mockResolvedValue(stockMock);
+    jest.spyOn(stockHandlerUseCase, 'execute').mockResolvedValue(stockMock);
 
     expect(await resolver.createStock(createStockInputMock)).toStrictEqual(
       stockMock,

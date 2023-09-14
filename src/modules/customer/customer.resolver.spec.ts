@@ -43,8 +43,8 @@ describe('CustomerResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  afterEach(async () => {
-    await moduleRef.close();
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should findAll', async () => {

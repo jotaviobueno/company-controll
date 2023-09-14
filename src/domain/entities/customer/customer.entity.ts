@@ -13,7 +13,5 @@ export class CustomerEntity extends IBaseEntity implements Customer {
   @Field({ nullable: true })
   email: string | null;
 
-  companyId: string;
-
   deletedAt: Date | null;
 }

@@ -21,6 +21,15 @@ export class CustomerRepository implements Partial<ICustomerRepository> {
     });
   }
 
+  createMany(createDto: CreateCustomerInput[]): Promise<any> {
+    return this.prismaService.customer.createMany({
+      data: {
+        ...createDto,
+        deletedAt: null,
+      },
+    });
+  }
+
   findAll({
     page,
     per_page,
@@ -31,6 +40,16 @@ export class CustomerRepository implements Partial<ICustomerRepository> {
       },
       skip: (page - 1) * per_page,
       take: per_page,
+    });
+  }
+
+  findManyWithIds(ids: string[]): Promise<CustomerEntity[]> {
+    return this.prismaService.customer.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
     });
   }
 

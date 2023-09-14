@@ -16,7 +16,6 @@ import { personModuleMock } from './person.module';
 describe('PersonResolver', () => {
   let resolver: PersonResolver;
   let moduleRef: TestingModule;
-
   let findAllUseCase: PersonFindAllUseCase;
   let findOneUseCase: PersonFindOneUseCase;
   let updateUseCase: PersonUpdateUseCase;
@@ -38,8 +37,8 @@ describe('PersonResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  afterEach(async () => {
-    await moduleRef.close();
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should findAll', async () => {

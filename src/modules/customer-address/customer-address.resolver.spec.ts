@@ -52,8 +52,8 @@ describe('CustomerAddressResolver', () => {
     expect(resolver).toBeDefined();
   });
 
-  afterEach(async () => {
-    await moduleRef.close();
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {

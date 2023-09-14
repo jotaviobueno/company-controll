@@ -39,6 +39,16 @@ export class CompanyRepository implements Partial<ICompanyRepository> {
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<CompanyEntity[]> {
+    return this.prismaService.company.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findAll({
     page,
     per_page,

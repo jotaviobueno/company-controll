@@ -23,6 +23,16 @@ export class PersonRepository implements Partial<IPersonRepository> {
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<PersonEntity[]> {
+    return this.prismaService.person.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findAll({ page, per_page }: PaginationOptionsInput): Promise<PersonEntity[]> {
     return this.prismaService.person.findMany({
       where: {

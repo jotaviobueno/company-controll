@@ -5,6 +5,7 @@ import {
   ProductSoftDeleteUseCase,
   ProductUpdateUseCase,
   ProductFindAllUseCase,
+  ProductFindManyWithIdsUseCase,
 } from './use-cases';
 import {
   IProductRepository,
@@ -22,9 +23,10 @@ export const productModuleMock: ModuleMetadata = {
     ProductUpdateUseCase,
     ProductFindAllUseCase,
     ProductSoftDeleteUseCase,
+    ProductFindManyWithIdsUseCase,
     { provide: IProductRepository, useClass: ProductRepository },
   ],
-  exports: [ProductFindOneUseCase],
+  exports: [ProductFindOneUseCase, ProductFindManyWithIdsUseCase],
 };
 
 @Module(productModuleMock)

@@ -2,21 +2,17 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { IBaseUseCase } from 'src/domain/base';
 import { CreateCustomerInput } from 'src/domain/dtos';
 import { CustomerEntity } from 'src/domain/entities';
-import { CompanyFindOneUseCase } from 'src/modules/company/use-cases';
 import { ICustomerRepository } from 'src/repositories/customer';
 
 @Injectable()
 export class CustomerCreateUseCase
   implements IBaseUseCase<CreateCustomerInput, CustomerEntity>
 {
-  constructor(
-    private readonly customerRepository: ICustomerRepository,
-    private readonly companyFindOneUseCase: CompanyFindOneUseCase,
-  ) {}
+  constructor(private readonly customerRepository: ICustomerRepository) {}
+
+  // TODO: ARRUMAR ESSE MODULE E O MODULE DE CUSTOMER COMPANY
 
   async execute(data: CreateCustomerInput): Promise<CustomerEntity> {
-    const company = await this.companyFindOneUseCase.execute(data.companyId);
-
     if (data.cpf) {
       const cpfAlreadyExist = await this.customerRepository.findByCpf(data.cpf);
 
@@ -35,7 +31,6 @@ export class CustomerCreateUseCase
 
     const customer = await this.customerRepository.create({
       ...data,
-      companyId: company.id,
     });
 
     return customer;
