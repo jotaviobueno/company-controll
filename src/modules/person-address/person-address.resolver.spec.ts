@@ -16,6 +16,7 @@ import {
 
 describe('PersonAddressResolver', () => {
   let resolver: PersonAddressResolver;
+  let moduleRef: TestingModule;
 
   let createUseCase: PersonAddressCreateUseCase;
   let updateUseCase: PersonAddressUpdateUseCase;
@@ -24,30 +25,34 @@ describe('PersonAddressResolver', () => {
   let softDeleteUseCase: PersonAddressSoftDeleteUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
+    moduleRef = await Test.createTestingModule(
       personAddressModuleMock,
     ).compile();
 
-    resolver = module.get<PersonAddressResolver>(PersonAddressResolver);
-    createUseCase = module.get<PersonAddressCreateUseCase>(
+    resolver = moduleRef.get<PersonAddressResolver>(PersonAddressResolver);
+    createUseCase = moduleRef.get<PersonAddressCreateUseCase>(
       PersonAddressCreateUseCase,
     );
-    updateUseCase = module.get<PersonAddressUpdateUseCase>(
+    updateUseCase = moduleRef.get<PersonAddressUpdateUseCase>(
       PersonAddressUpdateUseCase,
     );
-    findAllUseCase = module.get<PersonAddressFindAllUseCase>(
+    findAllUseCase = moduleRef.get<PersonAddressFindAllUseCase>(
       PersonAddressFindAllUseCase,
     );
-    findOneUseCase = module.get<PersonAddressFindOneUseCase>(
+    findOneUseCase = moduleRef.get<PersonAddressFindOneUseCase>(
       PersonAddressFindOneUseCase,
     );
-    softDeleteUseCase = module.get<PersonAddressSoftDeleteUseCase>(
+    softDeleteUseCase = moduleRef.get<PersonAddressSoftDeleteUseCase>(
       PersonAddressSoftDeleteUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(async () => {
+    await moduleRef.close();
   });
 
   it('should create', async () => {
@@ -60,7 +65,7 @@ describe('PersonAddressResolver', () => {
         },
         createAddressInputMock,
       ),
-    ).toStrictEqual(personAddressMock);
+    ).toEqual(personAddressMock);
   });
 
   it('should findAll', async () => {
@@ -70,13 +75,13 @@ describe('PersonAddressResolver', () => {
 
     expect(
       await resolver.findAllPersonAddress(paginationOptionsInputMock),
-    ).toStrictEqual([personAddressMock]);
+    ).toEqual([personAddressMock]);
   });
 
   it('should findOne', async () => {
     jest.spyOn(findOneUseCase, 'execute').mockResolvedValue(personAddressMock);
 
-    expect(await resolver.findOnePersonAddress({ id: '1' })).toStrictEqual(
+    expect(await resolver.findOnePersonAddress({ id: '1' })).toEqual(
       personAddressMock,
     );
   });
@@ -86,12 +91,12 @@ describe('PersonAddressResolver', () => {
 
     expect(
       await resolver.updatePersonAddress({ id: '1' }, createAddressInputMock),
-    ).toStrictEqual(personAddressMock);
+    ).toEqual(personAddressMock);
   });
 
   it('should remove', async () => {
     jest.spyOn(softDeleteUseCase, 'execute').mockResolvedValue(true);
 
-    expect(await resolver.removePersonAddress({ id: '1' })).toStrictEqual(true);
+    expect(await resolver.removePersonAddress({ id: '1' })).toEqual(true);
   });
 });

@@ -13,3 +13,7 @@ export * from './customer/index';
 export * from './customer-company/index';
 export * from './stock/index';
 export * from './customer-address/index';
+export * from './provider/index';
+export * from './category/index';
+export * from './provider-category/index';
+export * from './company-provider/index';

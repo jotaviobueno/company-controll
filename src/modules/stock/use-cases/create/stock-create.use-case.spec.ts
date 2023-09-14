@@ -21,10 +21,10 @@ describe('StockCreateUseCase', () => {
     expect(usecase).toBeDefined();
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     prismaService.$disconnect();
 
-    moduleRef.close();
+    await moduleRef.close();
   });
 
   it('should be create if type income', async () => {
