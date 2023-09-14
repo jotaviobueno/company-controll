@@ -78,7 +78,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "./test",
     "testRegex": ".*\\.spec\\.ts$",
     "collectCoverageFrom": [
       "**/*.(t|j)s"
