@@ -17,6 +17,7 @@ import {
 
 describe('ProductResolver', () => {
   let resolver: ProductResolver;
+  let moduleRef: TestingModule;
 
   let createUseCase: ProductCreateUseCase;
   let findAllUseCase: ProductFindAllUseCase;
@@ -25,22 +26,29 @@ describe('ProductResolver', () => {
   let softDeleteUseCase: ProductSoftDeleteUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule =
-      await Test.createTestingModule(productModuleMock).compile();
+    moduleRef = await Test.createTestingModule(productModuleMock).compile();
 
-    resolver = module.get<ProductResolver>(ProductResolver);
+    resolver = moduleRef.get<ProductResolver>(ProductResolver);
 
-    createUseCase = module.get<ProductCreateUseCase>(ProductCreateUseCase);
-    findAllUseCase = module.get<ProductFindAllUseCase>(ProductFindAllUseCase);
-    findOneUseCase = module.get<ProductFindOneUseCase>(ProductFindOneUseCase);
-    updateUseCase = module.get<ProductUpdateUseCase>(ProductUpdateUseCase);
-    softDeleteUseCase = module.get<ProductSoftDeleteUseCase>(
+    createUseCase = moduleRef.get<ProductCreateUseCase>(ProductCreateUseCase);
+    findAllUseCase = moduleRef.get<ProductFindAllUseCase>(
+      ProductFindAllUseCase,
+    );
+    findOneUseCase = moduleRef.get<ProductFindOneUseCase>(
+      ProductFindOneUseCase,
+    );
+    updateUseCase = moduleRef.get<ProductUpdateUseCase>(ProductUpdateUseCase);
+    softDeleteUseCase = moduleRef.get<ProductSoftDeleteUseCase>(
       ProductSoftDeleteUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {

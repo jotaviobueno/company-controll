@@ -15,26 +15,30 @@ import { personModuleMock } from './person.module';
 
 describe('PersonResolver', () => {
   let resolver: PersonResolver;
+  let moduleRef: TestingModule;
   let findAllUseCase: PersonFindAllUseCase;
   let findOneUseCase: PersonFindOneUseCase;
   let updateUseCase: PersonUpdateUseCase;
   let softDeleteUseCase: PersonSoftDeleteUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule =
-      await Test.createTestingModule(personModuleMock).compile();
+    moduleRef = await Test.createTestingModule(personModuleMock).compile();
 
-    resolver = module.get<PersonResolver>(PersonResolver);
-    findAllUseCase = module.get<PersonFindAllUseCase>(PersonFindAllUseCase);
-    findOneUseCase = module.get<PersonFindOneUseCase>(PersonFindOneUseCase);
-    updateUseCase = module.get<PersonUpdateUseCase>(PersonUpdateUseCase);
-    softDeleteUseCase = module.get<PersonSoftDeleteUseCase>(
+    resolver = moduleRef.get<PersonResolver>(PersonResolver);
+    findAllUseCase = moduleRef.get<PersonFindAllUseCase>(PersonFindAllUseCase);
+    findOneUseCase = moduleRef.get<PersonFindOneUseCase>(PersonFindOneUseCase);
+    updateUseCase = moduleRef.get<PersonUpdateUseCase>(PersonUpdateUseCase);
+    softDeleteUseCase = moduleRef.get<PersonSoftDeleteUseCase>(
       PersonSoftDeleteUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should findAll', async () => {

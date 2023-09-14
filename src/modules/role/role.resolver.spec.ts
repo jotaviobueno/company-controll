@@ -32,6 +32,10 @@ describe('RoleResolver', () => {
     expect(resolver).toBeDefined();
   });
 
+  afterEach(() => {
+    moduleRef.close();
+  });
+
   it('should findAll', async () => {
     jest.spyOn(findAllUseCase, 'execute').mockResolvedValue([roleMock]);
 

@@ -24,31 +24,37 @@ describe('CustomerAddressResolver', () => {
   let softDeleteUseCase: CustomerAddressSoftDeleteUseCase;
   let updateUseCase: CustomerAddressUpdateUseCase;
 
+  let moduleRef: TestingModule;
+
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
+    moduleRef = await Test.createTestingModule(
       customerAddressModuleMock,
     ).compile();
 
-    resolver = module.get<CustomerAddressResolver>(CustomerAddressResolver);
-    createUseCase = module.get<CustomerAddressCreateUseCase>(
+    resolver = moduleRef.get<CustomerAddressResolver>(CustomerAddressResolver);
+    createUseCase = moduleRef.get<CustomerAddressCreateUseCase>(
       CustomerAddressCreateUseCase,
     );
-    findAllUseCase = module.get<CustomerAddressFindAllUseCase>(
+    findAllUseCase = moduleRef.get<CustomerAddressFindAllUseCase>(
       CustomerAddressFindAllUseCase,
     );
-    findOneUseCase = module.get<CustomerAddressFindOneUseCase>(
+    findOneUseCase = moduleRef.get<CustomerAddressFindOneUseCase>(
       CustomerAddressFindOneUseCase,
     );
-    updateUseCase = module.get<CustomerAddressUpdateUseCase>(
+    updateUseCase = moduleRef.get<CustomerAddressUpdateUseCase>(
       CustomerAddressUpdateUseCase,
     );
-    softDeleteUseCase = module.get<CustomerAddressSoftDeleteUseCase>(
+    softDeleteUseCase = moduleRef.get<CustomerAddressSoftDeleteUseCase>(
       CustomerAddressSoftDeleteUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {

@@ -12,25 +12,31 @@ import {
 
 describe('PersonCompanyResolver', () => {
   let resolver: PersonCompanyResolver;
+  let moduleRef: TestingModule;
+
   let findAllUseCase: PersonCompanyFindAllUseCase;
   let findOneUseCase: PersonCompanyFindOneUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
+    moduleRef = await Test.createTestingModule(
       personCompanyModuleMock,
     ).compile();
 
-    resolver = module.get<PersonCompanyResolver>(PersonCompanyResolver);
-    findAllUseCase = module.get<PersonCompanyFindAllUseCase>(
+    resolver = moduleRef.get<PersonCompanyResolver>(PersonCompanyResolver);
+    findAllUseCase = moduleRef.get<PersonCompanyFindAllUseCase>(
       PersonCompanyFindAllUseCase,
     );
-    findOneUseCase = module.get<PersonCompanyFindOneUseCase>(
+    findOneUseCase = moduleRef.get<PersonCompanyFindOneUseCase>(
       PersonCompanyFindOneUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should findAll', async () => {

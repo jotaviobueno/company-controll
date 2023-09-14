@@ -4,16 +4,19 @@ import { mercadoPagoModuleMock } from './mercado-pago.module';
 
 describe('MercadoPagoController', () => {
   let controller: MercadoPagoController;
+  let moduleRef: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
-      mercadoPagoModuleMock,
-    ).compile();
+    moduleRef = await Test.createTestingModule(mercadoPagoModuleMock).compile();
 
-    controller = module.get<MercadoPagoController>(MercadoPagoController);
+    controller = moduleRef.get<MercadoPagoController>(MercadoPagoController);
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 });

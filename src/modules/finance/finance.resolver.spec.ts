@@ -4,15 +4,19 @@ import { financeModuleMock } from './finance.module';
 
 describe('FinanceResolver', () => {
   let resolver: FinanceResolver;
+  let moduleRef: TestingModule;
 
   beforeEach(async () => {
-    const module: TestingModule =
-      await Test.createTestingModule(financeModuleMock).compile();
+    moduleRef = await Test.createTestingModule(financeModuleMock).compile();
 
-    resolver = module.get<FinanceResolver>(FinanceResolver);
+    resolver = moduleRef.get<FinanceResolver>(FinanceResolver);
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 });

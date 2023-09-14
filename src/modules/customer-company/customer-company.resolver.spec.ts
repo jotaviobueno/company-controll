@@ -16,22 +16,28 @@ describe('CustomerCompanyResolver', () => {
   let createUseCase: CustomerCompanyCreateUseCase;
   let removeUseCase: CustomerCompanyRemoveUseCase;
 
+  let moduleRef: TestingModule;
+
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
+    moduleRef = await Test.createTestingModule(
       customerCompanyModuleMock,
     ).compile();
 
-    resolver = module.get<CustomerCompanyResolver>(CustomerCompanyResolver);
-    createUseCase = module.get<CustomerCompanyCreateUseCase>(
+    resolver = moduleRef.get<CustomerCompanyResolver>(CustomerCompanyResolver);
+    createUseCase = moduleRef.get<CustomerCompanyCreateUseCase>(
       CustomerCompanyCreateUseCase,
     );
-    removeUseCase = module.get<CustomerCompanyRemoveUseCase>(
+    removeUseCase = moduleRef.get<CustomerCompanyRemoveUseCase>(
       CustomerCompanyRemoveUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {

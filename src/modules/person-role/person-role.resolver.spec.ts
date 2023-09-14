@@ -29,6 +29,10 @@ describe('PersonRoleResolver', () => {
     expect(resolver).toBeDefined();
   });
 
+  afterEach(() => {
+    moduleRef.close();
+  });
+
   it('should create', async () => {
     jest.spyOn(assigRoleUseCase, 'execute').mockResolvedValue(personRoleMock);
 

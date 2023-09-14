@@ -16,6 +16,7 @@ import {
 
 describe('PersonAddressResolver', () => {
   let resolver: PersonAddressResolver;
+  let moduleRef: TestingModule;
 
   let createUseCase: PersonAddressCreateUseCase;
   let updateUseCase: PersonAddressUpdateUseCase;
@@ -24,30 +25,34 @@ describe('PersonAddressResolver', () => {
   let softDeleteUseCase: PersonAddressSoftDeleteUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
+    moduleRef = await Test.createTestingModule(
       personAddressModuleMock,
     ).compile();
 
-    resolver = module.get<PersonAddressResolver>(PersonAddressResolver);
-    createUseCase = module.get<PersonAddressCreateUseCase>(
+    resolver = moduleRef.get<PersonAddressResolver>(PersonAddressResolver);
+    createUseCase = moduleRef.get<PersonAddressCreateUseCase>(
       PersonAddressCreateUseCase,
     );
-    updateUseCase = module.get<PersonAddressUpdateUseCase>(
+    updateUseCase = moduleRef.get<PersonAddressUpdateUseCase>(
       PersonAddressUpdateUseCase,
     );
-    findAllUseCase = module.get<PersonAddressFindAllUseCase>(
+    findAllUseCase = moduleRef.get<PersonAddressFindAllUseCase>(
       PersonAddressFindAllUseCase,
     );
-    findOneUseCase = module.get<PersonAddressFindOneUseCase>(
+    findOneUseCase = moduleRef.get<PersonAddressFindOneUseCase>(
       PersonAddressFindOneUseCase,
     );
-    softDeleteUseCase = module.get<PersonAddressSoftDeleteUseCase>(
+    softDeleteUseCase = moduleRef.get<PersonAddressSoftDeleteUseCase>(
       PersonAddressSoftDeleteUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {

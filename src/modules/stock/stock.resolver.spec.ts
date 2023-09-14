@@ -6,18 +6,25 @@ import { createStockInputMock, stockMock } from 'src/domain/mocks';
 
 describe('StockResolver', () => {
   let resolver: StockResolver;
+
+  let moduleRef: TestingModule;
+
   let stockHandlerUseCase: StockHandlerUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule =
-      await Test.createTestingModule(stockModuleStock).compile();
+    moduleRef = await Test.createTestingModule(stockModuleStock).compile();
 
-    resolver = module.get<StockResolver>(StockResolver);
-    stockHandlerUseCase = module.get<StockHandlerUseCase>(StockHandlerUseCase);
+    resolver = moduleRef.get<StockResolver>(StockResolver);
+    stockHandlerUseCase =
+      moduleRef.get<StockHandlerUseCase>(StockHandlerUseCase);
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {

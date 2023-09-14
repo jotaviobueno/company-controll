@@ -17,6 +17,7 @@ import {
 
 describe('PricingGroupResolver', () => {
   let resolver: PricingGroupResolver;
+  let moduleRef: TestingModule;
 
   let createUseCase: PricingGroupCreateUseCase;
   let findAllUseCase: PricingGroupFindAllUseCase;
@@ -25,30 +26,34 @@ describe('PricingGroupResolver', () => {
   let updateUseCase: PricingGroupUpdateUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule(
+    moduleRef = await Test.createTestingModule(
       pricingGroupModuleMock,
     ).compile();
 
-    resolver = module.get<PricingGroupResolver>(PricingGroupResolver);
-    createUseCase = module.get<PricingGroupCreateUseCase>(
+    resolver = moduleRef.get<PricingGroupResolver>(PricingGroupResolver);
+    createUseCase = moduleRef.get<PricingGroupCreateUseCase>(
       PricingGroupCreateUseCase,
     );
-    findAllUseCase = module.get<PricingGroupFindAllUseCase>(
+    findAllUseCase = moduleRef.get<PricingGroupFindAllUseCase>(
       PricingGroupFindAllUseCase,
     );
-    findOneUseCase = module.get<PricingGroupFindOneUseCase>(
+    findOneUseCase = moduleRef.get<PricingGroupFindOneUseCase>(
       PricingGroupFindOneUseCase,
     );
-    softDeleteUseCase = module.get<PricingGroupSoftDeleteUseCase>(
+    softDeleteUseCase = moduleRef.get<PricingGroupSoftDeleteUseCase>(
       PricingGroupSoftDeleteUseCase,
     );
-    updateUseCase = module.get<PricingGroupUpdateUseCase>(
+    updateUseCase = moduleRef.get<PricingGroupUpdateUseCase>(
       PricingGroupUpdateUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should create', async () => {

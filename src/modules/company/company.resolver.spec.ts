@@ -46,6 +46,10 @@ describe('CompanyResolver', () => {
     expect(resolver).toBeDefined();
   });
 
+  afterEach(() => {
+    moduleRef.close();
+  });
+
   it('should create', async () => {
     jest.spyOn(createUseCase, 'execute').mockResolvedValue(companyMock);
 
