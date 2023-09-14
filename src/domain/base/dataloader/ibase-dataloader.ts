@@ -1,4 +1,4 @@
-import * as DataLoader from 'dataloader';
+import DataLoader = require('dataloader');
 
 export abstract class IBaseDataloader<T, K> {
   abstract dataLoader: DataLoader<T, K[]>;

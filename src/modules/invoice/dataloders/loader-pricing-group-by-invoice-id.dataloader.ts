@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as DataLoader from 'dataloader';
+import DataLoader = require('dataloader');
 import { IBaseDataloader } from 'src/domain/base';
 import { PricingGroupEntity } from 'src/domain/entities';
 import { InvoicePricingGroupFindManyWithInvoicesIds } from 'src/modules/invoice-pricing-group/use-cases';

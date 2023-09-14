@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as DataLoader from 'dataloader';
+import DataLoader = require('dataloader');
 import { IBaseDataloader } from 'src/domain/base';
 import { PaymentEntity } from 'src/domain/entities';
 import { PaymentFindManyWithInvoicesIdsUseCase } from 'src/modules/payment/use-cases';
