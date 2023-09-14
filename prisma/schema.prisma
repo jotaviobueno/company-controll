@@ -131,6 +131,7 @@ model Provider {
   ProviderCategory ProviderCategory[]
   CompanyProvider  CompanyProvider[]
   ProviderAddress  ProviderAddress[]
+  InvoiceProvider  InvoiceProvider[]
 }
 
 model CompanyProvider {
@@ -383,6 +384,16 @@ model InvoiceProduct {
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
 
+model InvoiceProvider {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId  String   @map("invoice_id") @db.ObjectId
+  Invoice    Invoice  @relation(fields: [invoiceId], references: [id])
+  provider   Provider @relation(fields: [providerId], references: [id])
+  providerId String   @map("provider_id") @db.ObjectId
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
 model InvoicePricingGroup {
   id             String       @id @default(auto()) @map("_id") @db.ObjectId
   invoiceId      String       @map("invoice_id") @db.ObjectId
@@ -421,6 +432,7 @@ model Invoice {
   InvoiceCompany        InvoiceCompany[]
   InvoicePricingGroup   InvoicePricingGroup[]
   InvoiceProduct        InvoiceProduct[]
+  InvoiceProvider       InvoiceProvider[]
 }
 
 model PricingGroup {

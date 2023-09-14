@@ -24,6 +24,7 @@ import {
   LoaderPersonByInvoiceId,
   LoaderPricingGroupByInvoiceId,
   LoaderProductByInvoiceId,
+  LoaderProviderByInvoiceId,
 } from './dataloders';
 import { InvoiceResolver } from './invoice.resolver';
 import { InvoiceCustomerModule } from '../invoice-customer/invoice-customer.module';
@@ -33,6 +34,8 @@ import { PricingGroupModule } from '../pricing-group/pricing-group.module';
 import { InvoiceProductModule } from '../invoice-product/invoice-product.module';
 import { ProductModule } from '../product/product.module';
 import { PaymentModule } from '../payment/payment.module';
+import { InvoiceProviderModule } from '../invoice-provider/invoice-provider.module';
+import { ProviderModule } from '../provider/provider.module';
 
 export const invoiceModuleMock: ModuleMetadata = {
   imports: [
@@ -49,6 +52,8 @@ export const invoiceModuleMock: ModuleMetadata = {
     InvoicePricingGroupModule,
     InvoiceProductModule,
     ProductModule,
+    ProviderModule,
+    InvoiceProviderModule,
   ],
   providers: [
     InvoiceResolver,
@@ -62,6 +67,7 @@ export const invoiceModuleMock: ModuleMetadata = {
     LoaderPersonByInvoiceId,
     LoaderPricingGroupByInvoiceId,
     LoaderProductByInvoiceId,
+    LoaderProviderByInvoiceId,
     LoaderPaymentByInvoiceId,
     InvoiceFindManyWithInvoicesIdsUseCase,
     { provide: IInvoiceRepository, useClass: InvoiceRepository },

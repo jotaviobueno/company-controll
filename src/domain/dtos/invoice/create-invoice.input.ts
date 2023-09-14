@@ -113,4 +113,10 @@ export class CreateInvoiceInput {
   @IsArray()
   @IsOptional()
   pricingGroupsId?: string[];
+
+  @Field(() => [String], { nullable: true })
+  @IsMongoId({ each: true })
+  @IsArray()
+  @IsOptional()
+  providersIds?: string[];
 }

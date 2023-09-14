@@ -6,6 +6,7 @@ import {
   ProviderFindOneUseCase,
   ProviderUpdateUseCase,
   ProviderSoftDeleteUseCase,
+  ProviderFindManyWithIdsUseCase,
 } from './use-cases';
 import {
   IProviderRepository,
@@ -24,9 +25,14 @@ export const providerModuleMock: ModuleMetadata = {
     ProviderFindOneUseCase,
     ProviderUpdateUseCase,
     ProviderSoftDeleteUseCase,
+    ProviderFindManyWithIdsUseCase,
     { provide: IProviderRepository, useClass: ProviderRepository },
   ],
-  exports: [ProviderFindOneUseCase, ProviderCreateUseCase],
+  exports: [
+    ProviderFindOneUseCase,
+    ProviderCreateUseCase,
+    ProviderFindManyWithIdsUseCase,
+  ],
 };
 
 @Module(providerModuleMock)

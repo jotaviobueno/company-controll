@@ -30,6 +30,16 @@ export class ProviderRepository implements Partial<IProviderRepository> {
     });
   }
 
+  findManyWithIds(ids: string[]): Promise<ProviderEntity[]> {
+    return this.prismaService.provider.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   findAll({
     page,
     per_page,

@@ -15,6 +15,10 @@ import { InvoiceProductCreateManyUseCase } from 'src/modules/invoice-product/use
 import { InvoiceCustomerCreateUseCase } from 'src/modules/invoice-customer/use-cases';
 import { InvoiceCompanyCreateManyUseCase } from 'src/modules/invoice-company/use-cases';
 import { InvoicePricingGroupCreateManyUseCase } from 'src/modules/invoice-pricing-group/use-cases';
+import {
+  InvoiceProviderCreateManyUseCase,
+  InvoiceProviderFindManyWithInvoicesIdsUseCase,
+} from 'src/modules/invoice-provider/use-cases';
 
 @Injectable()
 export class InvoiceCreateUseCase
@@ -38,6 +42,9 @@ export class InvoiceCreateUseCase
     //
     private readonly pricingGroupFindManyWithIdsUseCase: PricingGroupFindManyWithIdsUseCase,
     private readonly invoicePricingGroupCreateManyUseCase: InvoicePricingGroupCreateManyUseCase,
+    //
+    private readonly invoiceProviderCreateManyUseCase: InvoiceProviderCreateManyUseCase,
+    private readonly invoiceProviderFindManyWithInvoicesIdsUseCase: InvoiceProviderFindManyWithInvoicesIdsUseCase,
   ) {}
 
   async execute({
@@ -46,6 +53,7 @@ export class InvoiceCreateUseCase
     companiesIds,
     customersIds,
     pricingGroupsId,
+    providersIds,
     ...data
   }: CreateInvoiceInput): Promise<InvoiceEntity> {
     const invoice = await this.invoiceRepository.create(data);
@@ -133,6 +141,28 @@ export class InvoiceCreateUseCase
         pricingGroupsId?.map((pricingGroupId) => ({
           invoiceId: invoice.id,
           pricingGroupId,
+        })),
+      );
+    }
+
+    if (providersIds?.length > 0) {
+      const providers =
+        await this.invoiceProviderFindManyWithInvoicesIdsUseCase.execute(
+          providersIds,
+        );
+
+      providers.forEach((provider) => {
+        if (!provider)
+          throw new HttpException(
+            'Provider Group not found',
+            HttpStatus.NOT_FOUND,
+          );
+      });
+
+      await this.invoiceProviderCreateManyUseCase.execute(
+        providersIds?.map((providerId) => ({
+          invoiceId: invoice.id,
+          providerId,
         })),
       );
     }

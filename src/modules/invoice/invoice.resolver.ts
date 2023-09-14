@@ -14,6 +14,7 @@ import {
   PersonEntity,
   PricingGroupEntity,
   ProductEntity,
+  ProviderEntity,
 } from 'src/domain/entities';
 import {
   InvoiceCreateUseCase,
@@ -32,6 +33,7 @@ import {
   LoaderPersonByInvoiceId,
   LoaderPricingGroupByInvoiceId,
   LoaderProductByInvoiceId,
+  LoaderProviderByInvoiceId,
 } from './dataloders';
 
 @Resolver(() => InvoiceEntity)
@@ -46,6 +48,7 @@ export class InvoiceResolver {
     private readonly loaderPricingGroupByInvoiceId: LoaderPricingGroupByInvoiceId,
     private readonly loaderProductByInvoiceId: LoaderProductByInvoiceId,
     private readonly loaderPaymentByInvoiceId: LoaderPaymentByInvoiceId,
+    private readonly loaderProviderByInvoiceId: LoaderProviderByInvoiceId,
   ) {}
 
   @Mutation(() => InvoiceEntity)
@@ -114,5 +117,13 @@ export class InvoiceResolver {
     { id }: InvoiceEntity,
   ) {
     return this.loaderPaymentByInvoiceId.load(id);
+  }
+
+  @ResolveField(() => [ProviderEntity], { nullable: true })
+  providers(
+    @Parent()
+    { id }: InvoiceEntity,
+  ) {
+    return this.loaderProviderByInvoiceId.load(id);
   }
 }
