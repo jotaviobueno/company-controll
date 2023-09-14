@@ -119,7 +119,6 @@ model ProviderCategory {
   updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
 }
 
-// TODO: Implementar redesocial depois
 model Provider {
   id               String             @id @default(auto()) @map("_id") @db.ObjectId
   name             String
@@ -133,8 +132,6 @@ model Provider {
   ProviderAddress  ProviderAddress[]
 }
 
-// TODO: NÃO FEITO
-
 model CompanyProvider {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   company    Company   @relation(fields: [companyId], references: [id])
@@ -147,7 +144,6 @@ model CompanyProvider {
 }
 
 // TODO: NÃO FEITO
-
 model ProviderAddress {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   address    Address   @relation(fields: [addressId], references: [id])
