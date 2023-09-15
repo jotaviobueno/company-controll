@@ -1,8 +1,6 @@
 name: Tests
 
 on:
-  push:
-    branches: ['main']
   pull_request:
     branches: ['main']
 
@@ -11,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 20.5.1
+      - name: Use Node.js 16.10
         uses: actions/setup-node@v3
         with:
-          node-version: 20.5.1
+          node-version: 16.13
 
       - run: |
           npm install --if-present
@@ -24,3 +22,5 @@ jobs:
           npm run test --if-present
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
