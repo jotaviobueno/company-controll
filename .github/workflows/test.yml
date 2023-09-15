@@ -1,8 +1,6 @@
 name: Tests
 
 on:
-  push:
-    branches: ['main']
   pull_request:
     branches: ['main']
 
@@ -21,6 +19,8 @@ jobs:
       - run: |
           npx prisma generate
       - run: |
-          npm run test --if-present
+          npm run test:cov --if-present
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
