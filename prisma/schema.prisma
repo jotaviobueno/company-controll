@@ -95,6 +95,7 @@ model Company {
   CustomerCompany CustomerCompany[]
   CompanyProvider CompanyProvider[]
   InvoiceCompany  InvoiceCompany[]
+  Team            Team[]
 }
 
 // TODO: NÃO FEITO
@@ -425,7 +426,6 @@ model Invoice {
   createdAt             DateTime              @default(now()) @map("created_at") @db.Timestamp
   updatedAt             DateTime              @default(now()) @map("updated_at") @db.Timestamp
   Finance               Finance[]
-  Installment           Installment[]
   Payment               Payment[]
   InvoicePerson         InvoicePerson[]
   InvoiceCustomer       InvoiceCustomer[]
@@ -444,12 +444,14 @@ model PricingGroup {
   InvoicePricingGroup InvoicePricingGroup[]
 }
 
-model Installment {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  status      FinanceStatus
-  invoice     Invoice       @relation(fields: [invoiceId], references: [id])
-  invoiceId   String        @map("invoice_id") @db.ObjectId
-  value       Float
-  issuedDate  DateTime      @default(now()) @map("issued_date") @db.Timestamp
-  paymentDate DateTime?     @map("payment_date") @db.Timestamp
+model Team {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String?
+  company     Company   @relation(fields: [companyId], references: [id])
+  companyId   String    @map("company_id") @db.ObjectId
+  imagesUrls  String[]  @default([]) @map("images_urls")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamp
 }

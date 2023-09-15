@@ -31,3 +31,4 @@ export * from './provider/index';
 export * from './company-provider/index';
 export * from './invoice-provider/index';
 export * from './provider-address/index';
+export * from './team/index';
