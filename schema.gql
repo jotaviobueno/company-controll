@@ -115,6 +115,92 @@ type CustomerAddressEntity {
   updatedAt: DateTime!
 }
 
+<<<<<<< HEAD
+type InvoiceEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  operation: String
+  description: String
+  paymentType: String
+  status: String
+  quantity: Int
+  unitPrice: Int
+  totalAfterInstallment: Int
+  totalInstallments: Int
+  lastInstallment: Int
+  discountPercentage: Int
+  discountMoney: Int
+  priceBeforeDiscount: Int
+  finalPrice: Int!
+  companies: [CompanyEntity!]
+  customers: [CustomerEntity!]
+  persons: [PersonEntity!]
+  pricingGroups: [PricingGroupEntity!]
+  products: [ProductEntity!]
+  payment: [PaymentEntity!]
+}
+
+type FinanceEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  companies: [InvoiceEntity!]
+}
+
+type PaymentEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  status: String!
+  statusDetail: String!
+  operationType: String!
+  paymentId: String!
+  brand: String!
+  method: String!
+  cardFirstSixDigits: String
+  cardLastFourDigits: String
+  currency: String!
+  fees: [JSON!]!
+  amount: Int!
+  installmentAmount: Int!
+  totalPaidWithFees: Int!
+  approvedAt: DateTime
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type PricingGroupEntity {
+=======
+type ProviderEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  description: String
+  cnpj: String
+}
+
+type CategoryEntity {
+>>>>>>> f11ae7973c0977dd8187ed2530823a1b5f907c65
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+}
+
+<<<<<<< HEAD
+=======
+type CompanyProviderEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+>>>>>>> f11ae7973c0977dd8187ed2530823a1b5f907c65
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -135,6 +221,19 @@ type Query {
   findOneCustomer(customerId: IdInput!): CustomerEntity!
   findAllCustomerAddress(paginationOptionsInput: PaginationOptionsInput!): [CustomerAddressEntity!]!
   findOneCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
+<<<<<<< HEAD
+  findAllInvoice(paginationOptionsInput: PaginationOptionsInput!): [InvoiceEntity!]!
+  findOneInvoice(invoiceId: IdInput!): InvoiceEntity!
+  findAllFinances(paginationOptionsInput: PaginationOptionsInput!): [FinanceEntity!]!
+  findAllPricingGroup(PaginationOptionsInput: PaginationOptionsInput!): [PricingGroupEntity!]!
+  findOnePricingGroup(pricingGroupId: IdInput!): PricingGroupEntity!
+=======
+  createProivder(createProviderInput: CreateProviderInput!): ProviderEntity!
+  findAllProvider(paginationOptionsInput: PaginationOptionsInput!): [ProviderEntity!]!
+  findOneProvider(providerId: IdInput!): ProviderEntity!
+  findAllCategory(PaginationOptionsInput: PaginationOptionsInput!): [CategoryEntity!]!
+  findOneCategory(categoryId: IdInput!): CategoryEntity!
+>>>>>>> f11ae7973c0977dd8187ed2530823a1b5f907c65
 }
 
 input PaginationOptionsInput {
@@ -144,6 +243,13 @@ input PaginationOptionsInput {
 
 input IdInput {
   id: String!
+}
+
+input CreateProviderInput {
+  name: String!
+  description: String
+  categories: [String!]!
+  cnpj: String
 }
 
 type Mutation {
@@ -174,6 +280,18 @@ type Mutation {
   createCustomerAddress(createCustomerAddressInput: CreateAddressInput!, customerId: IdInput!): CustomerAddressEntity!
   updateCustomerAddress(updateCustomerAddressInput: UpdateCustomerAddressInput!): CustomerAddressEntity!
   removeCustomerAddress(customerAddressId: IdInput!): CustomerAddressEntity!
+<<<<<<< HEAD
+  createInvoice(createInvoiceInput: CreateInvoiceInput!): InvoiceEntity!
+  createPricingGroup(createPricingGroupInput: CreatePricingGroupInput!): PricingGroupEntity!
+  updatePricingGroup(updatePricingGroupInput: UpdatePricingGroupInput!): PricingGroupEntity!
+  removePricingGroup(pricingGroupId: IdInput!): Boolean!
+=======
+  updateProvider(updateProviderInput: UpdateProviderInput!): ProviderEntity!
+  removeProvider(providerId: IdInput!): ProviderEntity!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): CategoryEntity!
+  removeCategory(categoryId: IdInput!): Boolean!
+  createCompanyProvider(companyId: IdInput!, createProviderInput: CreateProviderInput!): CompanyProviderEntity!
+>>>>>>> f11ae7973c0977dd8187ed2530823a1b5f907c65
 }
 
 input CreateAccessInput {
@@ -250,7 +368,6 @@ input UpdateCustomerInput {
   name: String
   cpf: String
   email: String
-  companyId: String
   id: String!
 }
 
@@ -280,4 +397,60 @@ input UpdateCustomerAddressInput {
   zipCode: Int
   state: String
   id: String!
+}
+
+<<<<<<< HEAD
+input CreateInvoiceInput {
+  operation: String
+  description: String
+  paymentType: InvoicePaymentType!
+  status: InvoiceStatusEnum
+  quantity: Int
+  unitPrice: Int
+  totalAfterInstallment: Int
+  totalInstallments: Int
+  lastInstallment: Int
+  discountPercentage: Int
+  discountMoney: Int
+  priceBeforeDiscount: Int
+  finalPrice: Int!
+  personsIds: [String!]
+  customersIds: [String!]
+  companiesIds: [String!]
+  productsIds: [String!]
+  pricingGroupsId: [String!]
+}
+
+enum InvoicePaymentType {
+  INCOME
+  OUTCOME
+}
+
+enum InvoiceStatusEnum {
+  OPEN
+  PAID
+  CANCEL
+  PENDING
+}
+
+input CreatePricingGroupInput {
+  name: String!
+}
+
+input UpdatePricingGroupInput {
+  name: String
+  id: String!
+=======
+input UpdateProviderInput {
+  name: String
+  description: String
+  categories: [String!]
+  cnpj: String
+  id: String!
+}
+
+input UpdateCategoryInput {
+  id: String!
+  name: String
+>>>>>>> f11ae7973c0977dd8187ed2530823a1b5f907c65
 }

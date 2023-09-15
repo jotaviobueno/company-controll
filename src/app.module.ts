@@ -15,6 +15,21 @@ import { CustomerModule } from './modules/customer/customer.module';
 import { CustomerCompanyModule } from './modules/customer-company/customer-company.module';
 import { StockModule } from './modules/stock/stock.module';
 import { CustomerAddressModule } from './modules/customer-address/customer-address.module';
+import { MercadoPagoModule } from './modules/mercado-pago/mercado-pago.module';
+import { InvoiceModule } from './modules/invoice/invoice.module';
+import { FinanceModule } from './modules/finance/finance.module';
+import { PaymentModule } from './modules/payment/payment.module';
+import { InvoiceProductModule } from './modules/invoice-product/invoice-product.module';
+import { InvoiceCompanyModule } from './modules/invoice-company/invoice-company.module';
+import { InvoiceCustomerModule } from './modules/invoice-customer/invoice-customer.module';
+import { PricingGroupModule } from './modules/pricing-group/pricing-group.module';
+import { InvoicePricingGroupModule } from './modules/invoice-pricing-group/invoice-pricing-group.module';
+import { InvoicePersonModule } from './modules/invoice-person/invoice-person.module';
+import { ProviderModule } from './modules/provider/provider.module';
+import { CategoryModule } from './modules/category/category.module';
+import { ProviderCategoryModule } from './modules/provider-category/provider-category.module';
+import { CompanyProviderModule } from './modules/company-provider/company-provider.module';
+import { InvoiceProviderModule } from './modules/invoice-provider/invoice-provider.module';
 
 @Module({
   imports: [
@@ -34,6 +49,21 @@ import { CustomerAddressModule } from './modules/customer-address/customer-addre
     CustomerCompanyModule,
     StockModule,
     CustomerAddressModule,
+    MercadoPagoModule,
+    InvoiceModule,
+    FinanceModule,
+    PaymentModule,
+    InvoiceProductModule,
+    InvoiceCompanyModule,
+    InvoiceCustomerModule,
+    PricingGroupModule,
+    InvoicePricingGroupModule,
+    InvoicePersonModule,
+    ProviderModule,
+    CategoryModule,
+    ProviderCategoryModule,
+    CompanyProviderModule,
+    InvoiceProviderModule,
   ],
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
 import { CustomerCompanyResolver } from './customer-company.resolver';
 import {
+  CustomerCompanyCreateManyUseCase,
   CustomerCompanyCreateUseCase,
   CustomerCompanyRemoveUseCase,
 } from './use-cases';
@@ -18,11 +19,13 @@ export const customerCompanyModuleMock: ModuleMetadata = {
     CustomerCompanyResolver,
     CustomerCompanyCreateUseCase,
     CustomerCompanyRemoveUseCase,
+    CustomerCompanyCreateManyUseCase,
     {
       provide: ICustomerCompanyRepository,
       useClass: CustomerCompanyRepository,
     },
   ],
+  exports: [CustomerCompanyCreateManyUseCase],
 };
 
 @Module(customerCompanyModuleMock)

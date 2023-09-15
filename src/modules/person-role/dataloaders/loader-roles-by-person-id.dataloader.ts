@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import * as DataLoader from 'dataloader';
+import DataLoader = require('dataloader');
 import { IBaseDataloader } from 'src/domain/base';
 import { RoleEntity } from 'src/domain/entities';
 import { PersonRoleFindManyWithPersonIdUseCase } from '../use-cases';

@@ -15,6 +15,7 @@ import {
 
 describe('CustomerResolver', () => {
   let resolver: CustomerResolver;
+  let moduleRef: TestingModule;
 
   let findAllUseCase: CustomerFindAllUseCase;
   let findOneUseCase: CustomerFindOneUseCase;
@@ -22,21 +23,28 @@ describe('CustomerResolver', () => {
   let softDeleteUseCase: CustomerSoftDeleteUseCase;
 
   beforeEach(async () => {
-    const module: TestingModule =
-      await Test.createTestingModule(customerModuleMock).compile();
+    moduleRef = await Test.createTestingModule(customerModuleMock).compile();
 
-    resolver = module.get<CustomerResolver>(CustomerResolver);
+    resolver = moduleRef.get<CustomerResolver>(CustomerResolver);
 
-    findAllUseCase = module.get<CustomerFindAllUseCase>(CustomerFindAllUseCase);
-    findOneUseCase = module.get<CustomerFindOneUseCase>(CustomerFindOneUseCase);
-    updateUseCase = module.get<CustomerUpdateUseCase>(CustomerUpdateUseCase);
-    softDeleteUseCase = module.get<CustomerSoftDeleteUseCase>(
+    findAllUseCase = moduleRef.get<CustomerFindAllUseCase>(
+      CustomerFindAllUseCase,
+    );
+    findOneUseCase = moduleRef.get<CustomerFindOneUseCase>(
+      CustomerFindOneUseCase,
+    );
+    updateUseCase = moduleRef.get<CustomerUpdateUseCase>(CustomerUpdateUseCase);
+    softDeleteUseCase = moduleRef.get<CustomerSoftDeleteUseCase>(
       CustomerSoftDeleteUseCase,
     );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  afterEach(() => {
+    moduleRef.close();
   });
 
   it('should findAll', async () => {
