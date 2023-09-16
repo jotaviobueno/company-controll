@@ -232,6 +232,23 @@ type PersonTeamEntity {
   updatedAt: DateTime!
 }
 
+type JobEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  title: String!
+  description: String
+  status: JobStatus!
+  expiresAt: DateTime
+}
+
+enum JobStatus {
+  TERMINATED
+  PENDING
+  FAILED
+  EXPIRED
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -266,6 +283,8 @@ type Query {
   findAllTeam(paginationOptionsInput: PaginationOptionsInput!): [TeamEntity!]!
   findAllTeamRequest(paginationOptiosnInput: PaginationOptionsInput!): [TeamRequestEntity!]!
   findAllPersonTeam(paginationOptionsInput: PaginationOptionsInput!): [PersonTeamEntity!]!
+  findAllJob(PaginationOptionsInput: PaginationOptionsInput!): [JobEntity!]!
+  findOneJob(jobId: IdInput!): JobEntity!
 }
 
 input PaginationOptionsInput {
@@ -328,6 +347,9 @@ type Mutation {
   acceptTeamRequest(teamRequestId: IdInput!): TeamRequestEntity!
   refusedTeamRequest(teamId: IdInput!): TeamRequestEntity!
   cancelTeamRequest(teamRequestId: IdInput!): TeamRequestEntity!
+  createJob(createJobInput: CreateJobInput!): JobEntity!
+  updateJob(updateJobInput: UpdateJobInput!): JobEntity!
+  removeJob(jobId: IdInput!): Boolean!
 }
 
 input CreateAccessInput {
@@ -508,4 +530,17 @@ input UpdateTeamInput {
 input CreateTeamRequestInput {
   personId: String!
   teamId: String!
+}
+
+input CreateJobInput {
+  title: String!
+  description: String
+  status: JobStatus
+}
+
+input UpdateJobInput {
+  title: String
+  description: String
+  status: JobStatus
+  id: String!
 }
