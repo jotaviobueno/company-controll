@@ -2,15 +2,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
 import { teamRequestMock, updateTeamRequestInputMock } from 'src/domain/mocks';
 import { TeamRequestUpdateUseCase } from './team-request-update.use-case';
-import { teamModuleMock } from 'src/modules/team/team.module';
+import { teamRequestModuleMock } from '../../team-request.module';
 
-describe.skip('TeamRequestUpdateUseCase', () => {
+describe('TeamRequestUpdateUseCase', () => {
   let usecase: TeamRequestUpdateUseCase;
   let moduleRef: TestingModule;
   let prismaService: PrismaService;
 
   beforeEach(async () => {
-    moduleRef = await Test.createTestingModule(teamModuleMock).compile();
+    moduleRef = await Test.createTestingModule(teamRequestModuleMock).compile();
 
     prismaService = moduleRef.get<PrismaService>(PrismaService);
     usecase = moduleRef.get<TeamRequestUpdateUseCase>(TeamRequestUpdateUseCase);

@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
 import { paginationOptionsInputMock, personTeamMock } from 'src/domain/mocks';
-import { personTeamModuleMock } from '../../person-team.module';
 import { PersonTeamFindAllUseCase } from './person-team-find-all.use-case';
+import { personTeamModuleMock } from '../../person-team.module';
 
-describe.skip('PersonTeamFindAllUseCase', () => {
+describe('PersonTeamFindAllUseCase', () => {
   let usecase: PersonTeamFindAllUseCase;
   let moduleRef: TestingModule;
   let prismaService: PrismaService;
@@ -27,14 +27,14 @@ describe.skip('PersonTeamFindAllUseCase', () => {
   });
 
   it('should findAll', async () => {
-    const findSpy = jest
+    const findAllSpy = jest
       .spyOn(prismaService.personTeam, 'findMany')
       .mockResolvedValue([personTeamMock]);
 
     const response = await usecase.execute(paginationOptionsInputMock);
 
     expect(response).toStrictEqual([personTeamMock]);
-    expect(findSpy).toHaveBeenCalledWith({
+    expect(findAllSpy).toHaveBeenCalledWith({
       where: {},
       skip:
         (paginationOptionsInputMock.page - 1) *

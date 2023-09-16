@@ -30,7 +30,7 @@ export class PersonTeamRepository implements Partial<IPersonTeamRepository> {
     page,
     per_page,
   }: PaginationOptionsInput): Promise<PersonTeamEntity[]> {
-    return this.prismaService.teamRequest.findMany({
+    return this.prismaService.personTeam.findMany({
       where: {},
       skip: (page - 1) * per_page,
       take: per_page,
