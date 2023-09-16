@@ -30,6 +30,9 @@ import { CategoryModule } from './modules/category/category.module';
 import { ProviderCategoryModule } from './modules/provider-category/provider-category.module';
 import { CompanyProviderModule } from './modules/company-provider/company-provider.module';
 import { InvoiceProviderModule } from './modules/invoice-provider/invoice-provider.module';
+import { TeamModule } from './modules/team/team.module';
+import { PersonTeamModule } from './modules/person-team/person-team.module';
+import { TeamRequestModule } from './modules/team-request/team-request.module';
 
 @Module({
   imports: [
@@ -64,6 +67,9 @@ import { InvoiceProviderModule } from './modules/invoice-provider/invoice-provid
     ProviderCategoryModule,
     CompanyProviderModule,
     InvoiceProviderModule,
+    TeamModule,
+    TeamRequestModule,
+    PersonTeamModule,
   ],
 })
 export class AppModule {}
