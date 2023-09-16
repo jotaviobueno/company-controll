@@ -22,6 +22,7 @@ export const teamModuleMock = {
     TeamFindAllUseCase,
     { provide: ITeamRepository, useClass: TeamRepository },
   ],
+  exports: [TeamFindOneUseCase],
 };
 
 @Module(teamModuleMock)

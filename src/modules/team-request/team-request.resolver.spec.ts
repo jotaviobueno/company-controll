@@ -1,57 +1,96 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TeamRequestResolver } from './team-request.resolver';
-import { TeamRequestService } from './team-request.service';
-import { ITeamRequestRepository, TeamRequestRepository } from './repository';
-import { PrismaModule } from '../../db/prisma.module';
 import {
+  TeamRequestAcceptUseCase,
+  TeamRequestCancelUseCase,
+  TeamRequestCreateUseCase,
+  TeamRequestFindAllUseCase,
+  TeamRequestRefusedUseCase,
+} from './use-cases';
+import {
+  createTeamRequestInputMock,
   paginationOptionsInputMock,
-  searchTeamRequestInputMock,
   teamRequestMock,
-} from '../../domain/mocks';
+} from 'src/domain/mocks';
+import { teamRequestModuleMock } from './team-request.module';
+import { TeamRequestResolver } from './team-request.resolver';
 
 describe('TeamRequestResolver', () => {
   let resolver: TeamRequestResolver;
   let moduleRef: TestingModule;
-  let service: TeamRequestService;
+
+  let acceptUseCase: TeamRequestAcceptUseCase;
+  let createUseCase: TeamRequestCreateUseCase;
+  let refusedUseCase: TeamRequestRefusedUseCase;
+  let findAllUseCase: TeamRequestFindAllUseCase;
+  let cancelUseCase: TeamRequestCancelUseCase;
 
   beforeEach(async () => {
-    moduleRef = await Test.createTestingModule({
-      imports: [PrismaModule],
-      providers: [
-        TeamRequestResolver,
-        TeamRequestService,
-        { provide: ITeamRequestRepository, useClass: TeamRequestRepository },
-      ],
-    }).compile();
+    moduleRef = await Test.createTestingModule(teamRequestModuleMock).compile();
 
     resolver = moduleRef.get<TeamRequestResolver>(TeamRequestResolver);
-    service = moduleRef.get<TeamRequestService>(TeamRequestService);
+
+    acceptUseCase = moduleRef.get<TeamRequestAcceptUseCase>(
+      TeamRequestAcceptUseCase,
+    );
+    createUseCase = moduleRef.get<TeamRequestCreateUseCase>(
+      TeamRequestCreateUseCase,
+    );
+    findAllUseCase = moduleRef.get<TeamRequestFindAllUseCase>(
+      TeamRequestFindAllUseCase,
+    );
+    refusedUseCase = moduleRef.get<TeamRequestRefusedUseCase>(
+      TeamRequestRefusedUseCase,
+    );
+    cancelUseCase = moduleRef.get<TeamRequestCancelUseCase>(
+      TeamRequestCancelUseCase,
+    );
   });
 
   it('should be defined', () => {
     expect(resolver).toBeDefined();
   });
 
-  describe('findAll', () => {
-    it('should findAll', async () => {
-      jest.spyOn(service, 'findAll').mockResolvedValue([teamRequestMock]);
-
-      expect(
-        await resolver.findAll(
-          searchTeamRequestInputMock,
-          paginationOptionsInputMock,
-        ),
-      ).toStrictEqual([teamRequestMock]);
-    });
+  afterEach(() => {
+    moduleRef.close();
   });
 
-  describe('cancel', () => {
-    it('should cancel', async () => {
-      jest.spyOn(service, 'cancel').mockResolvedValue(teamRequestMock);
+  it('should create', async () => {
+    jest.spyOn(createUseCase, 'execute').mockResolvedValue(teamRequestMock);
 
-      expect(
-        await resolver.cancelTeamRequest({ id: '64e2d3d82aafb84e7551e187' }),
-      ).toStrictEqual(teamRequestMock);
-    });
+    expect(
+      await resolver.createTeamRequest(createTeamRequestInputMock),
+    ).toStrictEqual(teamRequestMock);
+  });
+
+  it('should acceptUseCase', async () => {
+    jest.spyOn(acceptUseCase, 'execute').mockResolvedValue(teamRequestMock);
+
+    expect(await resolver.acceptTeamRequest({ id: '1' })).toStrictEqual(
+      teamRequestMock,
+    );
+  });
+
+  it('should findAll', async () => {
+    jest.spyOn(findAllUseCase, 'execute').mockResolvedValue([teamRequestMock]);
+
+    expect(
+      await resolver.findAllTeamRequest(paginationOptionsInputMock),
+    ).toStrictEqual([teamRequestMock]);
+  });
+
+  it('should refused', async () => {
+    jest.spyOn(refusedUseCase, 'execute').mockResolvedValue(teamRequestMock);
+
+    expect(await resolver.refusedTeamRequest({ id: '1' })).toStrictEqual(
+      teamRequestMock,
+    );
+  });
+
+  it('should cancel', async () => {
+    jest.spyOn(cancelUseCase, 'execute').mockResolvedValue(teamRequestMock);
+
+    expect(await resolver.cancelTeamRequest({ id: '1' })).toStrictEqual(
+      teamRequestMock,
+    );
   });
 });

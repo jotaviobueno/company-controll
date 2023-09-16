@@ -1,14 +1,38 @@
 import { Module } from '@nestjs/common';
-import { TeamRequestService } from './team-request.service';
 import { TeamRequestResolver } from './team-request.resolver';
-import { ITeamRequestRepository, TeamRequestRepository } from './repository';
+import { PersonModule } from '../person/person.module';
+import { PrismaModule } from 'src/db/prisma.module';
+import { TeamModule } from '../team/team.module';
+import {
+  ITeamRequestRepository,
+  TeamRequestRepository,
+} from 'src/repositories/team-request';
+import {
+  TeamRequestAcceptUseCase,
+  TeamRequestCreateUseCase,
+  TeamRequestFindOneUseCase,
+  TeamRequestRefusedUseCase,
+  TeamRequestUpdateUseCase,
+  TeamRequestFindAllUseCase,
+  TeamRequestCancelUseCase,
+} from './use-cases';
+import { PersonTeamModule } from '../person-team/person-team.module';
 
-@Module({
+export const teamRequestModuleMock = {
+  imports: [PersonModule, PrismaModule, PersonTeamModule, TeamModule],
   providers: [
     TeamRequestResolver,
-    TeamRequestService,
+    TeamRequestAcceptUseCase,
+    TeamRequestCreateUseCase,
+    TeamRequestFindOneUseCase,
+    TeamRequestRefusedUseCase,
+    TeamRequestUpdateUseCase,
+    TeamRequestFindAllUseCase,
+    TeamRequestCancelUseCase,
     { provide: ITeamRequestRepository, useClass: TeamRequestRepository },
   ],
-  exports: [TeamRequestService],
-})
+  exports: [TeamRequestFindOneUseCase],
+};
+
+@Module(teamRequestModuleMock)
 export class TeamRequestModule {}

@@ -41,6 +41,8 @@ model Person {
   PersonAddress PersonAddress[]
   Log           Log[]
   InvoicePerson InvoicePerson[]
+  PersonTeam    PersonTeam[]
+  TeamRequest   TeamRequest[]
 }
 
 model PersonCompany {
@@ -444,14 +446,45 @@ model PricingGroup {
   InvoicePricingGroup InvoicePricingGroup[]
 }
 
+model PersonTeam {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person   @relation(fields: [personId], references: [id])
+  personId  String   @map("person_id") @db.ObjectId
+  team      Team     @relation(fields: [teamId], references: [id])
+  teamId    String   @map("team_id") @db.ObjectId
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+}
+
 model Team {
-  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String?
-  company     Company   @relation(fields: [companyId], references: [id])
-  companyId   String    @map("company_id") @db.ObjectId
-  imagesUrls  String[]  @default([]) @map("images_urls")
-  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp
-  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamp
-  deletedAt   DateTime? @map("deleted_at") @db.Timestamp
+  company     Company       @relation(fields: [companyId], references: [id])
+  companyId   String        @map("company_id") @db.ObjectId
+  imagesUrls  String[]      @default([]) @map("images_urls")
+  createdAt   DateTime      @default(now()) @map("created_at") @db.Timestamp
+  updatedAt   DateTime      @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt   DateTime?     @map("deleted_at") @db.Timestamp
+  PersonTeam  PersonTeam[]
+  TeamRequest TeamRequest[]
+}
+
+model TeamRequest {
+  id        String            @id @default(auto()) @map("_id") @db.ObjectId
+  team      Team              @relation(fields: [teamId], references: [id])
+  teamId    String            @map("team_id") @db.ObjectId
+  person    Person            @relation(fields: [personId], references: [id])
+  personId  String            @map("person_id") @db.ObjectId
+  status    TeamRequestStatus
+  refusedAt DateTime?         @map("refused_at")
+  createdAt DateTime          @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime          @default(now()) @map("updated_at") @db.Timestamp
+}
+
+enum TeamRequestStatus {
+  PENDING
+  ACCEPT
+  REFUSED
+  CANCELED
 }
