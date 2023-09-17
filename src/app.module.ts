@@ -34,6 +34,7 @@ import { TeamModule } from './modules/team/team.module';
 import { PersonTeamModule } from './modules/person-team/person-team.module';
 import { TeamRequestModule } from './modules/team-request/team-request.module';
 import { JobModule } from './modules/job/job.module';
+import { TeamJobModule } from './modules/team-job/team-job.module';
 
 @Module({
   imports: [
@@ -72,6 +73,7 @@ import { JobModule } from './modules/job/job.module';
     TeamRequestModule,
     PersonTeamModule,
     JobModule,
+    TeamJobModule,
   ],
 })
 export class AppModule {}

@@ -35,3 +35,4 @@ export * from './team/index';
 export * from './team-request/index';
 export * from './person-team/index';
 export * from './job/index';
+export * from './team-job/index';

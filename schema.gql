@@ -249,6 +249,12 @@ enum JobStatus {
   EXPIRED
 }
 
+type TeamJobEntity {
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
 type Query {
   whoAmI: PersonEntity!
   findAllPerson(PaginationOptionsInput: PaginationOptionsInput!): [PersonEntity!]!
@@ -285,6 +291,7 @@ type Query {
   findAllPersonTeam(paginationOptionsInput: PaginationOptionsInput!): [PersonTeamEntity!]!
   findAllJob(PaginationOptionsInput: PaginationOptionsInput!): [JobEntity!]!
   findOneJob(jobId: IdInput!): JobEntity!
+  findAll(PaginationOptionsInput: PaginationOptionsInput!): [TeamJobEntity!]!
 }
 
 input PaginationOptionsInput {
@@ -350,6 +357,8 @@ type Mutation {
   createJob(createJobInput: CreateJobInput!): JobEntity!
   updateJob(updateJobInput: UpdateJobInput!): JobEntity!
   removeJob(jobId: IdInput!): Boolean!
+  createTeamJob(createTeamJobInput: CreateTeamJobInput!): TeamJobEntity!
+  removeTeamJob(teamJobId: IdInput!): TeamJobEntity!
 }
 
 input CreateAccessInput {
@@ -543,4 +552,9 @@ input UpdateJobInput {
   description: String
   status: JobStatus
   id: String!
+}
+
+input CreateTeamJobInput {
+  teamId: String!
+  jobId: String!
 }

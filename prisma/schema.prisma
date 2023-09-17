@@ -493,13 +493,14 @@ enum JobStatus {
 }
 
 model TeamJob {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  team      Team     @relation(fields: [teamId], references: [id])
-  teamId    String   @map("team_id") @db.ObjectId
-  job       Job      @relation(fields: [jobId], references: [id])
-  jobId     String   @map("job_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  team      Team      @relation(fields: [teamId], references: [id])
+  teamId    String    @map("team_id") @db.ObjectId
+  job       Job       @relation(fields: [jobId], references: [id])
+  jobId     String    @map("job_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Job {
