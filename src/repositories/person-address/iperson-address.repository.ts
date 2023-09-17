@@ -1,8 +1,8 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreatePersonAddressInput } from 'src/domain/dtos';
 import { PersonAddressEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IPersonAddressRepository extends IBaseRepository<
-  CreatePersonAddressInput,
-  PersonAddressEntity
-> {}
+export abstract class IPersonAddressRepository extends RepositoryFactory<PersonAddressEntity> {
+  constructor() {
+    super('personAddress');
+  }
+}

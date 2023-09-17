@@ -1,11 +1,10 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateStockInput, UpdateStockInput } from 'src/domain/dtos/stock';
 import { StockEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IStockRepository extends IBaseRepository<
-  CreateStockInput,
-  StockEntity,
-  UpdateStockInput
-> {
+export abstract class IStockRepository extends RepositoryFactory<StockEntity> {
+  constructor() {
+    super('stock');
+  }
+
   abstract findByGTE(productId: string): Promise<StockEntity>;
 }

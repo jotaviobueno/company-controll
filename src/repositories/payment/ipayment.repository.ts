@@ -1,11 +1,13 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreatePaymentDto } from 'src/domain/dtos';
 import { PaymentEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IPaymentRepository extends IBaseRepository<
-  CreatePaymentDto,
-  PaymentEntity
-> {
+export abstract class IPaymentRepository extends RepositoryFactory<PaymentEntity> {
+  constructor() {
+    super('payment');
+  }
+
   abstract findByPaymentId(paymentId: string): Promise<PaymentEntity>;
-  abstract findManyWithInvoiceId(invoicesIds: string[]): Promise<PaymentEntity>;
+  abstract findManyWithInvoicesIds(
+    invoicesIds: string[],
+  ): Promise<PaymentEntity[]>;
 }

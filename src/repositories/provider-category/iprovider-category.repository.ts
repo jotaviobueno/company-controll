@@ -1,8 +1,8 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateProviderCategoryDto } from 'src/domain/dtos/provider-category';
-import { ProviderCategoryEntity } from 'src/domain/entities';
+import { ProviderEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IProviderCategoryRepository extends IBaseRepository<
-  CreateProviderCategoryDto,
-  ProviderCategoryEntity
-> {}
+export abstract class IProviderCategoryRepository extends RepositoryFactory<ProviderEntity> {
+  constructor() {
+    super('provider');
+  }
+}

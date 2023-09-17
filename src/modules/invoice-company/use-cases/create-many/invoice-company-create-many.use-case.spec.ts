@@ -3,6 +3,7 @@ import { PrismaService } from '../../../../db/prisma.service';
 import { createInvoiceCompanyDtoMock } from 'src/domain/mocks';
 import { InvoiceCompanyCreateManyUseCase } from './invoice-company-create-many.use-case';
 import { invoiceCompanyModuleMock } from '../../invoice-company.module';
+import { createManyMock } from 'src/domain/mocks/shared';
 
 describe('InvoiceCompanyCreateManyUseCase', () => {
   let usecase: InvoiceCompanyCreateManyUseCase;
@@ -33,11 +34,11 @@ describe('InvoiceCompanyCreateManyUseCase', () => {
   it('should create', async () => {
     const createSpy = jest
       .spyOn(prismaService.invoiceCompany, 'createMany')
-      .mockResolvedValue({ count: 10 });
+      .mockResolvedValue(createManyMock);
 
     const response = await usecase.execute([createInvoiceCompanyDtoMock]);
 
-    expect(response).toStrictEqual({ count: 10 });
+    expect(response).toStrictEqual(createManyMock);
     expect(createSpy).toHaveBeenCalledWith({
       data: [createInvoiceCompanyDtoMock],
     });

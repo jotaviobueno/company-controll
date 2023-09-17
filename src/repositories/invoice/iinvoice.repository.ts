@@ -1,8 +1,8 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateInvoiceInput } from 'src/domain/dtos';
 import { InvoiceEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IInvoiceRepository extends IBaseRepository<
-  CreateInvoiceInput,
-  InvoiceEntity
-> {}
+export abstract class IInvoiceRepository extends RepositoryFactory<InvoiceEntity> {
+  constructor() {
+    super('invoice');
+  }
+}

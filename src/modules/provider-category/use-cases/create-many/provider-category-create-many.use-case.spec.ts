@@ -1,11 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
-import { ProviderCategoryCreateUseCase } from './provider-category-create.use-case';
 import { providerCategoryModuleMock } from '../../provider-category.module';
 import { createProviderCategoryInputMock } from 'src/domain/mocks';
+import { ProviderCategoryCreateManyUseCase } from './provider-category-create-many.use-case';
+import { createManyMock } from 'src/domain/mocks/shared';
 
-describe('ProviderCategoryCreateUseCase', () => {
-  let usecase: ProviderCategoryCreateUseCase;
+describe('ProviderCategoryCreateManyUseCase', () => {
+  let usecase: ProviderCategoryCreateManyUseCase;
   let moduleRef: TestingModule;
   let prismaService: PrismaService;
 
@@ -15,8 +16,8 @@ describe('ProviderCategoryCreateUseCase', () => {
     ).compile();
 
     prismaService = moduleRef.get<PrismaService>(PrismaService);
-    usecase = moduleRef.get<ProviderCategoryCreateUseCase>(
-      ProviderCategoryCreateUseCase,
+    usecase = moduleRef.get<ProviderCategoryCreateManyUseCase>(
+      ProviderCategoryCreateManyUseCase,
     );
   });
 
@@ -33,7 +34,7 @@ describe('ProviderCategoryCreateUseCase', () => {
   it('should CreateMany', async () => {
     const findOneSpy = jest
       .spyOn(prismaService.providerCategory, 'createMany')
-      .mockResolvedValue({ count: 10 });
+      .mockResolvedValue(createManyMock);
 
     await usecase.execute([createProviderCategoryInputMock]);
 

@@ -17,7 +17,7 @@ export class ProductCreateUseCase
   async execute(data: CreateProductInput): Promise<ProductEntity> {
     const company = await this.companyFindOneUSeCase.execute(data.companyId);
 
-    const product = await this.productRepository.create({
+    const product = await this.productRepository.create<CreateProductInput>({
       ...data,
       companyId: company.id,
     });

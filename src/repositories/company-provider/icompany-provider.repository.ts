@@ -1,8 +1,8 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateCompanyProviderInput } from 'src/domain/dtos';
 import { CompanyProviderEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class ICompanyProviderRepository extends IBaseRepository<
-  CreateCompanyProviderInput,
-  CompanyProviderEntity
-> {}
+export abstract class ICompanyProviderRepository extends RepositoryFactory<CompanyProviderEntity> {
+  constructor() {
+    super('companyProvider');
+  }
+}

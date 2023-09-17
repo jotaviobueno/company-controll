@@ -1,5 +1,6 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsMongoId, IsNotEmpty } from 'class-validator';
+import { TEAM_REQUEST_STATUS } from 'src/domain/enums';
 
 @InputType()
 export class CreateTeamRequestInput {
@@ -12,4 +13,6 @@ export class CreateTeamRequestInput {
   @IsMongoId()
   @IsNotEmpty()
   teamId: string;
+
+  status: TEAM_REQUEST_STATUS | TEAM_REQUEST_STATUS.PENDING;
 }

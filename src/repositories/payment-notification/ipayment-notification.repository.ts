@@ -1,11 +1,11 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreatePaymentNotificationDto } from 'src/domain/dtos';
 import { PaymentNotificationEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IPaymentNotificationRepository extends IBaseRepository<
-  CreatePaymentNotificationDto,
-  PaymentNotificationEntity
-> {
+export abstract class IPaymentNotificationRepository extends RepositoryFactory<PaymentNotificationEntity> {
+  constructor() {
+    super('paymentNotification');
+  }
+
   abstract findByPaymentId(
     paymentId: string,
   ): Promise<PaymentNotificationEntity>;

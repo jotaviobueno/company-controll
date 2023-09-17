@@ -17,7 +17,7 @@ import {
   CustomerSimpleCreateUseCase,
 } from 'src/modules/customer/use-cases';
 import { InvoiceCompanyCreateManyUseCase } from 'src/modules/invoice-company/use-cases';
-import { InvoiceCustomerCreateUseCase } from 'src/modules/invoice-customer/use-cases';
+import { InvoiceCustomerCreateManyUseCase } from 'src/modules/invoice-customer/use-cases';
 import { InvoiceProductCreateManyUseCase } from 'src/modules/invoice-product/use-case';
 import { InvoiceHandlerUseCase } from 'src/modules/invoice/use-cases';
 import {
@@ -45,7 +45,7 @@ export class MercadoPagoPaymentUseCase implements IBaseUseCase<any, boolean> {
     private readonly customerFindByCpfUseCase: CustomerFindByCpfUseCase,
     private readonly customerSimpleCreateUseCase: CustomerSimpleCreateUseCase,
     private readonly customerCompanyCreateManyUseCase: CustomerCompanyCreateManyUseCase,
-    private readonly invoiceCustomerCreateUseCase: InvoiceCustomerCreateUseCase,
+    private readonly invoiceCustomerCreateUseCase: InvoiceCustomerCreateManyUseCase,
     private readonly paymentNotificationFindByPaymentIdUseCase: PaymentNotificationFindByPaymentIdUseCase,
     private readonly stockHandlerUseCase: StockHandlerUseCase,
   ) {}

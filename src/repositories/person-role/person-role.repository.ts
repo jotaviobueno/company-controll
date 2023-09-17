@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { IPersonRoleRepository } from './iperson-role.repository';
-import { PrismaService } from 'src/db/prisma.service';
 import { PersonRoleInput } from 'src/domain/dtos';
 import {
   PermissionEntity,
@@ -10,21 +9,13 @@ import {
 } from 'src/domain/entities';
 
 @Injectable()
-export class PersonRoleRepository implements Partial<IPersonRoleRepository> {
-  constructor(private readonly prismaService: PrismaService) {}
-
-  create(createDto: PersonRoleInput): Promise<PersonRoleEntity> {
-    return this.prismaService.personRole.create({
-      data: {
-        ...createDto,
-      },
-    });
-  }
-
-  findById(id: string): Promise<PersonRoleEntity> {
-    return this.prismaService.personRole.findFirst({
+export class PersonRoleRepository extends IPersonRoleRepository {
+  findManyWithPersonId(personsIds: string[]): Promise<PersonRoleEntity[]> {
+    return this.prismaService.personRole.findMany({
       where: {
-        id,
+        personId: {
+          in: personsIds,
+        },
       },
     });
   }
@@ -35,16 +26,6 @@ export class PersonRoleRepository implements Partial<IPersonRoleRepository> {
     return this.prismaService.personRole.findFirst({
       where: {
         ...personRoleInput,
-      },
-    });
-  }
-
-  findManyWithPersonId(personsIds: string[]): Promise<PersonRoleEntity[]> {
-    return this.prismaService.personRole.findMany({
-      where: {
-        personId: {
-          in: personsIds,
-        },
       },
     });
   }
@@ -72,14 +53,6 @@ export class PersonRoleRepository implements Partial<IPersonRoleRepository> {
             },
           },
         },
-      },
-    });
-  }
-
-  delete(id: string): Promise<PersonRoleEntity> {
-    return this.prismaService.personRole.delete({
-      where: {
-        id,
       },
     });
   }

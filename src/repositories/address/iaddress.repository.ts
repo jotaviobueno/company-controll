@@ -1,9 +1,8 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateAddressInput, UpdateAddressInput } from 'src/domain/dtos';
 import { AddressEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IAddressRepository extends IBaseRepository<
-  CreateAddressInput,
-  AddressEntity,
-  UpdateAddressInput
-> {}
+export abstract class IAddressRepository extends RepositoryFactory<AddressEntity> {
+  constructor() {
+    super('address');
+  }
+}

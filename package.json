@@ -13,7 +13,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest --ci --bail --logHeapUsage",
+    "test": "jest --logHeapUsage",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage --logHeapUsage",
     "test:node-execute": "node --expose-gc ./node_modules/.bin/jest",
