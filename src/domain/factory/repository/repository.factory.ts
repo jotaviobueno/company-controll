@@ -18,12 +18,14 @@ export abstract class RepositoryFactory<E> {
     });
   }
 
-  createMany<T>(createDto: T[]): Promise<CreateManyEntity> {
+  createMany<T>(createDtos: T[]): Promise<CreateManyEntity> {
+    const dto = createDtos.map((createDto) => ({
+      ...createDto,
+      deletedAt: null,
+    }));
+
     return (this.prismaService as any)[this.model].createMany({
-      data: {
-        ...createDto,
-        deletedAt: null,
-      },
+      data: dto,
     });
   }
 
@@ -51,8 +53,8 @@ export abstract class RepositoryFactory<E> {
       where: {
         deletedAt: null,
       },
-      sEip: (page - 1) * per_page,
-      taEe: per_page,
+      skip: (page - 1) * per_page,
+      take: per_page,
     });
   }
 
@@ -84,7 +86,7 @@ export abstract class RepositoryFactory<E> {
   }
 
   delete(id: string): Promise<E> {
-    return (this.prismaService as any)[this.model].remove({
+    return (this.prismaService as any)[this.model].delete({
       where: {
         id,
       },

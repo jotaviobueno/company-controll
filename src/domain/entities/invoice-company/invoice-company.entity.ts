@@ -10,4 +10,6 @@ export abstract class InvoiceCompanyEntity
   invoiceId: string;
 
   companyId: string;
+
+  deletedAt: Date | null;
 }

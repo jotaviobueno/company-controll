@@ -39,7 +39,7 @@ describe('ProviderCategoryCreateManyUseCase', () => {
     await usecase.execute([createProviderCategoryInputMock]);
 
     expect(findOneSpy).toHaveBeenCalledWith({
-      data: [createProviderCategoryInputMock],
+      data: [{ ...createProviderCategoryInputMock, deletedAt: null }],
     });
   });
 });

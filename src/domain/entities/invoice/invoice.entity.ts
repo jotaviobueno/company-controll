@@ -42,4 +42,6 @@ export class InvoiceEntity extends IBaseEntity implements Invoice {
 
   @Field(() => Int)
   finalPrice: number;
+
+  deletedAt: Date | null;
 }

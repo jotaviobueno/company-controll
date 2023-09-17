@@ -21,6 +21,7 @@ export const paymentMock: PaymentEntity = {
   id: '1',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };
 
 export const createPaymentDtoMock: CreatePaymentDto = {

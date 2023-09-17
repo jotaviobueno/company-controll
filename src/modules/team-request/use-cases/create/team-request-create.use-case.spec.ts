@@ -52,6 +52,7 @@ describe('TeamRequestCreateUseCase', () => {
       data: {
         ...createTeamRequestInputMock,
         status: TEAM_REQUEST_STATUS.PENDING,
+        deletedAt: null,
       },
     });
   });

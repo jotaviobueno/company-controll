@@ -7,4 +7,6 @@ export class PersonRoleEntity extends IBaseEntity implements PersonRole {
   personId: string;
 
   roleId: string;
+
+  deletedAt: Date | null;
 }

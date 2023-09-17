@@ -59,6 +59,7 @@ describe('StockCreateOutcomeUseCase', () => {
         ...{
           ...createStockInputMock,
           type: STOCK_TYPE_STATUS.OUTCOME,
+          deletedAt: null,
         },
       },
     });

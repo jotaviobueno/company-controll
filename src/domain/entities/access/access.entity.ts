@@ -8,4 +8,6 @@ export class AccessEntity extends IBaseEntity implements Access {
   provider: AccessProvider;
 
   token: string;
+
+  deletedAt: Date | null;
 }

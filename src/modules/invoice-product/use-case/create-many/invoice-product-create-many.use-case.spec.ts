@@ -40,7 +40,7 @@ describe('InvoiceProductCreateManyUseCase', () => {
 
     expect(response).toStrictEqual(createManyMock);
     expect(createSpy).toHaveBeenCalledWith({
-      data: [createInvoiceProductDtoMock],
+      data: [{ ...createInvoiceProductDtoMock, deletedAt: null }],
     });
   });
 });

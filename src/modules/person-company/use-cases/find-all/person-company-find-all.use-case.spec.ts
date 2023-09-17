@@ -42,7 +42,9 @@ describe('PersonCompanyFindAllUseCase', () => {
 
     expect(response).toStrictEqual([personCompanyMock]);
     expect(findAllSpy).toHaveBeenCalledWith({
-      where: {},
+      where: {
+        deletedAt: null,
+      },
       skip:
         (paginationOptionsInputMock.page - 1) *
         paginationOptionsInputMock.per_page,

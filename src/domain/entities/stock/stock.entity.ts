@@ -17,4 +17,6 @@ export class StockEntity extends IBaseEntity implements Stock {
   quantity: number;
 
   productId: string;
+
+  deletedAt: Date | null;
 }

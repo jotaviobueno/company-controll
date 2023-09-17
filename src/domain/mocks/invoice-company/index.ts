@@ -12,4 +12,5 @@ export const invoiceCompanyMock: InvoiceCompanyEntity = {
   id: '1',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };

@@ -35,7 +35,9 @@ describe('RoleFindAllUseCase', () => {
 
     expect(response).toStrictEqual([roleMock]);
     expect(findAllSpy).toHaveBeenCalledWith({
-      where: {},
+      where: {
+        deletedAt: null,
+      },
       skip:
         (paginationOptionsInputMock.page - 1) *
         paginationOptionsInputMock.per_page,

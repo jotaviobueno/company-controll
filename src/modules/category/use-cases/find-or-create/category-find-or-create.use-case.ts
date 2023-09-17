@@ -16,7 +16,7 @@ export class CategoryFindOrCreateUseCase
 
         if (nameAlreadyExists) return nameAlreadyExists;
 
-        return this.categoryRepository.create(name);
+        return this.categoryRepository.create({ name });
       }),
     );
 

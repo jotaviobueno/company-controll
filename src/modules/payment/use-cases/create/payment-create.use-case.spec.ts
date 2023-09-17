@@ -37,6 +37,7 @@ describe('PaymentCreateUseCase', () => {
     expect(createSpy).toHaveBeenCalledWith({
       data: {
         ...createPaymentDtoMock,
+        deletedAt: null,
       },
     });
   });

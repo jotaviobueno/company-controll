@@ -8,6 +8,7 @@ export class CategoryRepository extends ICategoryRepository {
     return this.prismaService.category.findFirst({
       where: {
         name,
+        deletedAt: null,
       },
     });
   }

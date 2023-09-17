@@ -42,6 +42,7 @@ describe('InvoiceCreateUseCase', () => {
     expect(createSpy).toHaveBeenCalledWith({
       data: {
         ...createInvoiceInputMock,
+        deletedAt: null,
       },
     });
   });
@@ -64,6 +65,7 @@ describe('InvoiceCreateUseCase', () => {
         ...{
           ...createInvoiceInputMock,
           status: INVOICE_STATUS.PAID,
+          deletedAt: null,
         },
       },
     });

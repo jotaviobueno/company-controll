@@ -41,6 +41,7 @@ describe('StockCreateIncomeUseCase', () => {
     expect(createSpy).toHaveBeenCalledWith({
       data: {
         ...createStockInputMock,
+        deletedAt: null,
       },
     });
   });

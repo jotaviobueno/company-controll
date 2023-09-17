@@ -3,7 +3,7 @@ import { RepositoryFactory } from 'src/domain/factory';
 
 export abstract class IPricingGroupRepository extends RepositoryFactory<PricingGroupEntity> {
   constructor() {
-    super('pricinGroup');
+    super('pricingGroup');
   }
 
   abstract findByName(name: string): Promise<PricingGroupEntity>;

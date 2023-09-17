@@ -49,4 +49,6 @@ export class PaymentEntity extends IBaseEntity implements Payment {
 
   @Field(() => Date, { nullable: true })
   approvedAt: Date | null;
+
+  deletedAt: Date | null;
 }

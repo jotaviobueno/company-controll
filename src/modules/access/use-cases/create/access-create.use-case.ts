@@ -4,6 +4,7 @@ import { AccessFindByCodeOrUpdateUseCase } from '../find-by-code-or-update';
 import { IAccessRepository } from 'src/repositories/access';
 import { PersonCreateUseCase } from 'src/modules/person/use-cases';
 import { JwtService } from '@nestjs/jwt';
+import { CreateAccessInput } from 'src/domain/dtos';
 
 @Injectable()
 export class AccessCreateUseCase implements IBaseUseCase<any, string> {
@@ -18,7 +19,9 @@ export class AccessCreateUseCase implements IBaseUseCase<any, string> {
     let access = await this.accessFindByCodeOrUpdateUseCase.execute(user.id);
 
     if (!access) {
-      access = await this.accessRepository.create({
+      access = await this.accessRepository.create<
+        Omit<CreateAccessInput, 'code'>
+      >({
         token,
         provider,
       });

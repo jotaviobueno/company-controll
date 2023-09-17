@@ -7,6 +7,7 @@ export const personCompanyMock: PersonCompanyEntity = {
   id: '1',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };
 
 export const personCompanyInputMock: PersonCompanyInput = {

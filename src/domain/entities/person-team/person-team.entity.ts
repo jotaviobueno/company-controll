@@ -7,4 +7,6 @@ export class PersonTeamEntity extends IBaseEntity implements PersonTeam {
   personId: string;
 
   teamId: string;
+
+  deletedAt: Date | null;
 }

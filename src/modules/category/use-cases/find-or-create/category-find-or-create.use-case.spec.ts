@@ -39,6 +39,7 @@ describe('CategoryFindOrCreateUseCase', () => {
     expect(findOneSpy).toHaveBeenCalledWith({
       where: {
         name: '1',
+        deletedAt: null,
       },
     });
   });

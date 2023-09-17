@@ -16,6 +16,7 @@ model Access {
   token     String         @unique
   createdAt DateTime       @default(now()) @map("created_at") @db.Timestamp
   updatedAt DateTime       @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime?      @map("deleted_at") @db.Timestamp
   Person    Person?
 }
 
@@ -46,13 +47,14 @@ model Person {
 }
 
 model PersonCompany {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  person    Person   @relation(fields: [personId], references: [id])
-  personId  String   @map("person_id") @db.ObjectId
-  company   Company  @relation(fields: [companyId], references: [id])
-  companyId String   @map("company_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person    @relation(fields: [personId], references: [id])
+  personId  String    @map("person_id") @db.ObjectId
+  company   Company   @relation(fields: [companyId], references: [id])
+  companyId String    @map("company_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Address {
@@ -73,13 +75,14 @@ model Address {
 }
 
 model PersonRole {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  person    Person   @relation(fields: [personId], references: [id])
-  personId  String   @map("person_id") @db.ObjectId
-  role      Role     @relation(fields: [roleId], references: [id])
-  roleId    String   @map("role_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person    @relation(fields: [personId], references: [id])
+  personId  String    @map("person_id") @db.ObjectId
+  role      Role      @relation(fields: [roleId], references: [id])
+  roleId    String    @map("role_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Company {
@@ -110,13 +113,14 @@ model Category {
 }
 
 model ProviderCategory {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  provider   Provider @relation(fields: [providerId], references: [id])
-  providerId String   @map("provider_id") @db.ObjectId
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String   @map("category_id") @db.ObjectId
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  provider   Provider  @relation(fields: [providerId], references: [id])
+  providerId String    @map("provider_id") @db.ObjectId
+  category   Category  @relation(fields: [categoryId], references: [id])
+  categoryId String    @map("category_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Provider {
@@ -183,6 +187,7 @@ model Role {
   description    String?
   createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
   updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
   PersonRole     PersonRole[]
   rolePermission RolePermission[]
 }
@@ -195,6 +200,7 @@ model RolePermission {
   roleId       String     @map("role_id") @db.ObjectId
   createdAt    DateTime   @default(now()) @map("created_at") @db.Timestamp
   updatedAt    DateTime   @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt    DateTime?  @map("deleted_at") @db.Timestamp
 }
 
 model Permission {
@@ -202,6 +208,7 @@ model Permission {
   name           String           @unique
   createdAt      DateTime         @default(now()) @map("created_at") @db.Timestamp
   updatedAt      DateTime         @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt      DateTime?        @map("deleted_at") @db.Timestamp
   RolePermission RolePermission[]
 }
 
@@ -230,6 +237,7 @@ model Stock {
   productId   String          @map("product_id") @db.ObjectId
   createdAt   DateTime        @default(now()) @map("created_at") @db.Timestamp
   updatedAt   DateTime        @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt   DateTime?       @map("deleted_at") @db.Timestamp
 }
 
 enum StockTypeStatus {
@@ -273,39 +281,42 @@ model CustomerAddress {
 }
 
 model Log {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  modelName String?  @map("model_name") @db.String
-  person    Person?  @relation(fields: [personId], references: [id])
-  personId  String?  @map("person_id") @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  modelName String?   @map("model_name") @db.String
+  person    Person?   @relation(fields: [personId], references: [id])
+  personId  String?   @map("person_id") @db.ObjectId
   action    String
-  oldValue  Json?    @map("old_value")
-  newValue  Json     @map("new_value")
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  oldValue  Json?     @map("old_value")
+  newValue  Json      @map("new_value")
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model PaymentNotification {
-  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  id                String    @id @default(auto()) @map("_id") @db.ObjectId
   action            String?
   resource          String?
   topic             String?
-  apiVersion        String?  @map("api_version")
-  transferId        String?  @map("transfer_id")
-  genericId         String?  @map("generic_id")
-  paymentId         String?  @map("payment_id")
-  mercadoPagoUserId String?  @map("mercado_pago_user_id")
-  liveMode          Boolean? @map("live_mode")
+  apiVersion        String?   @map("api_version")
+  transferId        String?   @map("transfer_id")
+  genericId         String?   @map("generic_id")
+  paymentId         String?   @map("payment_id")
+  mercadoPagoUserId String?   @map("mercado_pago_user_id")
+  liveMode          Boolean?  @map("live_mode")
   type              String?
-  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt         DateTime @default(now()) @map("updated_at") @db.Timestamp
+  createdAt         DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt         DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt         DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Finance {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
-  invoiceId String?  @map("invoice_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  invoice   Invoice?  @relation(fields: [invoiceId], references: [id])
+  invoiceId String?   @map("invoice_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Payment {
@@ -327,6 +338,7 @@ model Payment {
   invoiceId          String    @map("invoice_id") @db.ObjectId
   createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamp
   updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt          DateTime? @map("deleted_at") @db.Timestamp
   approvedAt         DateTime? @map("approved_at") @db.Timestamp
 }
 
@@ -343,53 +355,58 @@ enum FinanceStatus {
 }
 
 model InvoicePerson {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  person    Person   @relation(fields: [personId], references: [id])
-  personId  String   @map("person_id") @db.ObjectId
-  invoiceId String   @map("invoice_id") @db.ObjectId
-  Invoice   Invoice  @relation(fields: [invoiceId], references: [id])
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person    @relation(fields: [personId], references: [id])
+  personId  String    @map("person_id") @db.ObjectId
+  invoiceId String    @map("invoice_id") @db.ObjectId
+  Invoice   Invoice   @relation(fields: [invoiceId], references: [id])
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model InvoiceCustomer {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  invoiceId  String   @map("invoice_id") @db.ObjectId
-  Invoice    Invoice  @relation(fields: [invoiceId], references: [id])
-  customer   Customer @relation(fields: [customerId], references: [id])
-  customerId String   @map("customer_id") @db.ObjectId
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId  String    @map("invoice_id") @db.ObjectId
+  Invoice    Invoice   @relation(fields: [invoiceId], references: [id])
+  customer   Customer  @relation(fields: [customerId], references: [id])
+  customerId String    @map("customer_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model InvoiceCompany {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  invoiceId String   @map("invoice_id") @db.ObjectId
-  Invoice   Invoice  @relation(fields: [invoiceId], references: [id])
-  company   Company  @relation(fields: [companyId], references: [id])
-  companyId String   @map("company_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId String    @map("invoice_id") @db.ObjectId
+  Invoice   Invoice   @relation(fields: [invoiceId], references: [id])
+  company   Company   @relation(fields: [companyId], references: [id])
+  companyId String    @map("company_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model InvoiceProduct {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  invoiceId String   @map("invoice_id") @db.ObjectId
-  Invoice   Invoice  @relation(fields: [invoiceId], references: [id])
-  product   Product  @relation(fields: [productId], references: [id])
-  productId String   @map("product_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId String    @map("invoice_id") @db.ObjectId
+  Invoice   Invoice   @relation(fields: [invoiceId], references: [id])
+  product   Product   @relation(fields: [productId], references: [id])
+  productId String    @map("product_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model InvoiceProvider {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  invoiceId  String   @map("invoice_id") @db.ObjectId
-  Invoice    Invoice  @relation(fields: [invoiceId], references: [id])
-  provider   Provider @relation(fields: [providerId], references: [id])
-  providerId String   @map("provider_id") @db.ObjectId
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  invoiceId  String    @map("invoice_id") @db.ObjectId
+  Invoice    Invoice   @relation(fields: [invoiceId], references: [id])
+  provider   Provider  @relation(fields: [providerId], references: [id])
+  providerId String    @map("provider_id") @db.ObjectId
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt  DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model InvoicePricingGroup {
@@ -400,6 +417,7 @@ model InvoicePricingGroup {
   pricingGroupId String       @map("pricing_group_id") @db.ObjectId
   createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamp
   updatedAt      DateTime     @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt      DateTime?    @map("deleted_at") @db.Timestamp
 }
 
 model Invoice {
@@ -422,6 +440,7 @@ model Invoice {
   //
   createdAt             DateTime              @default(now()) @map("created_at") @db.Timestamp
   updatedAt             DateTime              @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt             DateTime?             @map("deleted_at") @db.Timestamp
   Finance               Finance[]
   Payment               Payment[]
   InvoicePerson         InvoicePerson[]
@@ -442,13 +461,14 @@ model PricingGroup {
 }
 
 model PersonTeam {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  person    Person   @relation(fields: [personId], references: [id])
-  personId  String   @map("person_id") @db.ObjectId
-  team      Team     @relation(fields: [teamId], references: [id])
-  teamId    String   @map("team_id") @db.ObjectId
-  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  person    Person    @relation(fields: [personId], references: [id])
+  personId  String    @map("person_id") @db.ObjectId
+  team      Team      @relation(fields: [teamId], references: [id])
+  teamId    String    @map("team_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
 }
 
 model Team {
@@ -476,6 +496,7 @@ model TeamRequest {
   refusedAt DateTime?         @map("refused_at")
   createdAt DateTime          @default(now()) @map("created_at") @db.Timestamp
   updatedAt DateTime          @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime?         @map("deleted_at") @db.Timestamp
 }
 
 enum TeamRequestStatus {

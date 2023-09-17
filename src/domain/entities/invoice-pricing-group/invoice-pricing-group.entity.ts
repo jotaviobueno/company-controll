@@ -10,4 +10,6 @@ export class InvoicePricingGroupEntity
   invoiceId: string;
 
   pricingGroupId: string;
+
+  deletedAt: Date | null;
 }
