@@ -24,3 +24,11 @@ $ npx prisma generate
 
 $ yarn run start:dev
 ```
+
+## Cobertura de Testes
+
+- 90.06% Statements 3943/4378
+- 50.25% Branches 594/1182
+- 73.48% Functions 618/841
+- 89.39% Lines 3430/3837
+
