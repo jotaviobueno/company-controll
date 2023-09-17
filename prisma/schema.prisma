@@ -100,8 +100,6 @@ model Company {
   Team            Team[]
 }
 
-// TODO: NÃO FEITO
-
 model Category {
   id               String             @id @default(auto()) @map("_id") @db.ObjectId
   name             String             @unique
@@ -110,8 +108,6 @@ model Category {
   deletedAt        DateTime?          @map("deleted_at") @db.Timestamp
   ProviderCategory ProviderCategory[]
 }
-
-// TODO: NÃO FEITO
 
 model ProviderCategory {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
@@ -148,7 +144,6 @@ model CompanyProvider {
   deletedAt  DateTime? @map("deleted_at") @db.Timestamp
 }
 
-// TODO: NÃO FEITO
 model ProviderAddress {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   address    Address   @relation(fields: [addressId], references: [id])
@@ -468,6 +463,7 @@ model Team {
   deletedAt   DateTime?     @map("deleted_at") @db.Timestamp
   PersonTeam  PersonTeam[]
   TeamRequest TeamRequest[]
+  TeamJob     TeamJob[]
 }
 
 model TeamRequest {
@@ -487,4 +483,34 @@ enum TeamRequestStatus {
   ACCEPT
   REFUSED
   CANCELED
+}
+
+enum JobStatus {
+  TERMINATED
+  PENDING
+  FAILED
+  EXPIRED
+}
+
+model TeamJob {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  team      Team      @relation(fields: [teamId], references: [id])
+  teamId    String    @map("team_id") @db.ObjectId
+  job       Job       @relation(fields: [jobId], references: [id])
+  jobId     String    @map("job_id") @db.ObjectId
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  deletedAt DateTime? @map("deleted_at") @db.Timestamp
+}
+
+model Job {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String?
+  status      JobStatus
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamp
+  updatedAt   DateTime  @default(now()) @map("updated_at") @db.Timestamp
+  expiresAt   DateTime? @map("expires_at") @db.Timestamp
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamp
+  TeamJob     TeamJob[]
 }
