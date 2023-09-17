@@ -7,8 +7,6 @@ import { environment } from './config';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // TODO: TALVEZ SALVAR O TOKEN DO MERCADO PAGO NA TABLE DE USUARIOS
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

@@ -37,6 +37,7 @@ describe('FinanceCreateUseCase', () => {
     expect(createSpy).toHaveBeenCalledWith({
       data: {
         ...createFinanceInputMock,
+        deletedAt: null,
       },
     });
   });

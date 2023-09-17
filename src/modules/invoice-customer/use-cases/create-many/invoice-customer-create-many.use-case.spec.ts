@@ -1,11 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
-import { InvoiceCustomerCreateUseCase } from './invoice-customer-create.use-case';
+import { InvoiceCustomerCreateManyUseCase } from './invoice-customer-create-many.use-case';
 import { invoiceCustomerModuleMock } from '../../invoice-customer.module';
 import { createInvoiceCustomerDtoMock } from 'src/domain/mocks';
+import { createManyMock } from 'src/domain/mocks/shared';
 
-describe('InvoiceCustomerCreateUseCase', () => {
-  let usecase: InvoiceCustomerCreateUseCase;
+describe('InvoiceCustomerCreateManyUseCase', () => {
+  let usecase: InvoiceCustomerCreateManyUseCase;
   let moduleRef: TestingModule;
   let prismaService: PrismaService;
 
@@ -15,8 +16,8 @@ describe('InvoiceCustomerCreateUseCase', () => {
     ).compile();
 
     prismaService = moduleRef.get<PrismaService>(PrismaService);
-    usecase = moduleRef.get<InvoiceCustomerCreateUseCase>(
-      InvoiceCustomerCreateUseCase,
+    usecase = moduleRef.get<InvoiceCustomerCreateManyUseCase>(
+      InvoiceCustomerCreateManyUseCase,
     );
   });
 
@@ -33,13 +34,13 @@ describe('InvoiceCustomerCreateUseCase', () => {
   it('should create', async () => {
     const createSpy = jest
       .spyOn(prismaService.invoiceCustomer, 'createMany')
-      .mockResolvedValue({ count: 10 });
+      .mockResolvedValue(createManyMock);
 
     const response = await usecase.execute([createInvoiceCustomerDtoMock]);
 
-    expect(response).toStrictEqual({ count: 10 });
+    expect(response).toStrictEqual(createManyMock);
     expect(createSpy).toHaveBeenCalledWith({
-      data: [createInvoiceCustomerDtoMock],
+      data: [{ ...createInvoiceCustomerDtoMock, deletedAt: null }],
     });
   });
 });

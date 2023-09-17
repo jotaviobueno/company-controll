@@ -1,5 +1,5 @@
 import { Module, ModuleMetadata } from '@nestjs/common';
-import { ProviderCategoryCreateUseCase } from './use-cases';
+import { ProviderCategoryCreateManyUseCase } from './use-cases';
 import {
   IProviderCategoryRepository,
   ProviderCategoryRepository,
@@ -9,13 +9,13 @@ import { PrismaModule } from 'src/db/prisma.module';
 export const providerCategoryModuleMock: ModuleMetadata = {
   imports: [PrismaModule],
   providers: [
-    ProviderCategoryCreateUseCase,
+    ProviderCategoryCreateManyUseCase,
     {
       provide: IProviderCategoryRepository,
       useClass: ProviderCategoryRepository,
     },
   ],
-  exports: [ProviderCategoryCreateUseCase],
+  exports: [ProviderCategoryCreateManyUseCase],
 };
 
 @Module(providerCategoryModuleMock)

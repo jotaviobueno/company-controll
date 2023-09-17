@@ -1,9 +1,8 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateProviderInput, UpdateProviderInput } from 'src/domain/dtos';
 import { ProviderEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IProviderRepository extends IBaseRepository<
-  CreateProviderInput,
-  ProviderEntity,
-  UpdateProviderInput
-> {}
+export abstract class IProviderRepository extends RepositoryFactory<ProviderEntity> {
+  constructor() {
+    super('provider');
+  }
+}

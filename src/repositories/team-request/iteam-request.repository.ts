@@ -1,13 +1,12 @@
-import { IBaseRepository } from 'src/domain/base';
 import { CreateTeamRequestInput } from 'src/domain/dtos';
-import { UpdateTeamRequestInput } from 'src/domain/dtos/team-request/update-team-request.input';
 import { TeamRequestEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class ITeamRequestRepository extends IBaseRepository<
-  CreateTeamRequestInput,
-  TeamRequestEntity,
-  UpdateTeamRequestInput
-> {
+export abstract class ITeamRequestRepository extends RepositoryFactory<TeamRequestEntity> {
+  constructor() {
+    super('teamRequest');
+  }
+
   abstract findByPersonIdAndPersonId(
     teamRequestInput: CreateTeamRequestInput,
   ): Promise<TeamRequestEntity>;

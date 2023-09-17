@@ -37,7 +37,9 @@ describe('TeamRequestFindAllUseCase', () => {
 
     expect(response).toStrictEqual([teamRequestMock]);
     expect(findAlSpy).toHaveBeenCalledWith({
-      where: {},
+      where: {
+        deletedAt: null,
+      },
       skip:
         (paginationOptionsInputMock.page - 1) *
         paginationOptionsInputMock.per_page,

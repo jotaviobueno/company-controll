@@ -10,4 +10,6 @@ export class ProviderCategoryEntity
   providerId: string;
 
   categoryId: string;
+
+  deletedAt: Date | null;
 }

@@ -35,7 +35,7 @@ describe('InvoiceFindAllUseCase', () => {
 
     expect(response).toStrictEqual([invoiceMock]);
     expect(findAllSpy).toHaveBeenCalledWith({
-      where: {},
+      where: { deletedAt: null },
       skip:
         (paginationOptionsInputMock.page - 1) *
         paginationOptionsInputMock.per_page,

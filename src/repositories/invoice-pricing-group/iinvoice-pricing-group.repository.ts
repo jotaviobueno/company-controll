@@ -1,11 +1,11 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateInvoicePricingGroupDto } from 'src/domain/dtos';
 import { InvoicePricingGroupEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IInvoicePricingGroupRepository extends IBaseRepository<
-  CreateInvoicePricingGroupDto,
-  InvoicePricingGroupEntity
-> {
+export abstract class IInvoicePricingGroupRepository extends RepositoryFactory<InvoicePricingGroupEntity> {
+  constructor() {
+    super('invoicePricingGroup');
+  }
+
   abstract findManyWithInvoicesIds(
     invoicesIds: string[],
   ): Promise<InvoicePricingGroupEntity[]>;

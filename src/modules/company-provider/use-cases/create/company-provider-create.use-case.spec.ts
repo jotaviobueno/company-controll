@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from '../../../../db/prisma.service';
-import {} from 'jest-leak-detector';
 import { CompanyProviderCreateUseCase } from './company-provider-create.use-case';
 import { companyProviderModuleMock } from '../../company-provider.module';
 import {
@@ -10,6 +9,7 @@ import {
   createProviderInputMock,
   providerMock,
 } from 'src/domain/mocks';
+import { createManyMock } from 'src/domain/mocks/shared';
 
 describe('CompanyProviderCreateUseCase', () => {
   let usecase: CompanyProviderCreateUseCase;
@@ -54,7 +54,7 @@ describe('CompanyProviderCreateUseCase', () => {
 
     jest
       .spyOn(prismaService.providerCategory, 'createMany')
-      .mockResolvedValue({ count: 10 });
+      .mockResolvedValue(createManyMock);
 
     jest
       .spyOn(prismaService.companyProvider, 'create')

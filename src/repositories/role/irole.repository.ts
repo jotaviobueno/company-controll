@@ -1,9 +1,8 @@
-import { IBaseRepository } from 'src/domain/base';
-import { UpdateRoleInput } from 'src/domain/dtos';
 import { RoleEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IRoleRepository extends IBaseRepository<
-  void,
-  RoleEntity,
-  UpdateRoleInput
-> {}
+export abstract class IRoleRepository extends RepositoryFactory<RoleEntity> {
+  constructor() {
+    super('role');
+  }
+}

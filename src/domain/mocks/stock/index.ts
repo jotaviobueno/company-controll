@@ -11,6 +11,7 @@ export const stockMock: StockEntity = {
   id: '1',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };
 
 export const createStockInputMock: CreateStockInput = {

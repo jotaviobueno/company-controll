@@ -7,6 +7,7 @@ import {
 } from 'src/domain/mocks';
 import { ProviderCreateUseCase } from './provider-create.use-case';
 import { providerModuleMock } from '../../provider.module';
+import { createManyMock } from 'src/domain/mocks/shared';
 
 describe('ProviderCreateUseCase', () => {
   let usecase: ProviderCreateUseCase;
@@ -39,7 +40,7 @@ describe('ProviderCreateUseCase', () => {
 
     jest
       .spyOn(prismaService.providerCategory, 'createMany')
-      .mockResolvedValue({ count: 10 });
+      .mockResolvedValue(createManyMock);
 
     const createSpy = jest
       .spyOn(prismaService.provider, 'create')

@@ -10,6 +10,6 @@ export class PaymentFindManyWithInvoicesIdsUseCase
   constructor(private readonly paymentRepository: IPaymentRepository) {}
 
   execute(data: string[]): Promise<PaymentEntity[]> {
-    return this.paymentRepository.findManyWithIds(data);
+    return this.paymentRepository.findManyWithInvoicesIds(data);
   }
 }

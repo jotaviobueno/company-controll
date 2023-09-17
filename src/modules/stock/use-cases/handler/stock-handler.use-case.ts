@@ -6,8 +6,6 @@ import { STOCK_TYPE_STATUS } from 'src/domain/enums';
 import { StockCreateOutcomeUseCase } from '../create-outcome';
 import { StockCreateIncomeUseCase } from '../create-income';
 
-// TODO: Criar os nesse arquivo module
-
 @Injectable()
 export class StockHandlerUseCase
   implements IBaseUseCase<CreateStockInput, StockEntity>

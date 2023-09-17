@@ -1,4 +1,3 @@
-import { IBaseRepository } from 'src/domain/base';
 import { PersonRoleInput } from 'src/domain/dtos';
 import {
   PermissionEntity,
@@ -6,11 +5,13 @@ import {
   RoleEntity,
   RolePermissionEntity,
 } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IPersonRoleRepository extends IBaseRepository<
-  PersonRoleInput,
-  PersonRoleEntity
-> {
+export abstract class IPersonRoleRepository extends RepositoryFactory<PersonRoleEntity> {
+  constructor() {
+    super('personRole');
+  }
+
   abstract findByPersonIdAndRoleId(
     personRoleInput: PersonRoleInput,
   ): Promise<PersonRoleEntity>;

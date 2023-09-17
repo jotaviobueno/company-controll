@@ -9,4 +9,6 @@ export class RoleEntity extends IBaseEntity implements Role {
 
   @Field({ nullable: true })
   description: string;
+
+  deletedAt: Date | null;
 }

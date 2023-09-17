@@ -1,14 +1,10 @@
-import { IBaseRepository } from 'src/domain/base';
-import {
-  CreatePricingGroupInput,
-  UpdatePricingGroupInput,
-} from 'src/domain/dtos';
 import { PricingGroupEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IPricingGroupRepository extends IBaseRepository<
-  CreatePricingGroupInput,
-  PricingGroupEntity,
-  UpdatePricingGroupInput
-> {
+export abstract class IPricingGroupRepository extends RepositoryFactory<PricingGroupEntity> {
+  constructor() {
+    super('pricingGroup');
+  }
+
   abstract findByName(name: string): Promise<PricingGroupEntity>;
 }

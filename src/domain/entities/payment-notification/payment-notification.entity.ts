@@ -36,4 +36,6 @@ export class PaymentNotificationEntity
 
   @Field({ nullable: true })
   type: string | null;
+
+  deletedAt: Date | null;
 }

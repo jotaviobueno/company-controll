@@ -30,4 +30,5 @@ export const paymentNotificationMock: PaymentNotificationEntity = {
   type: 'test',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };

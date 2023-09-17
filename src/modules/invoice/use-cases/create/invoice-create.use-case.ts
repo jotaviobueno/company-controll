@@ -12,7 +12,7 @@ import { ProductFindManyWithIdsUseCase } from 'src/modules/product/use-cases';
 import { PricingGroupFindManyWithIdsUseCase } from 'src/modules/pricing-group/use-cases';
 import { InvoicePersonCreateManyUseCase } from 'src/modules/invoice-person/use-cases';
 import { InvoiceProductCreateManyUseCase } from 'src/modules/invoice-product/use-case';
-import { InvoiceCustomerCreateUseCase } from 'src/modules/invoice-customer/use-cases';
+import { InvoiceCustomerCreateManyUseCase } from 'src/modules/invoice-customer/use-cases';
 import { InvoiceCompanyCreateManyUseCase } from 'src/modules/invoice-company/use-cases';
 import { InvoicePricingGroupCreateManyUseCase } from 'src/modules/invoice-pricing-group/use-cases';
 import {
@@ -32,7 +32,7 @@ export class InvoiceCreateUseCase
     private readonly invoicePersonCreateManyUseCase: InvoicePersonCreateManyUseCase,
     //
     private readonly customerFindManyWithIdsUseCase: CustomerFindManyWithIdsUseCase,
-    private readonly invoiceCustomerCreateManyUseCase: InvoiceCustomerCreateUseCase,
+    private readonly invoiceCustomerCreateManyUseCase: InvoiceCustomerCreateManyUseCase,
     //
     private readonly invoiceCompanyCreateManyUseCase: InvoiceCompanyCreateManyUseCase,
     private readonly companyFindManyWithIdsUseCase: CompanyFindManyWithIdsUseCase,

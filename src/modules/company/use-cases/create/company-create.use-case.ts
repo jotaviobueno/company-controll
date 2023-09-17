@@ -35,8 +35,6 @@ export class CompanyCreateUseCase
       personId: data.personId,
     });
 
-    // TODO: na resposta agente recebe o endereço
-
     return company;
   }
 }

@@ -14,4 +14,6 @@ export class TeamRequestEntity extends IBaseEntity implements TeamRequest {
 
   @Field(() => Date, { nullable: true })
   refusedAt: Date | null;
+
+  deletedAt: Date | null;
 }

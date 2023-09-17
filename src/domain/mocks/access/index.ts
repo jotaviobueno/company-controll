@@ -14,6 +14,7 @@ export const accessMock: AccessEntity = {
   id: '1',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };
 
 export const updateAccessInputMock: UpdateAccessInput = {

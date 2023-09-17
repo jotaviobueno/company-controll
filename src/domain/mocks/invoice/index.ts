@@ -29,6 +29,7 @@ export const invoiceMock: InvoiceEntity = {
   id: '1',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };
 
 export const createInvoiceInputMock: CreateInvoiceInput = {

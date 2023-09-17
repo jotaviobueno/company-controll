@@ -1,11 +1,10 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreatePersonInput, UpdatePersonInput } from 'src/domain/dtos';
 import { PersonEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class IPersonRepository extends IBaseRepository<
-  CreatePersonInput,
-  PersonEntity,
-  UpdatePersonInput
-> {
+export abstract class IPersonRepository extends RepositoryFactory<PersonEntity> {
+  constructor() {
+    super('person');
+  }
+
   abstract findByAccessId(accessId: string): Promise<PersonEntity>;
 }

@@ -50,6 +50,7 @@ describe('PersonRoleAssigRoleUseCase', () => {
     expect(removeSpy).toHaveBeenCalledWith({
       data: {
         ...personRoleInputMock,
+        deletedAt: null,
       },
     });
   });

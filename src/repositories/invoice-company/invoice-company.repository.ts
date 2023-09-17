@@ -1,19 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { IInvoiceCompanyRepository } from './iinvoice-company.repository';
-import { PrismaService } from 'src/db/prisma.service';
-import { CreateInvoiceCompanyDto } from 'src/domain/dtos';
 import { InvoiceCompanyEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
 @Injectable()
 export class InvoiceCompanyRepository
-  implements Partial<IInvoiceCompanyRepository>
+  extends RepositoryFactory<InvoiceCompanyEntity>
+  implements IInvoiceCompanyRepository
 {
-  constructor(private readonly prismaService: PrismaService) {}
-
-  createMany(createDto: CreateInvoiceCompanyDto[]): Promise<any> {
-    return this.prismaService.invoiceCompany.createMany({
-      data: createDto,
-    });
+  constructor() {
+    super('invoiceCompany');
   }
 
   findManyWithInvoicesIds(

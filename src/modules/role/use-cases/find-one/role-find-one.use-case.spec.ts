@@ -38,6 +38,7 @@ describe('RoleFindOneUseCase', () => {
     expect(findOneSpy).toHaveBeenCalledWith({
       where: {
         id: '1',
+        deletedAt: null,
       },
     });
   });

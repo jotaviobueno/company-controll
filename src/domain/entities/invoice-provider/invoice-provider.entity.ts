@@ -10,4 +10,6 @@ export class InvoiceProviderEntity
   invoiceId: string;
 
   providerId: string;
+
+  deletedAt: Date | null;
 }

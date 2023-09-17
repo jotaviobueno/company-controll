@@ -1,11 +1,11 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateTeamJobInput } from 'src/domain/dtos';
 import { TeamJobEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class ITeamJobRepository extends IBaseRepository<
-  CreateTeamJobInput,
-  TeamJobEntity
-> {
+export abstract class ITeamJobRepository extends RepositoryFactory<TeamJobEntity> {
+  constructor() {
+    super('teamJob');
+  }
+
   abstract findByTeamIdAndJobId(
     teamId: string,
     jobId: string,

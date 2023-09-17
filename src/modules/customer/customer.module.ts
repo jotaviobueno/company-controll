@@ -16,8 +16,6 @@ import {
   ICustomerRepository,
 } from 'src/repositories/customer';
 
-// TODO: Refazer os testes nesse module
-
 export const customerModuleMock: ModuleMetadata = {
   imports: [PrismaModule],
   providers: [

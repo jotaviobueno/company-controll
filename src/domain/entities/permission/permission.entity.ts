@@ -6,4 +6,6 @@ import { IBaseEntity } from 'src/domain/base';
 export class PermissionEntity extends IBaseEntity implements Permission {
   @Field()
   name: string;
+
+  deletedAt: Date | null;
 }

@@ -37,6 +37,7 @@ describe('PersonTeamCreateUseCase', () => {
     expect(createSpy).toHaveBeenCalledWith({
       data: {
         ...createPersonTeamInputMock,
+        deletedAt: null,
       },
     });
   });

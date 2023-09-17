@@ -7,6 +7,7 @@ export const providerCategoryMock: ProviderCategoryEntity = {
   id: '1',
   createdAt: expect.any(Date),
   updatedAt: expect.any(Date),
+  deletedAt: null,
 };
 
 export const createProviderCategoryInputMock: CreateProviderCategoryDto = {

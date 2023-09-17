@@ -10,4 +10,6 @@ export class RolePermissionEntity
   permissionId: string;
 
   roleId: string;
+
+  deletedAt: Date | null;
 }

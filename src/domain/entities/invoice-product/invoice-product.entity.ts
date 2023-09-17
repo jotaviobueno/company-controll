@@ -10,4 +10,6 @@ export class InvoiceProductEntity
   invoiceId: string;
 
   productId: string;
+
+  deletedAt: Date | null;
 }

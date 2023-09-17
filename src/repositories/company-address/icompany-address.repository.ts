@@ -1,11 +1,11 @@
-import { IBaseRepository } from 'src/domain/base';
-import { CreateCompanyAddressInput } from 'src/domain/dtos';
 import { CompanyAddressEntity } from 'src/domain/entities';
+import { RepositoryFactory } from 'src/domain/factory';
 
-export abstract class ICompanyAddressRepository extends IBaseRepository<
-  CreateCompanyAddressInput,
-  CompanyAddressEntity
-> {
+export abstract class ICompanyAddressRepository extends RepositoryFactory<CompanyAddressEntity> {
+  constructor() {
+    super('companyAddress');
+  }
+
   abstract findManyWithCompanyId(
     companiesIds: string[],
   ): Promise<CompanyAddressEntity[]>;

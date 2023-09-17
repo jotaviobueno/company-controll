@@ -7,4 +7,6 @@ export class PersonCompanyEntity extends IBaseEntity implements PersonCompany {
   personId: string;
 
   companyId: string;
+
+  deletedAt: Date | null;
 }
