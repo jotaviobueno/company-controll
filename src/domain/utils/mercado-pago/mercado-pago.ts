@@ -15,10 +15,11 @@ export class MercadoPago {
     return mercadopago.payment.get(paymentId);
   }
 
+  // TODO: RECEBER OS ITEMS DA REQUEST APENAS VALIDAR SE O ITEM CONTEM O STOCK QUE O USUARIO ESTÁ CRIANDO
+  // TAMBEM VALIDAR SE ELE EXIST
   preferences() {
     return mercadopago.preferences.create({
       notification_url: `${environment.MERCADOPAGO_CALLBACK}/mercado-pago`,
-      // TODO: Deixar isso de outra forma
 
       items: [
         {

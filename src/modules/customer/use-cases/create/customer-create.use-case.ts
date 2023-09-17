@@ -10,8 +10,6 @@ export class CustomerCreateUseCase
 {
   constructor(private readonly customerRepository: ICustomerRepository) {}
 
-  // TODO: ARRUMAR ESSE MODULE E O MODULE DE CUSTOMER COMPANY
-
   async execute(data: CreateCustomerInput): Promise<CustomerEntity> {
     if (data.cpf) {
       const cpfAlreadyExist = await this.customerRepository.findByCpf(data.cpf);

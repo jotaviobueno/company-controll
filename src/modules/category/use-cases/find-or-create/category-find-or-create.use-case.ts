@@ -8,8 +8,6 @@ export class CategoryFindOrCreateUseCase
 {
   constructor(private readonly categoryRepository: ICategoryRepository) {}
 
-  // TODO: CRIAR TESTES AQUI
-
   async execute(data: string[]): Promise<string[]> {
     const categories = await Promise.all(
       data.map(async (name) => {

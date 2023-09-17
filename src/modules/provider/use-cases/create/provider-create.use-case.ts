@@ -7,7 +7,6 @@ import { ProviderCategoryCreateUseCase } from 'src/modules/provider-category/use
 import { IProviderRepository } from 'src/repositories/provider';
 
 @Injectable()
-// TODO: CRIAR TESTE
 export class ProviderCreateUseCase
   implements IBaseUseCase<CreateProviderInput, ProviderEntity>
 {

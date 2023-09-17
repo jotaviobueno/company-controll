@@ -10,8 +10,6 @@ import { FinanceController } from './finance.controller';
 import { InvoiceModule } from '../invoice/invoice.module';
 import { LoaderInvoiceByInvoiceId } from './dataloaders';
 
-// TODO: Criar testes nesse module
-
 export const financeModuleMock: ModuleMetadata = {
   imports: [PrismaModule, forwardRef(() => InvoiceModule)],
   controllers: [FinanceController],

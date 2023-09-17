@@ -9,8 +9,6 @@ import {
 } from './use-cases';
 import { PrismaModule } from 'src/db/prisma.module';
 
-// TODO: Criar testes nesse module
-
 export const invoiceCustomerModuleMock = {
   imports: [PrismaModule],
   providers: [

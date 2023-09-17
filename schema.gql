@@ -291,7 +291,7 @@ type Query {
   findAllPersonTeam(paginationOptionsInput: PaginationOptionsInput!): [PersonTeamEntity!]!
   findAllJob(PaginationOptionsInput: PaginationOptionsInput!): [JobEntity!]!
   findOneJob(jobId: IdInput!): JobEntity!
-  findAll(PaginationOptionsInput: PaginationOptionsInput!): [TeamJobEntity!]!
+  findAllTeamJob(PaginationOptionsInput: PaginationOptionsInput!): [TeamJobEntity!]!
 }
 
 input PaginationOptionsInput {

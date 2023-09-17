@@ -18,8 +18,6 @@ import { InvoiceCustomerModule } from '../invoice-customer/invoice-customer.modu
 import { CustomerCompanyModule } from '../customer-company/customer-company.module';
 import { StockModule } from '../stock/stock.module';
 
-// TODO: Criar testes nesse module
-
 export const mercadoPagoModuleMock: ModuleMetadata = {
   imports: [
     PaymentNotificationModule,
